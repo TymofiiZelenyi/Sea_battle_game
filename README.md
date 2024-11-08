@@ -1,6 +1,6 @@
 # This is a sea battle game
 
-## Made by 
+## Made by Egor, Ivan, Tima
 
 # Modules used
 
