@@ -1,5 +1,6 @@
 import pygame
 from .__settings__ import BUTTON_COLOR, MAIN_WINDOW_COLOR, BUTTON_WIDTH, BUTTON_HEIGHT
+import os
 #from .start import position, press
 
 #клас Кнопки (+ її хітбокс "rect")
@@ -18,7 +19,8 @@ class Button():
     def button_draw(self, screen):
 
         #шрифт тексту та його величина
-        main_font = pygame.font.Font("images/m_font.ttf", 40)
+        path_to_fonts = os.path.abspath(__file__+ "/../../fonts/")
+        main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", 40)
 
         #текст та його колір
         text = main_font.render(self.text, 1, MAIN_WINDOW_COLOR)
