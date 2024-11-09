@@ -59,4 +59,4 @@ button_quit = Button(x = 100, y = 390, width = BUTTON_MENU_WIDTH, height = BUTTO
 button_ready = Button(x = 970, y = 680, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
 
 #Створення кнопок для екрану ОЧІКУВАННЯ
-button_back_menu = Button(x = 1320, y = 740, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Back to menu", text_size = 20)
+button_back_menu = Button(x = 1320 - BUTTON_MENU_WIDTH, y = 740 - BUTTON_MENU_HEIGHT, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Back to menu", text_size = 20)
