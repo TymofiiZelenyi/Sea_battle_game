@@ -1,8 +1,5 @@
-#from .modules.__init__ import *
 import modules
 
-
-
 if __name__ == "__main__":
-    modules.placement()
+    modules.wait_opponent()
     
