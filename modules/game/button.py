@@ -27,8 +27,6 @@ class Button():
         #текст та його колір
         text = main_font.render(self.text, 1, MAIN_WINDOW_COLOR)
         
-        # text_rect = text.get_rect(center=(BUTTON_WIDTH/2, BUTTON_HEIGHT/2))
-        # screen.blit(text, text_rect)
         
         #створення кнопки з отриманням її ширини та висоти
         button = pygame.surface.Surface((self.width, self.height))
@@ -36,9 +34,8 @@ class Button():
         button.fill(self.button_color)
 
         text_width = self.text_size * len(self.text)
-        #print(text_width)
+
         text_height = self.text_size
-        #print(text_height)
 
         text_x = (self.width - text_width) //2
         text_y = (self.height - text_height) //2
@@ -50,7 +47,8 @@ class Button():
 
     #функція відслідження нажиму на кнопку
     def checkPress(self, position, press):
-        if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom) and press == (True, False, False):
+        # if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom) and press[0]:
+        if self.rect.collidepoint(position) and press[0]:
             return True
 
 
