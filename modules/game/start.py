@@ -2,6 +2,7 @@ import pygame
 from .ships import *
 from .button import *
 from .settings import *
+from .map import *
 
 # button_back_menu, sound1, sound2, wait_opponent_text, put_ships, your_ships, button_play, button_quit, button_ready, button_settings, settings_text
 # DARKER_FON, HEAD_COLOR, FPS, WINDOW_HEIGHT, WINDOW_WIDTH, MAIN_WINDOW_COLOR, PLACE_LENGTH, BUTTON_COLOR, BUTTON_MENU_HEIGHT, BUTTON_MENU_WIDTH, SHIPS_BAY_LENGTH
@@ -44,6 +45,7 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_menu = False
+                pygame.quit()
 
 def wait_opponent():
     run_wait_opponent = True
@@ -71,12 +73,18 @@ def wait_opponent():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_wait_opponent = False
+                pygame.quit()
 
 def placement():
     run_placement = True
     
-    x, y= 68, 142
+    x, y = 68, 142
+    number = 0
 
+    big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH) 
+    small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH)
+
+    sq_list = [big_sq, small_sq]
     row_list = []
     cell_list = []
 
@@ -91,12 +99,9 @@ def placement():
 
     while run_placement:
         screen.fill(MAIN_WINDOW_COLOR)
-
-        #placemnt square
-        pygame.draw.rect(screen, BUTTON_COLOR, (68, 142, PLACE_LENGTH, PLACE_LENGTH))
-        #SHIPs bay
-        pygame.draw.rect(screen, BUTTON_COLOR, (836, 142, SHIPS_BAY_LENGTH, SHIPS_BAY_LENGTH))
-
+        
+        for sq in sq_list:
+            pygame.draw.rect(screen, BUTTON_COLOR, sq)
         for item in row_list:
             pygame.draw.rect(screen, BUTTON_COLOR, item)
         for item in cell_list:
@@ -111,57 +116,74 @@ def placement():
         button_ready.button_draw(screen = screen)
         button_ready.checkPress(position = position, press = press)
 
-
-        ship1.ship_draw(screen= screen)
-        move_ship1 = ship1.move(position= position, press= press)
-
-        ship2.ship_draw(screen= screen)
-        move_ship2 = ship2.move(position= position, press= press)
-
-        
+        for ship in ship_list:
+            ship.ship_draw(screen= screen)
+            ship.move(position= position, press= press)
 
         pygame.display.flip()
         clock.tick(FPS)
+        
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONUP:
-                # if ship1.rect.collidepoint(position) and press[0] and press[2] and ship1.dir == "hor":
-                #     ship1.dir = "ver"
-                # if ship1.rect.collidepoint(position) and press[0] and press[2] and ship1.dir == "ver":
-                #     ship1.dir = "hor"
-
+            if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2] and not press[0]:
+                print("SOLO")
+                for ship in ship_list:
+                    ship.take_ship(position= position, press= press)
+                    
+            if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:
+                print("MOVE")
+                number = 0
                 for item in row_list:
-                    if item.collidepoint(position) and press[0] and move_ship1:
-                        ship1.x = item.x
-                        ship1.y = item.y
-                    if item.collidepoint(position) and press[0] and move_ship2:
-                        ship2.x = item.x
-                        ship2.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship3:
-                    #     ship3.x = item.x
-                    #     ship3.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship4:
-                    #     ship4.x = item.x
-                    #     ship4.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship5:
-                    #     ship5.x = item.x
-                    #     ship5.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship6:
-                    #     ship6.x = item.x
-                    #     ship6.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship7:
-                    #     ship1.x = item.x
-                    #     ship1.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship8:
-                    #     ship1.x = item.x
-                    #     ship1.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship9:
-                    #     ship1.x = item.x
-                    #     ship1.y = item.y
-                    # if item.collidepoint(position) and press[0] and move_ship10:
-                    #     ship1.x = item.x
-                    #     ship1.y = item.y
+                    for ship in ship_list:
+                        if item.collidepoint(position) and ship.MOVE and sq_list[0].collidepoint(position):
+                            cell = number % 10
+                            row = int(str(number)[0])
+                            if ship.DIR and cell + ship.count_length <= 10:                              
+                                print(cell, row, ship.count_length, ship.DIR)
+                                
+                                # if ship.count_length == 1:
+                                #     player_map1[row][cell] = 1
+                                #     print(player_map1)
+                                
+                                # elif ship.count_length == 2 and ship.DIR:
+                                #     player_map1[row][cell] = 1
+                                #     player_map1[row][cell + 1] = 1
+                                #     print(player_map1)
+                                    
+                                ship.x = item.x
+                                ship.y = item.y  
+                                ship.COLOR = "Green"
+                            elif ship.DIR and cell + ship.count_length > 10:
+                                ship.COLOR = '#E7C500'
+                                ship.DIR =  True
+                                ship.x = ship.start_x
+                                ship.y = ship.start_y
+                            
+                            elif not ship.DIR and row + ship.count_length <= 10:
+                                print(cell, row, ship.count_length, ship.DIR)
+                                ship.COLOR = "Green"
+                                ship.x = item.x
+                                ship.y = item.y
+                            elif not ship.DIR and row + ship.count_length > 10:
+                                ship.COLOR = '#E7C500'
+                                ship.DIR =  True
+                                ship.x = ship.start_x       
+                                ship.y = ship.start_y 
+                        elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]: 
+                            ship.COLOR = '#E7C500'
+                            ship.DIR =  True
+                            ship.x = ship.start_x       
+                            ship.y = ship.start_y   
+                    number += 1   
+            
+            if event.type == pygame.MOUSEBUTTONUP and press[2]:
+                print("DIR")
+                for ship in ship_list:
+                    if ship.MOVE:
+                        ship.DIR = not ship.DIR  
+            
             if event.type == pygame.QUIT:
                 run_placement = False
+                pygame.quit()
 
 def battle():
     run_battle = True
@@ -179,6 +201,7 @@ def battle():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_battle = False
+                pygame.quit()
 
 def settings():
     run_settings = True
@@ -214,6 +237,7 @@ def settings():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_settings = False
+                pygame.quit()
     
 def settings2():
     run_settings2 = True
@@ -249,6 +273,7 @@ def settings2():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_settings2 = False
+                pygame.quit()
     
     
 

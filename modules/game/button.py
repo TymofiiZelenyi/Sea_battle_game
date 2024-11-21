@@ -70,9 +70,9 @@ sound2 = Button(x = 50, y = 500, width = 200, height = 100, text = "Sound", text
 
 #Створення кнопок для екрану PLACEMENT
 put_ships = Button(x = 68, y = 80, width = 600, height = 60, text = "Put your ships down!", text_size = 20, button_color = BUTTON_DARKER_COLOR)
-your_ships = Button(x = 836 , y = 80, width = 400, height = 60, text = "Your ships", text_size = 20, button_color = BUTTON_DARKER_COLOR)
+your_ships = Button(x = 836 , y = 80, width = 430, height = 60, text = "Your ships", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 
-button_ready = Button(x = 836, y = 630, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
+button_ready = Button(x = 836, y = 630, width = 430, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
 
 #Створення кнопок для екрану WAIT_OPOENENT
 wait_opponent_text = Button(x = 400, y = 150, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Waiting for opponent...", text_size= 25)
