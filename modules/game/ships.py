@@ -1,5 +1,13 @@
 import pygame
 
+class RectBetter(pygame.Rect):
+    def __init__(self, x, y, w, h, close: bool):
+        self.CLOSE = close
+        pygame.Rect.__init__(
+            self, 
+            x, y, w, h
+            )
+
 class Ships():
     def __init__ (self, x: int, y: int, count_length: int, id : int):
         self.x = x

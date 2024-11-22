@@ -81,7 +81,7 @@ def placement():
     x, y = 68, 142
     number = 0
 
-    big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH) 
+    big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH)
     small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH)
 
     sq_list = [big_sq, small_sq]
@@ -90,7 +90,7 @@ def placement():
 
     for row in range(10):
         for cell in range(10):
-            row_list.append(pygame.Rect(x, y, 60, 60))
+            row_list.append(RectBetter(x, y, 60, 60, False))
             cell_list.append(pygame.Rect(x + 2, y + 2, 56, 56))
             x +=60
         y += 60
@@ -116,6 +116,9 @@ def placement():
         button_ready.button_draw(screen = screen)
         button_ready.checkPress(position = position, press = press)
 
+        if button_ready:
+            battle()
+
         for ship in ship_list:
             ship.ship_draw(screen= screen)
             ship.move(position= position, press= press)
@@ -125,58 +128,64 @@ def placement():
         
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2] and not press[0]:
-                print("SOLO")
                 for ship in ship_list:
                     ship.take_ship(position= position, press= press)
-                    
+
             if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:
-                print("MOVE")
                 number = 0
                 for item in row_list:
                     for ship in ship_list:
                         if item.collidepoint(position) and ship.MOVE and sq_list[0].collidepoint(position):
                             cell = number % 10
-                            row = int(str(number)[0])
-                            if ship.DIR and cell + ship.count_length <= 10:                              
-                                print(cell, row, ship.count_length, ship.DIR)
-                                
-                                # if ship.count_length == 1:
-                                #     player_map1[row][cell] = 1
-                                #     print(player_map1)
-                                
-                                # elif ship.count_length == 2 and ship.DIR:
-                                #     player_map1[row][cell] = 1
-                                #     player_map1[row][cell + 1] = 1
-                                #     print(player_map1)
-                                    
+                            row = number // 10               
+
+                        #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
+                            #умова, при якій кораблик поміщається в обрану клітинку
+                            if ship.DIR and cell + ship.count_length <= 10 and not item.CLOSE:
                                 ship.x = item.x
-                                ship.y = item.y  
-                                ship.COLOR = "Green"
-                            elif ship.DIR and cell + ship.count_length > 10:
-                                ship.COLOR = '#E7C500'
+                                ship.y = item.y
+                                item.CLOSE = True
+                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "Поставили" {item.CLOSE}')
+                            
+                            #умова, при якій кораблик повертається на стартові координати, якщо клітинка зайнята
+                            
+                            #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.
+                            elif ship.DIR and cell + ship.count_length > 10 and item.CLOSE or ship.DIR and cell + ship.count_length <= 10 and item.CLOSE:
+                                item.CLOSE = False
                                 ship.DIR =  True
                                 ship.x = ship.start_x
                                 ship.y = ship.start_y
+                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "ПОВЕРНЕНО" {item.CLOSE}')
                             
-                            elif not ship.DIR and row + ship.count_length <= 10:
-                                print(cell, row, ship.count_length, ship.DIR)
-                                ship.COLOR = "Green"
+                            
+                        #перевірка кораблів та клітинок при вертикальному положенні кораблика.
+                            #умова, при якій кораблик поміщається в обрану клітинку
+                            if not ship.DIR and row + ship.count_length <= 10 and not item.CLOSE:
                                 ship.x = item.x
                                 ship.y = item.y
-                            elif not ship.DIR and row + ship.count_length > 10:
-                                ship.COLOR = '#E7C500'
+                                item.CLOSE = True
+                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "Поставили"{item.CLOSE}')
+
+                            #умова, при якій кораблик повертається на стартові координати, якщо клітинка зайнята
+
+                            #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.  
+                            elif not ship.DIR and row + ship.count_length > 10 and item.CLOSE or not ship.DIR and row + ship.count_length <= 10 and item.CLOSE:
+                                item.CLOSE = False
                                 ship.DIR =  True
-                                ship.x = ship.start_x       
-                                ship.y = ship.start_y 
-                        elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]: 
-                            ship.COLOR = '#E7C500'
+                                ship.x = ship.start_x
+                                ship.y = ship.start_y
+                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "ПОВЕРНЕНО" {item.CLOSE}')
+                        
+                        #умова, при якій наший кораблик повертається на стартові координати, якщо його ставлять за рамками поля.
+                        elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]:
+                            item.CLOSE = False
                             ship.DIR =  True
-                            ship.x = ship.start_x       
-                            ship.y = ship.start_y   
-                    number += 1   
+                            ship.x = ship.start_x
+                            ship.y = ship.start_y
+                            print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "Повернено із-за відсутності обраної клітинки" {item.CLOSE}')
+                    number += 1
             
             if event.type == pygame.MOUSEBUTTONUP and press[2]:
-                print("DIR")
                 for ship in ship_list:
                     if ship.MOVE:
                         ship.DIR = not ship.DIR  
@@ -188,16 +197,71 @@ def placement():
 def battle():
     run_battle = True
 
+    x1, y1 = 70, 180
+    x2, y2 = 730, 180
+    
+    row_list_player = []
+    cell_list_player = []
+
+    row_list_enemy = []
+    cell_list_enemy = []
+
+    for row in range(10):
+        for cell in range(10):
+            row_list_player.append(RectBetter(x1, y1, 60, 60, False))
+            cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
+            x1 +=60
+        y1 += 60
+        x1 = 70
+
+    for row in range(10):
+        for cell in range(10):
+            row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
+            cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
+            x2 +=60
+        y2 += 60
+        x2 = 730
+
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
-    
+
+        your_screen_text.button_draw(screen=screen)
+        enemy_screen_text.button_draw(screen=screen)
+        
         #Наше поле (your screen)
-        pygame.draw.rect(screen, BUTTON_COLOR, (50, 80, PLACE_LENGTH, PLACE_LENGTH), 0)
+        pygame.draw.rect(screen, BUTTON_COLOR, (70, 180, PLACE_LENGTH, PLACE_LENGTH), 0)
         #Поле противника (enemy screen)
-        pygame.draw.rect(screen, BUTTON_COLOR, (750, 80, PLACE_LENGTH, PLACE_LENGTH), 0)
+        pygame.draw.rect(screen, BUTTON_COLOR, (730, 180, PLACE_LENGTH, PLACE_LENGTH), 0)
+
+        number1 = 0 
+        for item in row_list_player:
+            cell = number1 % 10
+            row = number1 // 10
+            if player_map1[row][cell] == 0:
+                pygame.draw.rect(screen, BUTTON_COLOR, item)
+            elif player_map1[row][cell] == 1:              
+                pygame.draw.rect(screen, "blue", item)
+            number1 +=1
+
+        number2 = 0 
+        for item in row_list_enemy:
+            cell = number2 % 10
+            row = number2 // 10
+            if player_map2[row][cell] == 0:
+                pygame.draw.rect(screen, BUTTON_COLOR, item)
+            elif player_map2[row][cell] == 1:
+                pygame.draw.rect(screen, "green", item)
+            number2 += 1
+
+        for item in cell_list_player:
+            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
+
+        for item in cell_list_enemy:
+            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
 
         pygame.display.flip()
-        clock.tick(FPS)
+        clock.tick(FPS)       
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_battle = False

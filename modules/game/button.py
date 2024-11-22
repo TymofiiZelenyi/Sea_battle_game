@@ -69,13 +69,17 @@ sound1 = Button(x = 50, y = 300, width = 200, height = 100, text = "Sound", text
 sound2 = Button(x = 50, y = 500, width = 200, height = 100, text = "Sound", text_size = 25)
 
 #Створення кнопок для екрану PLACEMENT
-put_ships = Button(x = 68, y = 80, width = 600, height = 60, text = "Put your ships down!", text_size = 20, button_color = BUTTON_DARKER_COLOR)
+put_ships = Button(x = 68, y = 80, width = 600, height = 60, text = "Put the ships down!", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 your_ships = Button(x = 836 , y = 80, width = 430, height = 60, text = "Your ships", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 
 button_ready = Button(x = 836, y = 630, width = 430, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
 
 #Створення кнопок для екрану WAIT_OPOENENT
 wait_opponent_text = Button(x = 400, y = 150, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Waiting for opponent...", text_size= 25)
+
+#Створення кнопок для екрану BATTLE
+your_screen_text = Button(x = 70, y = 98, width = 600, height = 80, text = "Your screen", text_size = 20, button_color = BUTTON_DARKER_COLOR)
+enemy_screen_text = Button(x = 730, y = 98, width = 600, height = 80, text = "Enemy screen", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 
 class Text():
     def __init__(self, x, y, text, text_size = 40):
