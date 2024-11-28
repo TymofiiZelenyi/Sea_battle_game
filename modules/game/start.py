@@ -1,4 +1,5 @@
 import pygame 
+import time
 from .ships import *
 from .button import *
 from .settings import *
@@ -12,70 +13,70 @@ pygame.display.set_caption("Sea_battle_game")
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((WINDOW_HEIGHT, WINDOW_WIDTH))
 
-def menu():
-    run_menu = True
+# def menu():
+#     run_menu = True
 
-    while run_menu:
-        screen.fill(MAIN_WINDOW_COLOR)
+#     while run_menu:
+#         screen.fill(MAIN_WINDOW_COLOR)
 
-        #Створення кнопок "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
+#         #Створення кнопок "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
         
-        button_play.button_draw(screen = screen)
-        button_settings.button_draw(screen = screen)
-        button_quit.button_draw(screen = screen)
+#         button_play.button_draw(screen = screen)
+#         button_settings.button_draw(screen = screen)
+#         button_quit.button_draw(screen = screen)
 
-        position = pygame.mouse.get_pos()
-        press = pygame.mouse.get_pressed()
+#         position = pygame.mouse.get_pos()
+#         press = pygame.mouse.get_pressed()
 
 
-        wait_opponent_window = button_play.checkPress(position = position, press = press)
-        settigs_window = button_settings.checkPress(position = position, press = press)
-        quit = button_quit.checkPress(position = position, press = press)
+#         wait_opponent_window = button_play.checkPress(position = position, press = press)
+#         settigs_window = button_settings.checkPress(position = position, press = press)
+#         quit = button_quit.checkPress(position = position, press = press)
 
-        if wait_opponent_window:
-            wait_opponent()
-        if settigs_window:
-            settings()
-        if quit:
-            run_menu = False
+#         if wait_opponent_window:
+#             wait_opponent()
+#         if settigs_window:
+#             settings()
+#         if quit:
+#             run_menu = False
 
-        pygame.display.flip()
-        clock.tick(FPS)
+#         pygame.display.flip()
+#         clock.tick(FPS)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run_menu = False
-                pygame.quit()
+#         for event in pygame.event.get():
+#             if event.type == pygame.QUIT:
+#                 run_menu = False
+#                 pygame.quit()
 
-def wait_opponent():
-    run_wait_opponent = True
+# def wait_opponent():
+#     run_wait_opponent = True
 
-    while run_wait_opponent:
-        screen.fill(MAIN_WINDOW_COLOR)
+#     while run_wait_opponent:
+#         screen.fill(MAIN_WINDOW_COLOR)
         
-        position = pygame.mouse.get_pos()
-        press = pygame.mouse.get_pressed()
+#         position = pygame.mouse.get_pos()
+#         press = pygame.mouse.get_pressed()
 
-        wait_opponent_text.button_draw(screen = screen)
-        button_back_menu.button_draw(screen = screen)
+#         wait_opponent_text.button_draw(screen = screen)
+#         button_back_menu.button_draw(screen = screen)
         
-        placement_window = wait_opponent_text.checkPress(position = position, press = press)
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
+#         placement_window = wait_opponent_text.checkPress(position = position, press = press)
+#         back_to_menu = button_back_menu.checkPress(position = position, press = press)
 
-        if placement_window:
-            placement()
-        if back_to_menu:
-            menu()
+#         if placement_window:
+#             placement()
+#         if back_to_menu:
+#             menu()
 
-        pygame.display.flip()
-        clock.tick(FPS)
+#         pygame.display.flip()
+#         clock.tick(FPS)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run_wait_opponent = False
-                pygame.quit()
+#         for event in pygame.event.get():
+#             if event.type == pygame.QUIT:
+#                 run_wait_opponent = False
+#                 pygame.quit()
 
-def placement():
+# def placement():
     run_placement = True
     
     x, y = 68, 142
@@ -197,183 +198,189 @@ def placement():
                 run_placement = False
                 pygame.quit()
 
-def battle():
-    run_battle = True
+# def battle():
+#     run_battle = True
 
-    turn = True
+#     turn = True
 
-    #Наше поле (your screen)
-    sq_yuor = pygame.Rect((70, 180, PLACE_LENGTH, PLACE_LENGTH))
-    #Поле противника (enemy screen)
-    sq_enemy = pygame.Rect((730, 180, PLACE_LENGTH, PLACE_LENGTH))
+#     #Наше поле (your screen)
+#     sq_yuor = pygame.Rect((70, 180, PLACE_LENGTH, PLACE_LENGTH))
+#     #Поле противника (enemy screen)
+#     sq_enemy = pygame.Rect((730, 180, PLACE_LENGTH, PLACE_LENGTH))
 
-    sq_list = [sq_yuor,  sq_enemy]
+#     sq_list = [sq_yuor,  sq_enemy]
 
-    miss_list =[]
-    hit_list = []
+#     miss_list =[]
+#     hit_list = []
 
-    x1, y1 = 70, 180
-    x2, y2 = 730, 180
+#     x1, y1 = 70, 180
+#     x2, y2 = 730, 180
     
-    row_list_player = []
-    cell_list_player = []
+#     row_list_player = []
+#     cell_list_player = []
 
-    row_list_enemy = []
-    cell_list_enemy = []
+#     row_list_enemy = []
+#     cell_list_enemy = []
 
-    for row in range(10):
-        for cell in range(10):
-            row_list_player.append(RectBetter(x1, y1, 60, 60, False))
-            cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
-            x1 +=60
-        y1 += 60
-        x1 = 70
+#     for row in range(10):
+#         for cell in range(10):
+#             row_list_player.append(RectBetter(x1, y1, 60, 60, False))
+#             cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
+#             x1 +=60
+#         y1 += 60
+#         x1 = 70
 
-    for row in range(10):
-        for cell in range(10):
-            row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
-            cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
-            x2 +=60
-        y2 += 60
-        x2 = 730
+#     for row in range(10):
+#         for cell in range(10):
+#             row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
+#             cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
+#             x2 +=60
+#         y2 += 60
+#         x2 = 730
 
-    while run_battle:    
-        screen.fill((MAIN_WINDOW_COLOR))
+#     while run_battle:    
+#         screen.fill((MAIN_WINDOW_COLOR))
 
-        your_screen_text.button_draw(screen=screen)
-        enemy_screen_text.button_draw(screen=screen)
+#         your_screen_text.button_draw(screen=screen)
+#         enemy_screen_text.button_draw(screen=screen)
 
-        position = pygame.mouse.get_pos()
-        press = pygame.mouse.get_pressed()
+#         position = pygame.mouse.get_pos()
+#         press = pygame.mouse.get_pressed()
 
-        for sq in sq_list:
-            pygame.draw.rect(screen, BUTTON_COLOR, sq)
+#         for sq in sq_list:
+#             pygame.draw.rect(screen, BUTTON_COLOR, sq)
 
-        number1 = 0 
-        for item in row_list_player:
-            cell = number1 % 10
-            row = number1 // 10
-            if player_map1[row][cell] == 0:
-                pygame.draw.rect(screen, BUTTON_COLOR, item)
-            # elif player_map1[row][cell] == 1:         
-            #     pygame.draw.rect(screen, "yellow", item)
-            number1 +=1
+#         number1 = 0 
+#         for item in row_list_player:
+#             cell = number1 % 10
+#             row = number1 // 10
+#             if player_map1[row][cell] == 0:
+#                 pygame.draw.rect(screen, BUTTON_COLOR, item)
+#             # elif player_map1[row][cell] == 1:         
+#             #     pygame.draw.rect(screen, "yellow", item)
+#             number1 +=1
 
-        for item in cell_list_player:
-            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
+#         for item in cell_list_player:
+#             pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
 
-        number2 = 0 
-        for item in row_list_enemy:
-            cell = number2 % 10
-            row = number2 // 10
-            if player_map2[row][cell] == 0:
-                pygame.draw.rect(screen, BUTTON_COLOR, item)
-            # if player_map2[row][cell] == 1:
-            #     pygame.draw.rect(screen, "green", item)
-            number2 += 1
+#         number2 = 0 
+#         for item in row_list_enemy:
+#             cell = number2 % 10
+#             row = number2 // 10
+#             if player_map2[row][cell] == 0:
+#                 pygame.draw.rect(screen, BUTTON_COLOR, item)
+#             # if player_map2[row][cell] == 1:
+#             #     pygame.draw.rect(screen, "green", item)
+#             number2 += 1
 
-        for item in cell_list_enemy:
-            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
+#         for item in cell_list_enemy:
+#             pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
        
-        number1 = 0 
-        for item in row_list_player:
-            cell = number1 % 10
-            row = number1 // 10
-            if player_map1[row][cell] == 1:
-                pygame.draw.rect(screen, "yellow", item)
-            number1 += 1
+#         number1 = 0 
+#         for item in row_list_player:
+#             cell = number1 % 10
+#             row = number1 // 10
+#             if player_map1[row][cell] == 1:
+#                 pygame.draw.rect(screen, "yellow", item)
+#             number1 += 1
 
-        number2 = 0 
-        for item in row_list_enemy:
-            cell = number2 % 10
-            row = number2 // 10
-            if player_map2[row][cell] == 1:
-                pygame.draw.rect(screen, "green", item)
-            number2 += 1
+#         number2 = 0 
+#         for item in row_list_enemy:
+#             cell = number2 % 10
+#             row = number2 // 10
+#             if player_map2[row][cell] == 1:
+#                 pygame.draw.rect(screen, "green", item)
+#             number2 += 1
         
-        for item in miss_list:
-            pygame.draw.rect(screen, "black", item)
+#         for item in miss_list:
+#             pygame.draw.rect(screen, "black", item)
         
-        for item in hit_list:
-            pygame.draw.rect(screen, "black", item)
+#         for item in hit_list:
+#             pygame.draw.rect(screen, "black", item)
 
-        pygame.display.flip()
-        clock.tick(FPS)       
+#         pygame.display.flip()
+#         clock.tick(FPS)       
+#         time.sleep(0.5)
+#         for event in pygame.event.get():
         
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONUP and turn and not press[1] and not press[2]:
-                number = 0
-                for item in row_list_enemy: 
+#             #Працюємо з полем заклятого ворогу😡🔪🩸
+#             if event.type == pygame.MOUSEBUTTONUP and turn and not press[1] and not press[2]:
+#                 number = 0
+#                 for item in row_list_enemy:          
+#                     cell = number % 10
+#                     row = number // 10                
+
+#                     if item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 1 and not item.CLOSE:
+#                         hit_list.append(pygame.Rect(item.x + 10, item.y + 10, 40, 40))
+#                         print("Поле врага: Попал")
+#                         print(row, cell)
+#                         # player_map2[row][cell] = 2                      
+#                         turn = True
+#                         item.CLOSE = True
+#                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE:
+#                         miss_list.append(pygame.Rect(item.x + 25, item.y + 25, 10, 10))
+#                         print("Поле врага: Не попал")
+#                         print(row, cell)
+#                         # player_map2[row][cell] = 3
+#                         turn =False
+#                         item.CLOSE = True     
                     
-                    cell = number % 10
-                    row = number // 10                
-
-                    if item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 1 and not item.CLOSE:
-                        hit_list.append(pygame.Rect(item.x + 10, item.y + 10, 40, 40))
-                        print("Поле врага: Попал")
-                        print(row, cell)
-                        turn = True
-                        item.CLOSE = True
-                    elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE:
-                        miss_list.append(pygame.Rect(item.x + 25, item.y + 25, 10, 10))
-                        print("Поле врага: Не попал")
-                        print(row, cell)
-                        turn =False
-                        item.CLOSE = True
+#                     number += 1         
                     
-                    number += 1
+                  
             
-            if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:
-                number = 0
-                for item in row_list_player: 
-                    cell = number % 10
-                    row = number // 10                
+#             #Працюємо з нашим полем
+#             if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:
+#                 number = 0
+#                 for item in row_list_player: 
+#                     cell = number % 10
+#                     row = number // 10                
                     
-                    if item.collidepoint(position) and sq_list[0].collidepoint(position):
-                        print("Это ваше поле")
-                        print(row, cell)
+#                     if item.collidepoint(position) and sq_list[0].collidepoint(position):
+#                         print("Это ваше поле")
+#                         print(row, cell)
             
-            if event.type == pygame.QUIT:
-                run_battle = False
-                pygame.quit()
+#             if event.type == pygame.QUIT:
+#                 run_battle = False
+#                 pygame.quit()
 
-def settings():
-    run_settings = True
+# def settings():
+#     run_settings = True
     
-    while run_settings:
-        screen.fill(MAIN_WINDOW_COLOR)
+#     while run_settings:
+#         screen.fill(MAIN_WINDOW_COLOR)
 
-        pygame.draw.rect(screen, "Red", (400, 700, 50, 50), 0)
+#         pygame.draw.rect(screen, "Red", (400, 700, 50, 50), 0)
         
-        position =pygame.mouse.get_pos()
-        press =pygame.mouse.get_pressed()
+#         position =pygame.mouse.get_pos()
+#         press =pygame.mouse.get_pressed()
 
-        pygame.draw.rect(screen, HEAD_COLOR, (0, 50, 1400, 150), 0)
+#         pygame.draw.rect(screen, HEAD_COLOR, (0, 50, 1400, 150), 0)
 
-        pygame.draw.rect(screen, DARKER_FON, (0, 200, 300, 600), 0)
+#         pygame.draw.rect(screen, DARKER_FON, (0, 200, 300, 600), 0)
 
-        settings_text.text_draw(screen = screen)
-        button_back_menu.button_draw(screen = screen)
-        sound1.button_draw(screen = screen)
-        sound2.button_draw(screen = screen)
+#         settings_text.text_draw(screen = screen)
+#         button_back_menu.button_draw(screen = screen)
+#         sound1.button_draw(screen = screen)
+#         sound2.button_draw(screen = screen)
 
-        set_sound2 = sound2.checkPress(position = position, press = press)
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
+#         set_sound2 = sound2.checkPress(position = position, press = press)
+#         back_to_menu = button_back_menu.checkPress(position = position, press = press)
         
-        if set_sound2:
-            settings2()
-        if back_to_menu:
-            menu()
+#         if set_sound2:
+#             settings2()
+#         if back_to_menu:
+#             menu()
         
-        pygame.display.flip()
-        clock.tick(FPS)
+#         pygame.display.flip()
+#         clock.tick(FPS)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run_settings = False
-                pygame.quit()
+#         for event in pygame.event.get():
+#             if event.type == pygame.QUIT:
+#                 run_settings = False
+#                 pygame.quit()
     
-def settings2():
+# def settings2():
     run_settings2 = True
 
     while run_settings2:
@@ -413,4 +420,35 @@ def settings2():
 
 
 
+def test():
+    # if not row == 0 and not row == 9 and not cell == 0 and not cell == 9:
+                        #     cur_row = row
+                        #     cur_cell = cell
+                        #     if sq_list[1].collidepoint(position) and player_map2[cur_row][cur_cell] == 2 and (
+                        #         player_map2[cur_row+1][cur_cell] == 0 or player_map2[cur_row+1][cur_cell] == 3) and (
+                        #         player_map2[cur_row-1][cur_cell] == 0 or player_map2[cur_row-1][cur_cell] == 3) and (
+                        #         player_map2[cur_row][cur_cell+1] == 0 or player_map2[cur_row][cur_cell+1] == 3)and (
+                        #         player_map2[cur_row][cur_cell-1] == 0 or player_map2[cur_row][cur_cell-1] == 3):
+                        #         player_map2[cur_row+1][cur_cell] = 3
+                        #         player_map2[cur_row+1][cur_cell-1] = 3
+                        #         player_map2[cur_row+1][cur_cell+1] = 3
+                                
+                        #         player_map2[cur_row-1][cur_cell] = 3
+                        #         player_map2[cur_row+1][cur_cell-1] = 3
+                        #         player_map2[cur_row+1][cur_cell+1] = 3
 
+                        #         player_map2[cur_row][cur_cell+1] = 3
+                        #         player_map2[cur_row][cur_cell-1] = 3
+                                
+                        #         print("КОРАБЛЬ В ЦЕНТРЕ")
+                        #         print("Вбили маленький кораблик")
+                        #     # elif sq_list[1].collidepoint(position) and player_map2[row][cell] == 2 and (player_map2[row+1][cell] == 1 or player_map2[row-1][cell] == 1 or player_map2[row][cell+1] == 1 or player_map2[row][cell-1] == 1):
+                            #     print("Не збил до конца")
+                            # elif sq_list[1].collidepoint(position) and  player_map2[row][cell] == 2 and (player_map2[row+1][cell] == 2 or player_map2[row-1][cell] == 2 or player_map2[row][cell+1] == 2 or player_map2[row][cell-1] == 2):
+                            #     print (row, cell)
+                            #     if row == 0:
+                                    # player_map2[row][cell + 1] = 3
+                                    # player_map2[row][cell + 1] = 3
+                                    # print("Збил до конца"):
+                                    #pass
+                                    
