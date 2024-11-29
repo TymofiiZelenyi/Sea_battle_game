@@ -1,11 +1,6 @@
-from .start import *
-from .button import *
-from .settings import *
-from .ships import *
+from .basement import *
 from .map import *
+from .battle import *
+from .menu import *
+from .placement import *
 
-import battle
-import def_settings
-import menu
-import placement
-import wait_opponent
