@@ -53,8 +53,10 @@ class Button():
 
 
 #Створення кнопок для всех экранов
-button_back_menu = Button(x = 930, y = 600, width = 400, height = BUTTON_PLACEMENT_HEIGHT, text = "Back to menu", text_size=25)
-            
+button_back_menu = Button(x = 10, y = 675, width = 275, height = 100, text = "Back to menu", text_size=20)
+button_sound =Button(x = 10, y = 675, width = 275, height = 100, text = "+", text_size=20)      
+button_plus_settings = Button(x = 10, y = 675, width = 275, height = 100, text = "+", text_size=20)    
+button_minus_settings = Button(x = 10, y = 675, width = 275, height = 100, text = "-", text_size=20)             
 #Створення кнопок для екрану МЕНЮ "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
 button_play = Button(x = 100, y = 100, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Play")
 button_settings = Button(x = 100, y = 245, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Setting")
