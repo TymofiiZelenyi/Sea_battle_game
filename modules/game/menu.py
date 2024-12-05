@@ -1,10 +1,10 @@
 import pygame 
-import time
+import socket
 
 from .basement import *
 from .placement import placement
 
-play_music("All I Want for Christmas Is You")
+play_music("All I Want for Christmas Is You", volume = 0)
 
 def menu():
     run_menu = True
@@ -101,11 +101,13 @@ def settings():
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTonUP and plus_rect.collidepoint(position) and press[0]:
-                on +=1
-                print(f"Plus {on}")
+                ON +=1
+                print(f"Plus {ON}")
+                return ON 
             elif event.type == pygame.MOUSEBUTTonUP and min_rect.collidepoint(position) and press[0]:
-                on -= 1
-                print(f"Minus {on}")
+                ON -= 1
+                print(f"Minus {ON}")
+                return ON
             
             
             if event.type == pygame.QUIT:
@@ -113,6 +115,12 @@ def settings():
                 pygame.quit()
 
 def wait_opponent():
+#    with socket.socket(family = socket.AF_INET , type = socket.SOCK_STREAM) as client_socket:
+#        # Підключаємо клієнта  до локального IP та порту
+#        client_socket.connect(("195.248.167.137", 8090))
+#
+#    client_socket.send("Ready".encode())
+
     run_wait_opponent = True
 
     while run_wait_opponent:
