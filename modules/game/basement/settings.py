@@ -1,7 +1,7 @@
 
 #допоміжні величини анімації
 FPS = 240
-
+two_players_connected = False
 #величини екрану
 MAIN_WINDOW_COLOR = '#D9D9D9'
 WINDOW_HEIGHT, WINDOW_WIDTH = 1400, 800 

@@ -1,4 +1,9 @@
 import pygame
+from .settings import *
+
+big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH)
+small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH)
+
 
 class RectBetter(pygame.Rect):
     def __init__(self, x, y, w, h, close: bool):
@@ -19,6 +24,11 @@ class Ships():
         self.ID = id
         self.COLOR = '#E7C500'
 
+        self.WHERE = False
+
+        self.row = 0
+        self.cell = 0
+
         self.DIR = True
         self.MOVE = False
         self.TAKE = False
@@ -32,10 +42,12 @@ class Ships():
             pygame.draw.rect(screen, self.COLOR, (self.x, self.y, 60, 60 * self.count_length))
 
     def take_ship(self, position, press):
-        if self.rect.collidepoint(position):
+        if self.rect.collidepoint(position):   
+            if not self.MOVE and big_sq.collidepoint(position):
+                self.WHERE = True
+            elif not self.MOVE and small_sq .collidepoint(position):
+                self.WHERE = False
             self.TAKE = True
-        # elif self.rect.collidepoint(position) and press[0] and not self.DIR:
-        #     self.TAKE = True
 
     def move(self, position, press):
         if self.rect.collidepoint(position) and press[0] and self.DIR and self.TAKE:

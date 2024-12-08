@@ -26,6 +26,9 @@ def placement():
         y += 60
         x = 68
 
+    last = True
+    last_row = 0 
+    last_cell =0
 
     while run_placement:
         screen.fill(MAIN_WINDOW_COLOR)
@@ -46,8 +49,6 @@ def placement():
         button_ready.button_draw(screen = screen)
         button_ready_window = button_ready.checkPress(position = position, press = press)
 
-        
-
         for ship in ship_list:
             ship.ship_draw(screen= screen)
             ship.move(position= position, press= press)
@@ -57,8 +58,21 @@ def placement():
         
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2] and not press[0]:
-                for ship in ship_list:
-                    ship.take_ship(position= position, press= press)
+                number = 0
+                for item in row_list:
+                    for ship in ship_list:
+                        cell = number % 10
+                        row = number // 10 
+                        
+                        ship.take_ship(position= position, press= press)
+                        if item.collidepoint(position) and last:
+                            last_cell = cell
+                            last_row = row
+                            last = False
+                        else:
+                            last = True
+
+                    number += 1
 
             if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:
                 number = 0
@@ -70,42 +84,83 @@ def placement():
 
                         #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                             #умова, при якій кораблик поміщається в обрану клітинку
-                            if ship.DIR and cell + ship.count_length <= 10 and not item.CLOSE:
-                                ship.x = item.x
-                                ship.y = item.y
-                                item.CLOSE = True
-                                # for count in range(ship.count_length):
-                                #     player_map1.append[row][cell](1)
-                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "Поставили" {item.CLOSE}')
+                            if ship.DIR and cell + ship.count_length <= 10 and placement_map2[row][cell] == 0 and not ship.WHERE:
+                                if ship.count_length == 1:
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    placement_map2[row][cell] = 1
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+
+                            elif ship.DIR and cell + ship.count_length <= 10 and placement_map2[row][cell] == 0 and ship.WHERE:
+                                if ship.count_length == 1:
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    print(last_row, last_cell, placement_map2[last_row][last_cell], ship.WHERE)
+                                    placement_map2[last_row][last_cell] = 0
+                                    print(last_row, last_cell, placement_map2[last_row][last_cell], ship.WHERE)
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    placement_map2[row][cell] = 1
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+
                             
-                            #умова, при якій кораблик повертається на стартові координати, якщо клітинка зайнята
-                            
+                            #умова, при якій кораблик повертається на стартові координати, якщо клітинка зайнята                          
                             #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.
-                            elif ship.DIR and cell + ship.count_length > 10 and item.CLOSE or ship.DIR and cell + ship.count_length <= 10 and item.CLOSE:
-                                item.CLOSE = False
-                                ship.DIR =  True
-                                ship.x = ship.start_x
-                                ship.y = ship.start_y
-                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "ПОВЕРНЕНО" {item.CLOSE}')
+                            elif ship.DIR and cell + ship.count_length > 10:
+                                if ship.count_length == 1:
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    placement_map2[row][cell] = 0
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y
+
+                            elif ship.DIR and cell + ship.count_length <= 10 and placement_map2[row][cell] == 1:
+                                if ship.count_length == 1:
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y
+                                
                             
-                            
-                        #перевірка кораблів та клітинок при вертикальному положенні кораблика.
+                            #перевірка кораблів та клітинок при вертикальному положенні кораблика.
                             #умова, при якій кораблик поміщається в обрану клітинку
-                            if not ship.DIR and row + ship.count_length <= 10 and not item.CLOSE:
-                                ship.x = item.x
-                                ship.y = item.y
-                                item.CLOSE = True
-                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "Поставили"{item.CLOSE}')
+                            if not ship.DIR and row + ship.count_length <= 10 and placement_map2[row][cell] == 0 and not ship.WHERE:
+                                if ship.count_length == 1:
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    placement_map2[row][cell] = 1
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
 
+                            elif not ship.DIR and cell + ship.count_length <= 10 and placement_map2[row][cell] == 0 and ship.WHERE:
+                                if ship.count_length == 1:
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    print(last_row, last_cell, placement_map2[last_row][last_cell], ship.WHERE)
+                                    placement_map2[last_row][last_cell] = 0
+                                    print(last_row, last_cell, placement_map2[last_row][last_cell], ship.WHERE)
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    placement_map2[row][cell] = 1
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+
+ 
                             #умова, при якій кораблик повертається на стартові координати, якщо клітинка зайнята
-
                             #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.  
-                            elif not ship.DIR and row + ship.count_length > 10 and item.CLOSE or not ship.DIR and row + ship.count_length <= 10 and item.CLOSE:
-                                item.CLOSE = False
-                                ship.DIR =  True
-                                ship.x = ship.start_x
-                                ship.y = ship.start_y
-                                print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "ПОВЕРНЕНО" {item.CLOSE}')
+                            elif not ship.DIR and row + ship.count_length > 10:
+                                if ship.count_length == 1:
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y
+
+                            elif not ship.DIR and row + ship.count_length <= 10 and placement_map2[row][cell] == 1:
+                                if ship.count_length == 1:
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    placement_map2[row][cell] = 0
+                                    print(row, cell, placement_map2[row][cell], ship.WHERE)
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y
+                        
                         
                         #умова, при якій наший кораблик повертається на стартові координати, якщо його ставлять за рамками поля.
                         elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]:
@@ -114,7 +169,9 @@ def placement():
                             ship.x = ship.start_x
                             ship.y = ship.start_y
                             print(f'"координати"{ship.x}, {ship.y}, {ship.count_length}, "горизонтальний:"{ship.DIR}, "Повернено із-за відсутності обраної клітинки" {item.CLOSE}')
+
                     number += 1
+            
             if button_ready_window:
                 battle()
             

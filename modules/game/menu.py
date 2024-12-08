@@ -134,7 +134,8 @@ def wait_opponent():
         
         placement_window = wait_opponent_text.checkPress(position = position, press = press)
         back_to_menu = button_back_menu.checkPress(position = position, press = press)
-
+        if two_players_connected == True:
+            placement
         if placement_window:
             placement()
         if back_to_menu:
