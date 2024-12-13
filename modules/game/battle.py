@@ -8,6 +8,7 @@ def battle():
     run_battle = True
     
     turn = True
+    chose = None
 
     #Наше поле (your screen)
     sq_your = pygame.Rect((70, 180, PLACE_LENGTH, PLACE_LENGTH))
@@ -31,12 +32,9 @@ def battle():
     def check(player_map, enemy_map):
         if all(cell != 1 for row in player_map for cell in row):
             print("YOU WIN")
-            button_win
-
 
         if all(cell != 1 for row in enemy_map for cell in row):
             print("YOU LOSE")
-            button_lose
     
     def map(row, cell, number):
         if player_map2[row][cell] == 2:  
@@ -88,6 +86,8 @@ def battle():
             x2 +=60
         y2 += 60
         x2 = 730
+
+    time.sleep(0.3) 
 
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
@@ -146,9 +146,7 @@ def battle():
             pygame.draw.rect(screen, "black", item)
 
         pygame.display.flip()
-        clock.tick(FPS) 
-
-        time.sleep(0.3)      
+        clock.tick(FPS)      
         
         for event in pygame.event.get():
             
@@ -201,3 +199,26 @@ def battle():
                 run_battle = False
                 pygame.quit()
 
+def win():
+    while True:
+        screen.fill((MAIN_WINDOW_COLOR))
+        position = pygame.mouse.get_pos()
+        press = pygame.mouse.get_pressed()
+        text_win.text_draw(screen=screen)
+        button_back_menu.button_draw(screen=screen)
+        back_to_menu = button_back_menu.checkPress(position = position, press = press)
+
+        if back_to_menu:
+            pass
+
+def lose():
+    while True:
+        screen.fill((MAIN_WINDOW_COLOR))
+        position = pygame.mouse.get_pos()
+        press = pygame.mouse.get_pressed()
+        text_lose.text_draw(screen=screen)
+        button_back_menu.button_draw(screen=screen)
+        back_to_menu = button_back_menu.checkPress(position = position, press = press)
+    
+        if back_to_menu:
+            pass

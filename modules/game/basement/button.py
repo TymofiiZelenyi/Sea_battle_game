@@ -80,8 +80,6 @@ wait_opponent_text = Button(x = 400, y = 150, width = BUTTON_MENU_WIDTH, height 
 #Створення кнопок для екрану BATTLE
 your_screen_text = Button(x = 70, y = 98, width = 600, height = 80, text = "Your screen", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 enemy_screen_text = Button(x = 730, y = 98, width = 600, height = 80, text = "Enemy screen", text_size = 20, button_color = BUTTON_DARKER_COLOR)
-button_win = Button(x = 0, y = 0, width = 600, height = 80, text = "You win", text_size = 20, button_color = BUTTON_DARKER_COLOR)
-button_lose = Button(x = 0, y = 0, width = 600, height = 80, text = "You lose", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 
 class Text():
     def __init__(self, x, y, text, text_size = 40):
@@ -101,3 +99,6 @@ class Text():
         screen.blit(text, (self.x, self.y))
 
 settings_text = Text(x = 50, y = 100, text = "Settings", text_size=45)
+
+text_win = Text(x = 0, y = 0,  text = "You win", text_size = 20)
+text_lose = Text(x = 0, y = 0, text = "You lose", text_size = 20)

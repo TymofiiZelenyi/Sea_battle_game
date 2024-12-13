@@ -22,3 +22,5 @@ DARKER_FON = "#CCCCCC"
 #Величини полів для битв
 PLACE_LENGTH = 600
 SHIPS_BAY_LENGTH = 400
+
+MENU = False

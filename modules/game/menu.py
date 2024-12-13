@@ -8,7 +8,7 @@ play_music("All I Want for Christmas Is You", volume = 0)
 
 def menu():
     run_menu = True
-
+    
     while run_menu:
         
         screen.fill(MAIN_WINDOW_COLOR)
@@ -40,7 +40,11 @@ def menu():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run_menu = False
+                MENU = False
                 pygame.quit()
+
+if MENU:
+    menu()
 
 def settings():
     run_settings = True
