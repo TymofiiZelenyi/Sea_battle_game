@@ -1,8 +1,21 @@
 import pygame
-from .settings import *
+import os
 
+from .settings import *
 big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH)
 small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH)
+
+
+def search_abs_path(count_length, DIR):
+    path = os.path.abspath(__file__ + f"/../../../../image/ship/{count_length}-SHIP-{DIR}.png")
+    return path
+
+
+class Point():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
 
 
 class RectBetter(pygame.Rect):
@@ -32,14 +45,19 @@ class Ships():
         self.DIR = True
         self.MOVE = False
         self.TAKE = False
-
+    
     def ship_draw(self, screen):
         if self.DIR:
             self.rect = pygame.Rect(self.x, self.y, 60* self.count_length, 60 )
-            pygame.draw.rect(screen, self.COLOR, (self.x, self.y, 60* self.count_length, 60 ))
+            self.image = pygame.image.load(search_abs_path(self.count_length, self.DIR))
+            self.image = pygame.transform.scale(self.image, [60 * self.count_length, 60])
+            screen.blit(self.image, (self.x, self.y))
+
         elif not self.DIR:
             self.rect = pygame.Rect(self.x, self.y, 60, 60 * self.count_length)
-            pygame.draw.rect(screen, self.COLOR, (self.x, self.y, 60, 60 * self.count_length))
+            self.image = pygame.image.load(search_abs_path(self.count_length, self.DIR))
+            self.image = pygame.transform.scale(self.image, [60,60 * self.count_length])
+            screen.blit(self.image, (self.x, self.y))
 
     def take_ship(self, position, press):
         if self.rect.collidepoint(position):   
@@ -49,16 +67,21 @@ class Ships():
                 self.WHERE = False
             self.TAKE = True
 
-    def move(self, position, press):
-        if self.rect.collidepoint(position) and press[0] and self.DIR and self.TAKE:
+    def move(self, position, press, screen):
+        if press[0] and self.DIR and self.TAKE:
             self.x = position[0] - 30
             self.y = position[1] - 30
-            self.rect = pygame.Rect(self.x, self.y, 60 * self.count_length, 60) 
             self.MOVE = True
-        elif self.rect.collidepoint(position) and press[0] and not self.DIR and self.TAKE:
+            self.image = pygame.image.load(search_abs_path(self.count_length, self.DIR))
+            self.image = pygame.transform.scale(self.image, [60 * self.count_length,60])
+            screen.blit(self.image, (self.x, self.y))
+
+        elif press[0] and not self.DIR and self.TAKE:
             self.x = position[0] - 30
             self.y = position[1] - 30
-            self.rect = pygame.Rect(self.x, self.y, 60 , 60* self.count_length)
+            self.image = pygame.image.load(search_abs_path(self.count_length, self.DIR))
+            self.image = pygame.transform.scale(self.image, [60,60 * self.count_length])
+            screen.blit(self.image, (self.x, self.y))
             self.MOVE = True
         else:
             self.MOVE = False  

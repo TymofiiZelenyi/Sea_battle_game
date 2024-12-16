@@ -5,6 +5,9 @@ from .basement import *
 from .placement import placement
 
 play_music("All I Want for Christmas Is You", volume = 0)
+pygame.mouse.set_cursor(*pygame.cursors.tri_left)
+
+# pygame.mouse.set_cursor()
 
 def menu():
     run_menu = True
@@ -28,7 +31,7 @@ def menu():
         quit = button_quit.checkPress(position = position, press = press)
 
         if wait_opponent_window:
-            wait_opponent()
+            placement()
         if settigs_window:
             settings()
         if quit:
@@ -42,9 +45,6 @@ def menu():
                 run_menu = False
                 MENU = False
                 pygame.quit()
-
-if MENU:
-    menu()
 
 def settings():
     run_settings = True
@@ -118,38 +118,4 @@ def settings():
                 run_settings = False
                 pygame.quit()
 
-def wait_opponent():
-#    with socket.socket(family = socket.AF_INET , type = socket.SOCK_STREAM) as client_socket:
-#        # Підключаємо клієнта  до локального IP та порту
-#        client_socket.connect(("195.248.167.137", 8090))
-#
-#    client_socket.send("Ready".encode())
-
-    run_wait_opponent = True
-
-    while run_wait_opponent:
-        screen.fill(MAIN_WINDOW_COLOR)
-        
-        position = pygame.mouse.get_pos()
-        press = pygame.mouse.get_pressed()
-
-        wait_opponent_text.button_draw(screen = screen)
-        button_back_menu.button_draw(screen = screen)
-        
-        placement_window = wait_opponent_text.checkPress(position = position, press = press)
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
-        if two_players_connected == True:
-            placement
-        if placement_window:
-            placement()
-        if back_to_menu:
-            menu()
-
-        pygame.display.flip()
-        clock.tick(FPS)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run_wait_opponent = False
-                pygame.quit()
 
