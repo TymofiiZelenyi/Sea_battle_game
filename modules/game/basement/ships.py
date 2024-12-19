@@ -43,8 +43,11 @@ class Ships():
         self.cell = 0
 
         self.DIR = True
+        self.LAST_DIR = True
         self.MOVE = False
         self.TAKE = False
+
+        self.STAY = False
     
     def ship_draw(self, screen):
         if self.DIR:

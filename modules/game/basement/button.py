@@ -1,5 +1,5 @@
 import pygame
-from .settings import BUTTON_COLOR, MAIN_WINDOW_COLOR, BUTTON_MENU_WIDTH, BUTTON_MENU_HEIGHT, WINDOW_HEIGHT, WINDOW_WIDTH, BUTTON_PLACEMENT_HEIGHT, BUTTON_PLACEMENT_WIDTH, BUTTON_DARKER_COLOR
+from .settings import *
 import os
 #from .start import position, press
 
@@ -60,7 +60,9 @@ button_minus_settings = Button(x = 10, y = 675, width = 275, height = 100, text 
 #Створення кнопок для екрану МЕНЮ "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
 button_play = Button(x = 100, y = 100, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Play")
 button_settings = Button(x = 100, y = 245, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Setting")
-button_quit = Button(x = 100, y = 390, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Quit")
+button_shop = Button(x = 100, y = 390, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Shop")
+button_quit = Button(x = 100, y = 535, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Quit")
+
 
 #Створення кнопок для екрану 
 button_ready = Button(x = 970, y = 680, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
@@ -82,11 +84,12 @@ your_screen_text = Button(x = 70, y = 98, width = 600, height = 80, text = "Your
 enemy_screen_text = Button(x = 730, y = 98, width = 600, height = 80, text = "Enemy screen", text_size = 20, button_color = BUTTON_DARKER_COLOR)
 
 class Text():
-    def __init__(self, x, y, text, text_size = 40):
+    def __init__(self, x, y, text, text_size = 40, color = MAIN_WINDOW_COLOR):
         self.x = x
         self.y= y
         self.text = text
         self.text_size = text_size
+        self.color = color 
 
     def text_draw(self, screen):
         
@@ -94,11 +97,11 @@ class Text():
         path_to_fonts = os.path.abspath(__file__+ "/../../../../fonts/")
         main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
 
-        text = main_font.render(self.text, 1, MAIN_WINDOW_COLOR)
+        text = main_font.render(self.text, 1, self.color)
 
         screen.blit(text, (self.x, self.y))
 
 settings_text = Text(x = 50, y = 100, text = "Settings", text_size=45)
-
-text_win = Text(x = 0, y = 0,  text = "You win", text_size = 20)
-text_lose = Text(x = 0, y = 0, text = "You lose", text_size = 20)
+shop_text = Text(x = 50, y = 100, text = "Shop", text_size=45)
+text_win = Text(x = 560, y = 320, text = "WIN", text_size=100, color="Red")
+text_lose = Text(x = 560, y = 320, text = "LOSE", text_size=100, color="Red")

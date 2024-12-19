@@ -1,6 +1,6 @@
 import pygame 
-import time
 import os
+
 from .basement import *
 from .map import *
 
@@ -22,8 +22,11 @@ def battle():
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/battle_field.png"))
     bg = pygame.transform.scale(bg, [PLACE_LENGTH, PLACE_LENGTH])
 
-    hit = pygame.image.load(os.path.abspath(__file__ + "/../../../image/cell/hit_enemy.png"))
-    miss = pygame.image.load(os.path.abspath(__file__ + "/../../../image/cell/kill_enemy.png"))
+    hit = pygame.image.load(os.path.abspath(__file__ + "/../../../image/cell/hit.png"))
+    hit = pygame.transform.scale(hit, [60,60])
+    
+    miss = pygame.image.load(os.path.abspath(__file__ + "/../../../image/cell/miss.png"))
+    miss = pygame.transform.scale(miss, [60, 60])
 
     sq_list = [sq_your,  sq_enemy]
 
@@ -41,10 +44,10 @@ def battle():
         
     def check(player_map, enemy_map):
         if all(cell != 1 for row in player_map for cell in row):
-            print("YOU WIN")
+            return "WIN"
         
         elif all(cell != 1 for row in enemy_map for cell in row):
-            print("YOU LOSE")
+            return "LOSE"
 
     def finder(row, cell):
         #########################
@@ -295,217 +298,217 @@ def battle():
     def map(row, cell, number, type):
         if type == "trio center": 
             if row != 0: 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x + 25, row_list_enemy[number- 10].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x, row_list_enemy[number- 10].y, 60, 60)) 
                 row_list_enemy[number- 10].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x + 25, row_list_enemy[number- 11].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x, row_list_enemy[number- 11].y, 60, 60)) 
                 row_list_enemy[number- 11].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x + 25, row_list_enemy[number- 9].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x, row_list_enemy[number- 9].y, 60, 60)) 
                 row_list_enemy[number- 9].CLOSE = True 
             if row != 9: 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x + 25, row_list_enemy[number+ 10].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x, row_list_enemy[number+ 10].y, 60, 60)) 
                 row_list_enemy[number+ 10].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x + 25, row_list_enemy[number+ 11].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60)) 
                 row_list_enemy[number+ 11].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x + 25, row_list_enemy[number+ 9].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x, row_list_enemy[number+ 9].y, 60, 60)) 
                 row_list_enemy[number+ 9].CLOSE = True 
             if cell !=0 and cell != 1 : 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 2].x + 25, row_list_enemy[number- 2].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number- 2].x, row_list_enemy[number- 2].y, 60, 60)) 
                 row_list_enemy[number- 2].CLOSE = True 
             if  cell != 8 and cell != 9: 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 2].x + 25, row_list_enemy[number+ 2].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 2].x, row_list_enemy[number+ 2].y, 60, 60)) 
                 row_list_enemy[number+ 2].CLOSE = True 
             if cell !=0 and cell != 1 and  row != 0: 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 12].x + 25, row_list_enemy[number- 12].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number- 12].x, row_list_enemy[number- 12].y, 60, 60)) 
                 row_list_enemy[number- 12].CLOSE = True 
             if  cell != 8 and cell != 9 and row != 0: 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 8].x + 25, row_list_enemy[number- 8].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number- 8].x, row_list_enemy[number- 8].y, 60, 60)) 
                 row_list_enemy[number- 8].CLOSE = True 
             if cell !=0 and cell != 1 and row != 9: 
-                miss_list.append(pygame.Rect(row_list_enemy[number+8].x + 25, row_list_enemy[number+8].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+8].x, row_list_enemy[number+8].y, 60, 60)) 
                 row_list_enemy[number+ 8].CLOSE = True 
             if  cell != 8 and cell != 9 and row != 9: 
-                miss_list.append(pygame.Rect(row_list_enemy[number+12].x + 25, row_list_enemy[number+12].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+12].x, row_list_enemy[number+12].y, 60, 60)) 
                 row_list_enemy[number+ 12].CLOSE = True
         
         elif type == "duo top":
             if row != 8:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 20].x + 25, row_list_enemy[number+ 20].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 20].x, row_list_enemy[number+ 20].y, 60, 60))
                 row_list_enemy[number+ 20].CLOSE = True 
                 print("BUTTON")
             if row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x + 25, row_list_enemy[number- 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x, row_list_enemy[number- 10].y, 60, 60))
                 row_list_enemy[number- 10].CLOSE = True
                 print("TOP")
             if cell != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x + 25, row_list_enemy[number- 1].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x, row_list_enemy[number- 1].y, 60, 60))
                 row_list_enemy[number- 1].CLOSE = True
-                miss_list.append(pygame.Rect(row_list_enemy[number+9].x + 25, row_list_enemy[number+ 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+9].x, row_list_enemy[number+ 9].y, 60, 60))
                 row_list_enemy[number+ 9].CLOSE = True
                 print("LEFT")
             if cell != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x + 25, row_list_enemy[number+ 1].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x, row_list_enemy[number+ 1].y, 60, 60)) 
                 row_list_enemy[number+ 1].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x + 25, row_list_enemy[number+ 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60))
                 row_list_enemy[number+ 11].CLOSE = True
                 print("RIGHT")
             if cell != 0 and row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x + 25, row_list_enemy[number- 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x, row_list_enemy[number- 11].y, 60, 60))
                 row_list_enemy[number- 11].CLOSE = True 
                 print("LEFT TOP")
             if cell != 9 and row != 0 :
-                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x + 25, row_list_enemy[number- 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x, row_list_enemy[number- 9].y, 60, 60))
                 row_list_enemy[number- 9].CLOSE = True 
                 print("RIGHT TOP")
             if cell != 0 and row != 8:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 19].x + 25, row_list_enemy[number+ 19].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 19].x, row_list_enemy[number+ 19].y, 60, 60))
                 row_list_enemy[number+ 19].CLOSE = True
                 print("LEFT BUTTON")
             if cell != 9 and row !=8:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 21].x + 25, row_list_enemy[number+ 21].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 21].x, row_list_enemy[number+ 21].y, 60, 60))
                 row_list_enemy[number+ 21].CLOSE = True
                 print("RIGHR BUTTON")
             
         elif type == "duo button":
             if row != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x + 25, row_list_enemy[number+ 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x, row_list_enemy[number+ 10].y, 60, 60))
                 row_list_enemy[number+ 10].CLOSE = True 
                 print("BUTTON")
             if row != 0 and row != 1:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 20].x + 25, row_list_enemy[number- 20].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 20].x, row_list_enemy[number- 20].y, 60, 60))
                 row_list_enemy[number- 20].CLOSE = True
                 print("TOP")
             if cell != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x + 25, row_list_enemy[number- 1].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x, row_list_enemy[number- 1].y, 60, 60))
                 row_list_enemy[number- 1].CLOSE = True
-                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x + 25, row_list_enemy[number- 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x, row_list_enemy[number- 11].y, 60, 60))
                 row_list_enemy[number- 11].CLOSE = True
                 print("LEFT")
             if cell != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x + 25, row_list_enemy[number+ 1].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x, row_list_enemy[number+ 1].y, 60, 60)) 
                 row_list_enemy[number+ 1].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x + 25, row_list_enemy[number- 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x, row_list_enemy[number- 9].y, 60, 60))
                 row_list_enemy[number- 9].CLOSE = True
                 print("RIGHT")
             if cell != 0 and row != 0 and row != 1:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 21].x + 25, row_list_enemy[number- 21].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 21].x, row_list_enemy[number- 21].y, 60, 60))
                 row_list_enemy[number- 21].CLOSE = True 
                 print("LEFT TOP")
             if cell != 9 and row != 0 and row != 1:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 19].x + 25, row_list_enemy[number- 19].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 19].x, row_list_enemy[number- 19].y, 60, 60))
                 row_list_enemy[number- 19].CLOSE = True 
                 print("RIGHT TOP")
             if cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x + 25, row_list_enemy[number+ 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x, row_list_enemy[number+ 9].y, 60, 60))
                 row_list_enemy[number+ 9].CLOSE = True
                 print("LEFT BUTTON")
             if cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x + 25, row_list_enemy[number+ 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60))
                 row_list_enemy[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
         
         elif type == "duo right":
             if row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x + 25, row_list_enemy[number- 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x, row_list_enemy[number- 11].y, 60, 60))
                 row_list_enemy[number- 11].CLOSE = True
-                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x + 25, row_list_enemy[number- 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x, row_list_enemy[number- 10].y, 60, 60))
                 row_list_enemy[number- 10].CLOSE = True 
             if row != 9:  
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x + 25, row_list_enemy[number+ 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x, row_list_enemy[number+ 10].y, 60, 60))
                 row_list_enemy[number+ 10].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x + 25, row_list_enemy[number+ 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x, row_list_enemy[number+ 9].y, 60, 60))
                 row_list_enemy[number+ 9].CLOSE = True 
             if cell != 0 and cell != 1:   
-                miss_list.append(pygame.Rect(row_list_enemy[number- 2].x + 25, row_list_enemy[number- 2].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 2].x, row_list_enemy[number- 2].y, 60, 60))
                 row_list_enemy[number- 2].CLOSE = True
             if cell != 8 and cell != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x + 25, row_list_enemy[number+ 1].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x, row_list_enemy[number+ 1].y, 60, 60)) 
                 row_list_enemy[number+ 1].CLOSE = True
             if cell != 0 and cell != 1 and row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 12].x + 25, row_list_enemy[number- 12].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 12].x, row_list_enemy[number- 12].y, 60, 60))
                 row_list_enemy[number- 12].CLOSE = True 
                 print("LEFT TOP")
             if cell != 8 and cell != 9 and row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x + 25, row_list_enemy[number- 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x, row_list_enemy[number- 9].y, 60, 60))
                 row_list_enemy[number- 9].CLOSE = True 
                 print("RIGHT TOP")
             if  cell != 1 and cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 8].x + 25, row_list_enemy[number+ 8].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 8].x, row_list_enemy[number+ 8].y, 60, 60))
                 row_list_enemy[number+ 8].CLOSE = True
                 print("LEFT BUTTON")
             if cell != 8 and cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x + 25, row_list_enemy[number+ 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60))
                 row_list_enemy[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
         
         elif type == "duo left":
             if row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x + 25, row_list_enemy[number- 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x, row_list_enemy[number- 10].y, 60, 60))
                 row_list_enemy[number- 10].CLOSE = True
-                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x + 25, row_list_enemy[number- 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x, row_list_enemy[number- 9].y, 60, 60))
                 row_list_enemy[number- 9].CLOSE = True 
                 print("TOP")
             if row != 9:  
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x + 25, row_list_enemy[number+ 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x, row_list_enemy[number+ 10].y, 60, 60))
                 row_list_enemy[number+ 10].CLOSE = True 
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x + 25, row_list_enemy[number+ 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60))
                 row_list_enemy[number+ 11].CLOSE = True 
                 print("BUTTON")
             if cell != 0:   
-                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x + 25, row_list_enemy[number- 1].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x, row_list_enemy[number- 1].y, 60, 60))
                 row_list_enemy[number- 1].CLOSE = True
                 print("LEFT")
             if cell != 8 and cell != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 2].x + 25, row_list_enemy[number+ 2].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 2].x, row_list_enemy[number+ 2].y, 60, 60)) 
                 row_list_enemy[number+ 2].CLOSE = True
                 print("RIGHT")
             if cell != 0 and row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x + 25, row_list_enemy[number- 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x, row_list_enemy[number- 11].y, 60, 60))
                 row_list_enemy[number- 11].CLOSE = True 
                 print("LEFT TOP")
             if cell != 8 and cell != 9 and row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 8].x + 25, row_list_enemy[number- 8].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 8].x, row_list_enemy[number- 8].y, 60, 60))
                 row_list_enemy[number- 8].CLOSE = True 
                 print("RIGHT TOP")
             if cell != 8 and cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x + 25, row_list_enemy[number+ 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x, row_list_enemy[number+ 9].y, 60, 60))
                 row_list_enemy[number+ 9].CLOSE = True
                 print("LEFT BUTTON")
             if cell != 8 and cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 12].x + 25, row_list_enemy[number+ 12].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 12].x, row_list_enemy[number+ 12].y, 60, 60))
                 row_list_enemy[number+ 12].CLOSE = True
                 print("RIGHR BUTTON")
             
         elif type == "solo":
             if row != 9 and player_map2[row+1][cell] == 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x + 25, row_list_enemy[number+ 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 10].x, row_list_enemy[number+ 10].y, 60, 60))
                 row_list_enemy[number+ 10].CLOSE = True 
                 print("BUTTON")
             if row != 0 and player_map2[row-1][cell] == 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x + 25, row_list_enemy[number- 10].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 10].x, row_list_enemy[number- 10].y, 60, 60))
                 row_list_enemy[number- 10].CLOSE = True
                 print("TOP")
             if cell != 0 and player_map2[row][cell-1] == 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x + 25, row_list_enemy[number- 1].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 1].x, row_list_enemy[number- 1].y, 60, 60))
                 row_list_enemy[number- 1].CLOSE = True
                 print("LEFT")
             if cell != 9 and player_map2[row][cell+1] == 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x + 25, row_list_enemy[number+ 1].y + 25, 10, 10)) 
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 1].x, row_list_enemy[number+ 1].y, 60, 60)) 
                 row_list_enemy[number+ 1].CLOSE = True 
                 print("RIGHT")
             if cell != 0 and row != 0:
-                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x + 25, row_list_enemy[number- 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 11].x, row_list_enemy[number- 11].y, 60, 60))
                 row_list_enemy[number- 11].CLOSE = True 
                 print("LEFT TOP")
             if cell != 9 and row != 0 :
-                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x + 25, row_list_enemy[number- 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number- 9].x, row_list_enemy[number- 9].y, 60, 60))
                 row_list_enemy[number- 9].CLOSE = True 
                 print("RIGHT TOP")
             if cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x + 25, row_list_enemy[number+ 9].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 9].x, row_list_enemy[number+ 9].y, 60, 60))
                 row_list_enemy[number+ 9].CLOSE = True
                 print("LEFT BUTTON")
             if cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x + 25, row_list_enemy[number+ 11].y + 25, 10, 10))
+                miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60))
                 row_list_enemy[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
     
@@ -525,8 +528,6 @@ def battle():
             x2 +=60
         y2 += 60
         x2 = 730
-
-    time.sleep(0.3) 
 
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
@@ -586,7 +587,6 @@ def battle():
         
         for item in hit_list:
             screen.blit(hit, (item.x, item.y))
-            # pygame.draw.rect(screen, "black", item)
 
         pygame.display.flip()
         clock.tick(FPS)      
@@ -609,20 +609,26 @@ def battle():
                     cell = number % 10
                     row = number // 10           
 
-                    if item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 1 and not item.CLOSE and turn:
-                        hit = Point(item.x, item.y) 
-                        hit_list.append(hit)     
+                    if item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 1 and not item.CLOSE and turn: 
+                        hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
                         print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
                         player_map2[row][cell] = 2
                         print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}")                    
                         item.CLOSE = True
                         type = finder(row, cell)
                         map(row, cell, number, type)
-                        check(player_map2, player_map1)
-                   
+                        res = check(player_map2, player_map1)
+                        
+                        if res:
+                            print("test")
+                            if res == "WIN":
+                                # settings.GOLD += 100
+                                return win()
+                            else:
+                                return lose()
+                  
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
-                        miss = Point(item.x, item.y)
-                        miss_list.append(miss)
+                        miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
                         # turn = False
                         item.CLOSE = True   
                         print("Поле врага: Не попал", row , cell , player_map2[row][cell])     
@@ -646,25 +652,49 @@ def battle():
                 pygame.quit()
 
 def win():
-    while True:
+    run_win = True
+    while run_win:
         screen.fill((MAIN_WINDOW_COLOR))
+        
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
+        
         text_win.text_draw(screen=screen)
+        
         button_back_menu.button_draw(screen=screen)
         back_to_menu = button_back_menu.checkPress(position = position, press = press)
 
         if back_to_menu:
-            pass
+            return "BACK"
+        
+        pygame.display.flip()
+        clock.tick(FPS) 
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run_win = False
+                pygame.quit()
 
 def lose():
-    while True:
+    run_lose =True
+    while run_lose:
         screen.fill((MAIN_WINDOW_COLOR))
+        
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
+        
         text_lose.text_draw(screen=screen)
+        
         button_back_menu.button_draw(screen=screen)
         back_to_menu = button_back_menu.checkPress(position = position, press = press)
     
         if back_to_menu:
-            pass
+            return "BACK"
+        
+        pygame.display.flip()
+        clock.tick(FPS) 
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run_lose = False
+                pygame.quit()
