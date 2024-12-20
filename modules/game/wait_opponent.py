@@ -1,12 +1,13 @@
 import pygame 
-import time
-import socket
-import os
 
 from .basement import *
 from .map import *
 from .battle import battle
 
+data = read_json(fd="settings.json")
+
+MAIN_WINDOW_COLOR = data["main"]["MAIN_WINDOW_COLOR"]
+FPS =  data["main"]["FPS"]
 
 def wait_opponent():
     run_wait_opponent = True
@@ -21,6 +22,7 @@ def wait_opponent():
         # button_back_menu.button_draw(screen = screen)
         
         placement_window = wait_opponent_text.checkPress(position = position, press = press)
+
         if placement_window:
             res = battle()
             if res == "BACK":

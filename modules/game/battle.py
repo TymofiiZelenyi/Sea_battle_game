@@ -1,13 +1,14 @@
+import socket
 import pygame 
 import os
 
 from .basement import *
 from .map import *
 
-# x, y = pygame.mouse.get_pos()
-# x -= mouse_cursor.get_width()/2
-# y -= mouse_cursor.get_height()/2
-# screen.blit(mouse_cursor, (x, y))
+data = read_json(fd="settings.json")
+
+PLACE_LENGTH = data["color"]["PLACE_LENGTH"]
+FPS = data["main"]["FPS"]
 
 def battle():
     run_battle = True
@@ -41,6 +42,21 @@ def battle():
 
     row_list_enemy = []
     cell_list_enemy = []
+
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    def processing():
+        pass
+
+    def connect_to():
+            client_socket.connect(("192.168.1.12", 8081))
+            print("connect")
+        
+    def sending(row, cell, type):
+        data = [row, cell, type]
+        client_socket.sendall(str(data).encode())
+        print("sending")
+        
         
     def check(player_map, enemy_map):
         if all(cell != 1 for row in player_map for cell in row):
@@ -511,8 +527,7 @@ def battle():
                 miss_list.append(pygame.Rect(row_list_enemy[number+ 11].x, row_list_enemy[number+ 11].y, 60, 60))
                 row_list_enemy[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
-    
-    
+
     for row in range(10):
         for cell in range(10):
             row_list_player.append(RectBetter(x1, y1, 60, 60, False))
@@ -528,6 +543,8 @@ def battle():
             x2 +=60
         y2 += 60
         x2 = 730
+
+    connect_to()
 
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
@@ -626,12 +643,16 @@ def battle():
                                 return win()
                             else:
                                 return lose()
+                            
+                        sending(row, cell, 1)
                   
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
                         miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
                         # turn = False
                         item.CLOSE = True   
-                        print("Поле врага: Не попал", row , cell , player_map2[row][cell])     
+                        print("Поле врага: Не попал", row , cell , player_map2[row][cell])  
+
+                        sending(row, cell, 0)   
 
                     number +=1
 

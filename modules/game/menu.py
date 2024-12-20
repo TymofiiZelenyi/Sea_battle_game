@@ -1,5 +1,4 @@
 import pygame 
-import socket
 
 from .basement import *
 from .placement import placement
@@ -7,10 +6,14 @@ from .settings_real import settings_real
 from .shop import shop
 
 play_music("All I Want for Christmas Is You", volume = 0)
-# pygame.mouse.set_cursor(*pygame.cursors.tri_left)
 
+# pygame.mouse.set_cursor(*pygame.cursors.tri_left)
 # pygame.mouse.set_cursor()
 
+data = read_json(fd="settings.json")
+
+GOLD = data["main"]["GOLD"]
+FPS = data["main"]["FPS"]
 def menu():
 
     run_menu = True

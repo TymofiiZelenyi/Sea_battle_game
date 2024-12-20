@@ -1,7 +1,17 @@
 import pygame
-from .settings import *
 import os
-#from .start import position, press
+
+from .read_json import read_json
+
+data = read_json(fd="settings.json")
+
+BUTTON_COLOR = data["button"]["COLOR"]
+BUTTON_MENU_WIDTH = data["button"]["MENU_WIDTH"]
+BUTTON_MENU_HEIGHT = data["button"]["MENU_HEIGHT"]
+BUTTON_PLACEMENT_WIDTH = data["button"]["PLACEMENT_WIDTH"]
+BUTTON_PLACEMENT_HEIGHT = data["button"]["PLACEMENT_HEIGHT"]
+BUTTON_DARKER_COLOR = data["button"]["DARKER_COLOR"]
+MAIN_WINDOW_COLOR = data["main"]["MAIN_WINDOW_COLOR"]
 
 #клас Кнопки (+ її хітбокс "rect")
 class Button():
@@ -63,6 +73,12 @@ button_settings = Button(x = 100, y = 245, width = BUTTON_MENU_WIDTH, height = B
 button_shop = Button(x = 100, y = 390, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Shop")
 button_quit = Button(x = 100, y = 535, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Quit")
 
+
+shop_coursor1 = Button(x = 25, y = 200, width = 225, height = 450, text = "1")
+shop_coursor2 = Button(x = 300, y = 200, width = 225, height = 450, text = "2")
+shop_coursor3 = Button(x = 575, y = 200, width = 225, height = 450, text = "3")
+shop_coursor4 = Button(x = 775, y = 200, width = 225, height = 450, text = "4")
+shop_coursor5 = Button(x = 950, y = 200, width = 225, height = 450, text = "5")
 
 #Створення кнопок для екрану 
 button_ready = Button(x = 970, y = 680, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")

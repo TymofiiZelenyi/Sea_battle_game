@@ -1,6 +1,11 @@
 import pygame
 
-from .settings import WINDOW_HEIGHT, WINDOW_WIDTH
+from .read_json import read_json
+
+data = read_json(fd="settings.json")
+
+WINDOW_HEIGHT = data["main"]["WINDOW_HEIGHT"]
+WINDOW_WIDTH = data["main"]["WINDOW_WIDTH"]
 
 pygame.init()
 pygame.display.set_caption("Sea_battle_game")

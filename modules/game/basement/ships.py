@@ -1,7 +1,13 @@
 import pygame
 import os
 
-from .settings import *
+from .read_json import read_json
+
+data = read_json(fd="settings.json")
+
+PLACE_LENGTH = data["color"]["PLACE_LENGTH"]
+SHIPS_BAY_LENGTH = data["color"]["SHIPS_BAY_LENGTH"]
+
 big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH)
 small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH)
 
@@ -15,8 +21,6 @@ class Point():
     def __init__(self, x, y):
         self.x = x
         self.y = y
-
-
 
 class RectBetter(pygame.Rect):
     def __init__(self, x, y, w, h, close: bool):

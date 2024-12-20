@@ -1,7 +1,12 @@
 import pygame 
-import socket
 
 from .basement import *
+
+data = read_json(fd="settings.json")
+
+MAIN_WINDOW_COLOR = data["main"]["MAIN_WINDOW_COLOR"]
+HEAD_COLOR = data["color"]["HEAD_COLOR"]
+FPS = data["main"]["FPS"]
 
 def settings_real():
     run_settings = True

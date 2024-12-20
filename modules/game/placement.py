@@ -1,12 +1,18 @@
 import pygame 
-import time
-import socket
 import os
 
 from .basement import *
 from .map import *
 from .wait_opponent import wait_opponent
 
+data = read_json(fd="settings.json")
+
+MAIN_WINDOW_COLOR = data["main"]["MAIN_WINDOW_COLOR"]
+HEAD_COLOR = data["color"]["HEAD_COLOR"]
+PLACE_LENGTH = data["color"]["PLACE_LENGTH"]
+SHIPS_BAY_LENGTH = data["color"]["SHIPS_BAY_LENGTH"]
+BUTTON_COLOR = data["button"]["COLOR"]
+FPS = data["main"]["FPS"]
 
 def placement():
     run_placement = True
