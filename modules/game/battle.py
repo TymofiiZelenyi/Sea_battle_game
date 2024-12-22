@@ -549,6 +549,10 @@ def battle():
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
 
+        # shot = client_socket.recv(10).decode()
+        # if shot:
+        #     print(shot)
+
         your_screen_text.button_draw(screen=screen)
         enemy_screen_text.button_draw(screen=screen)
 

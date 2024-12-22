@@ -13,11 +13,17 @@ FPS = data["main"]["FPS"]
 def shop():
     run_shop = True
 
-    # def coursor(name):
-    #     x, y = pygame.mouse.get_pos()
-    #     x -= 16
-    #     y -= 16
-    #     screen.blit(cursor, (x, y))
+    anchor = False
+    raft = False
+
+    def cursor(name, screen):
+        path = os.path.abspath(__file__ + f"/../../../image/cursors/{name}.png")
+        image = pygame.image.load(path)
+        image = pygame.transform.scale(image, [32, 32])
+        x, y = pygame.mouse.get_pos()
+        x -= 16
+        y -= 16
+        screen.blit(image, (x, y))
 
     while run_shop:
         screen.fill(MAIN_WINDOW_COLOR)
@@ -45,17 +51,35 @@ def shop():
         shop_coursor_5 = shop_coursor5.checkPress(position = position, press = press)
 
         if shop_coursor_1:
+            anchor = False
+            raft = False
+            pygame.mouse.set_visible(True)
             pygame.mouse.set_cursor(*pygame.cursors.arrow)
         if shop_coursor_2:
+            anchor = False
+            raft = False
+            pygame.mouse.set_visible(True)
             pygame.mouse.set_cursor(*pygame.cursors.diamond)
         if shop_coursor_3:
+            anchor = False
+            raft = False
+            pygame.mouse.set_visible(True)
             pygame.mouse.set_cursor(*pygame.cursors.tri_left)
         if shop_coursor_4:
-            anchor = os.path.abspath(__file__ + f"/../../../../image/cursonr/cursonr_anchor.png")
-            pygame.mouse.set_cursor(*pygame.cursors.anchor) 
+            anchor = True
+            raft = False
         if shop_coursor_5:
-            raft = os.path.abspath(__file__ + f"/../../../../image/cursonr/cursonr_raft.png")
-            pygame.mouse.set_cursor(*pygame.cursors.raft)   
+            anchor = False
+            raft = True
+        
+        if anchor:
+            pygame.mouse.set_visible(False)
+            cursor(name ="cursor_anchor",screen=screen)
+        
+        if raft:
+            pygame.mouse.set_visible(False)
+            cursor(name ="cursor_raft",screen=screen)
+        
         
         if back_to_menu:
             return "HOME"

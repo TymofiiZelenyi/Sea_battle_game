@@ -18,10 +18,19 @@ def start_server():
         print("connected", client_socket2, adress)
         
         while True:
-            print(f"PLAYER 1 {client_socket1.recv(10).decode()}")
-            print(f"PLAYER 2 {client_socket2.recv(10).decode()}")
+
+            shot1 = client_socket1.recv(10).decode()
+            print(shot1)
+            if shot1:
+                print("send 2 by 1")
+                # client_socket2.sendall(shot1.encode())
             
-            
+            shot2 = client_socket2.recv(10).decode()
+            print(shot2)
+            # if shot2:
+            #     print("send 1 by 2")
+                # client_socket1.sendall(shot2.encode())
+        
 
 server_thred = Thread(target = start_server) 
 server_thred.start()

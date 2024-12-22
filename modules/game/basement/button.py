@@ -77,8 +77,8 @@ button_quit = Button(x = 100, y = 535, width = BUTTON_MENU_WIDTH, height = BUTTO
 shop_coursor1 = Button(x = 25, y = 200, width = 225, height = 450, text = "1")
 shop_coursor2 = Button(x = 300, y = 200, width = 225, height = 450, text = "2")
 shop_coursor3 = Button(x = 575, y = 200, width = 225, height = 450, text = "3")
-shop_coursor4 = Button(x = 775, y = 200, width = 225, height = 450, text = "4")
-shop_coursor5 = Button(x = 950, y = 200, width = 225, height = 450, text = "5")
+shop_coursor4 = Button(x = 800, y = 200, width = 225, height = 450, text = "4")
+shop_coursor5 = Button(x = 975, y = 200, width = 225, height = 450, text = "5")
 
 #Створення кнопок для екрану 
 button_ready = Button(x = 970, y = 680, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
