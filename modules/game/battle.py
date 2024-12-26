@@ -12,6 +12,19 @@ FPS = data["main"]["FPS"]
 
 def battle():
     run_battle = True
+
+    player_map2 = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
     
     turn = True
 
@@ -49,7 +62,8 @@ def battle():
         pass
 
     def connect_to():
-            client_socket.connect(("192.168.1.12", 8081))
+            print("1")
+            client_socket.connect(("192.168.1.101", 8081))
             print("connect")
         
     def sending(row, cell, type):
@@ -528,6 +542,17 @@ def battle():
                 row_list_enemy[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
 
+    connect_to()
+
+    client_socket.sendall(str(player_map1).encode())
+    print("sending map")
+
+    print(player_map2)
+    player_map2 = client_socket.recv(400).decode()
+    print("recv map")
+    print(player_map2)
+
+
     for row in range(10):
         for cell in range(10):
             row_list_player.append(RectBetter(x1, y1, 60, 60, False))
@@ -544,14 +569,8 @@ def battle():
         y2 += 60
         x2 = 730
 
-    connect_to()
-
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
-
-        # shot = client_socket.recv(10).decode()
-        # if shot:
-        #     print(shot)
 
         your_screen_text.button_draw(screen=screen)
         enemy_screen_text.button_draw(screen=screen)
@@ -576,7 +595,10 @@ def battle():
         number2 = 0 
         for item in row_list_enemy:
             cell = number2 % 10
+            print(cell)
             row = number2 // 10
+            print(row)
+            print(player_map2[0][0])
             if player_map2[row][cell] == 0:
                 pygame.draw.rect(screen, BUTTON_COLOR, item)
             number2 += 1

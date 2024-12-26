@@ -1,4 +1,5 @@
-import pygame 
+import pygame
+import socket
 
 from .basement import *
 from .map import *
@@ -11,6 +12,7 @@ FPS =  data["main"]["FPS"]
 
 def wait_opponent():
     run_wait_opponent = True
+    
 
     while run_wait_opponent:
         screen.fill(MAIN_WINDOW_COLOR)
@@ -19,7 +21,6 @@ def wait_opponent():
         press = pygame.mouse.get_pressed()
 
         wait_opponent_text.button_draw(screen = screen)
-        # button_back_menu.button_draw(screen = screen)
         
         placement_window = wait_opponent_text.checkPress(position = position, press = press)
 
