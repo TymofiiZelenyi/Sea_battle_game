@@ -1,23 +1,23 @@
 {
     "main": {
         "FPS": 240,
-        "MAIN_WINDOW_COLOR" : "#D9D9D9",
-        "WINDOW_HEIGHT" : 1400, 
-        "WINDOW_WIDTH" : 800,
-        "GOLD" : 0
-    },  
-    "color":{
-        "HEAD_COLOR" : "#6A0000",
-        "DARKER_FON" : "#CCCCCC",
+        "MAIN_WINDOW_COLOR": "#D9D9D9",
+        "WINDOW_HEIGHT": 1400,
+        "WINDOW_WIDTH": 800,
+        "GOLD": 1600
+    },
+    "color": {
+        "HEAD_COLOR": "#6A0000",
+        "DARKER_FON": "#CCCCCC",
         "PLACE_LENGTH": 600,
-        "SHIPS_BAY_LENGTH" : 400
+        "SHIPS_BAY_LENGTH": 400
     },
     "button": {
-        "MENU_WIDTH" : 600,
-        "MENU_HEIGHT" : 120,
-        "COLOR" : "#8A0000",
-        "DARKER_COLOR" : "#660808",
-        "PLACEMENT_HEIGHT" : 120,
-        "PLACEMENT_WIDTH" : 400
+        "MENU_WIDTH": 600,
+        "MENU_HEIGHT": 120,
+        "COLOR": "#8A0000",
+        "DARKER_COLOR": "#660808",
+        "PLACEMENT_HEIGHT": 120,
+        "PLACEMENT_WIDTH": 400
     }
 }

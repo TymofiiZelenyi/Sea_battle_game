@@ -21,10 +21,15 @@ def placement():
     number = 0
 
     big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH)
-    small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH)
+    small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH - SHIPS_BAY_LENGTH//5)
 
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/battle_field.png"))
     bg = pygame.transform.scale(bg, [PLACE_LENGTH, PLACE_LENGTH])
+
+    ship_holder = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/place_holder.png"))
+    ship_holder = pygame.transform.scale(ship_holder, [SHIPS_BAY_LENGTH+ 30, SHIPS_BAY_LENGTH//5])
+
+    ship_holder_list = (ship_holder, ship_holder, ship_holder, ship_holder)
 
     sq_list = [big_sq, small_sq]
     row_list = []
@@ -51,6 +56,11 @@ def placement():
             pygame.draw.rect(screen, BUTTON_COLOR, item)
         for item in cell_list:
             pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
+
+        empty = 0
+        for holder in ship_holder_list:
+            screen.blit(holder, (836, 142 + empty))
+            empty += SHIPS_BAY_LENGTH//5
 
         screen.blit(bg, (68, 142))
 

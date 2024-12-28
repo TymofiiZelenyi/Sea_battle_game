@@ -62,14 +62,15 @@ def battle():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def connect_to():
-            print("1")
-            client_socket.connect(("192.168.1.106", 8081))
-            print("connect")
-        
-    def sending(row, cell, type, turn):
-        data = [row, cell, type, turn]
+        print("1")
+        client_socket.connect(("192.168.1.12", 8081))
+        print("connect")
+    
+    def sending(row, cell, number, type, turn):
+        data = [row, cell, number, type, turn]
+        print(data)
         data = json.dumps(data)
-        client_socket.sendall(data).encode()
+        client_socket.sendall(data.encode())
         print("sending")
         
         
@@ -562,8 +563,13 @@ def battle():
         print(f"Ошибка: {e}")
 
     print(turn)
-    turn = bool(client_socket.recv(400).decode())
+    turn = client_socket.recv(10).decode()
+    if turn == "you":
+        turn = True
+    elif turn == "not":
+        turn = False
     print(turn)
+    
 
     for row in range(10):
         for cell in range(10):
@@ -581,18 +587,37 @@ def battle():
         y2 += 60
         x2 = 730
 
-    # def test():
-    #     while True:
-    #         if not turn:
-    #             data = list(client_socket.recv(400).decode())
-    #             if data:
-    #                 print(data[0])
-    #                 print(data [1])
-    #                 print(data[2])
-    #                 print(data [3])
+    def test():
+        while True:
+            data = client_socket.recv(400).decode()
+            if data:
+                data = data.strip("[]")
+                data = list([int(num) for num in data.split(",")])
 
-    # test_thread = Thread(target = test) 
-    # test_thread.start()
+                print(data)
+ 
+                c_row = int(data[0])
+                c_cell = int(data[1])
+                c_number = int(data[2])
+                c_type = int(data[3])
+                turn = int(data[4])
+                print(turn)
+                print(c_row, c_cell, c_number, c_type, turn)
+                empyt = 0
+                for item in row_list_player:  
+                    if empyt == c_number: 
+                        if c_type:
+                            hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
+                            print("hit")
+                        elif not c_type:
+                            miss_list.append(pygame.Rect(item.x, item.y ,60, 60))   
+                            print("miss")
+
+                    empyt +=1
+                map(row_list_player, c_row, c_cell, c_number, c_type)
+
+    test_thread = Thread(target = test) 
+    test_thread.start()
 
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
@@ -686,17 +711,14 @@ def battle():
                         
                         if res:
                             print("test")
-                            if res == "WIN":
-                                
-                                
+                            if res == "WIN":  
                                 data['main']['GOLD'] += 100
-                                # write_json["main"]["GOLD"] += 100
                                 write_json(fd='settings.json', name_dict = data)
                                 return win()
                             else:
                                 return lose()
                             
-                        sending(row, cell, 1, 0)
+                        sending(row, cell, number, 1, 0)
                   
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
                         miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
@@ -704,7 +726,7 @@ def battle():
                         item.CLOSE = True   
                         print("Поле врага: Не попал", row , cell , player_map2[row][cell])  
 
-                        sending(row, cell, 0, 1)  
+                        sending(row, cell, number, 0, 1)  
                         turn = False 
 
                     number +=1
@@ -719,8 +741,8 @@ def battle():
                     if item.collidepoint(position) and sq_list[0].collidepoint(position):
                         print("Это ваше поле")
                         print(row, cell)
-            
-            
+
+
             if event.type == pygame.QUIT:
                 run_battle = False
                 pygame.quit()

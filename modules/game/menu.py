@@ -1,4 +1,5 @@
-import pygame 
+import pygame
+import os
 
 from .basement import *
 from .placement import placement
@@ -16,13 +17,31 @@ GOLD = data["main"]["GOLD"]
 FPS = data["main"]["FPS"]
 def menu():
 
+    # GOLD = data['main']['GOLD']
+    # print(GOLD)
+    # GOLD += 100
+    # print(GOLD)
+    # data['main']['GOLD'] = GOLD
+    # write_json(fd='settings.json', name_dict = data)
+    
     run_menu = True
 
-    count_gold = Text(x = 1100, y = 20, text = f"{GOLD} GOLD", text_size=50, color="Red")
+    im_coin = pygame.image.load(os.path.abspath(__file__ + "/../../../image/coins/coin.png"))
+    im_coin = pygame.transform.scale(im_coin, [110, 110])
+    im_coin_holder = pygame.image.load(os.path.abspath(__file__ + "/../../../image/coins/coin_holder1.png"))
+    im_coin_holder = pygame.transform.scale(im_coin_holder, [375, 150])
+    bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/background.png"))
+    bg = pygame.transform.scale(bg, [1400, 800])
+
+    count_gold = Text(x = 1050, y = 70, text = str(GOLD), text_size=50, color="Red")
     
     while run_menu:
         
         screen.fill(MAIN_WINDOW_COLOR)
+
+        screen.blit(bg, (0, 0))
+        screen.blit(im_coin_holder,(1000, 20))
+        screen.blit(im_coin,(1250, 40))
 
         #Створення кнопок "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
         

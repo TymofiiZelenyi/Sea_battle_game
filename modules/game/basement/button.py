@@ -34,14 +34,17 @@ class Button():
         path_to_fonts = os.path.abspath(__file__+ "/../../../../fonts/")
         main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
 
+        button = pygame.image.load(os.path.abspath(__file__ + "/../../../../image/button/default_button_disable_600-150.png"))
+        button = pygame.transform.scale(button, [self.width, self.height])
+
         #текст та його колір
         text = main_font.render(self.text, 1, MAIN_WINDOW_COLOR)
         
         
         #створення кнопки з отриманням її ширини та висоти
-        button = pygame.surface.Surface((self.width, self.height))
-        #заповнити нашу кнопку кольором "BUTTON_COLOR"
-        button.fill(self.button_color)
+        # button = pygame.surface.Surface((self.width, self.height))
+        # #заповнити нашу кнопку кольором "BUTTON_COLOR"
+        # button.fill(self.button_color)
 
         text_width = self.text_size * len(self.text)
 
@@ -77,8 +80,8 @@ button_quit = Button(x = 100, y = 535, width = BUTTON_MENU_WIDTH, height = BUTTO
 shop_coursor1 = Button(x = 25, y = 200, width = 225, height = 450, text = "1")
 shop_coursor2 = Button(x = 300, y = 200, width = 225, height = 450, text = "2")
 shop_coursor3 = Button(x = 575, y = 200, width = 225, height = 450, text = "3")
-shop_coursor4 = Button(x = 800, y = 200, width = 225, height = 450, text = "4")
-shop_coursor5 = Button(x = 975, y = 200, width = 225, height = 450, text = "5")
+shop_coursor4 = Button(x = 850, y = 200, width = 225, height = 450, text = "4")
+shop_coursor5 = Button(x = 1125, y = 200, width = 225, height = 450, text = "5")
 
 #Створення кнопок для екрану 
 button_ready = Button(x = 970, y = 680, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
