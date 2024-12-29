@@ -41,27 +41,35 @@ def start_server():
         while True:  
 
             if number:
-                shot2 = client_socket2.recv(20).decode()
+                shot2 = client_socket2.recv(30).decode()
+                shot2k = client_socket2.recv(25).decode()
                 print("send 1 by 2")
                 shot2 = shot2.strip("[]")
                 print(type(shot2), shot2)
                 shot2 = [int(num) for num in shot2.split(",")]
-                number = int(not bool(shot2[4]))
+                number = bool(shot2[4])
+                number = not number
+                number = int(number)
                 print(number)
                 shot2 = ",".join(map(str, shot2))
                 client_socket1.sendall(shot2.encode())
+                client_socket1.sendall(shot2k.encode())
                 print("sendall 1")  
 
             elif not number:
-                shot1 = client_socket1.recv(20).decode()
+                shot1 = client_socket1.recv(30).decode()
+                shot1k = client_socket1.recv(25).decode()
                 shot1 = shot1.strip("[]")
                 print("send 2 by 1")
                 print(type(shot1), shot1)
                 shot1 = [int(num) for num in shot1.split(",")]
-                number = int(not bool(shot2[4]))
+                number = bool(shot2[4])
+                number = not number
+                number = int(number)
                 print(number)
                 shot1 = ",".join(map(str, shot1))
                 client_socket2.sendall(shot1.encode())
+                client_socket2.sendall(shot1k.encode())
                 print("sendall 2")     
 
 server_thread = Thread(target = start_server) 

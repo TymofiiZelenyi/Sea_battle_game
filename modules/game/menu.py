@@ -17,12 +17,12 @@ GOLD = data["main"]["GOLD"]
 FPS = data["main"]["FPS"]
 def menu():
 
-    # GOLD = data['main']['GOLD']
-    # print(GOLD)
-    # GOLD += 100
-    # print(GOLD)
-    # data['main']['GOLD'] = GOLD
-    # write_json(fd='settings.json', name_dict = data)
+#GOLD = data['main']['GOLD']
+#print(GOLD)
+#GOLD += 100
+#print(GOLD)
+#data['main']['GOLD'] = GOLD
+#write_json(fd='settings.json', name_dict = data)
     
     run_menu = True
 
@@ -33,7 +33,7 @@ def menu():
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/background.png"))
     bg = pygame.transform.scale(bg, [1400, 800])
 
-    count_gold = Text(x = 1050, y = 70, text = str(GOLD), text_size=50, color="Red")
+    count_gold = Text(x = 1050, y = 70, text = str(GOLD), text_size=50, color="#dba800")
     
     while run_menu:
         

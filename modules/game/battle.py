@@ -66,11 +66,15 @@ def battle():
         client_socket.connect(("192.168.1.12", 8081))
         print("connect")
     
-    def sending(row, cell, number, type, turn):
+    def sending(row, cell, number, type, turn, kill_type):
         data = [row, cell, number, type, turn]
+        data1 = [kill_type]
         print(data)
+        print(data1)
         data = json.dumps(data)
+        data1 = json.dumps(data1)
         client_socket.sendall(data.encode())
+        client_socket.sendall(data1.encode())
         print("sending")
         
         
@@ -83,7 +87,7 @@ def battle():
             # client_socket.sendall("LOSE")
             return "LOSE"
 
-    def finder(row, cell):
+    def  finder(row, cell):
         #########################
  
         if row != 0 and row != 9 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
@@ -330,6 +334,10 @@ def battle():
             return type
                
     def map(list, row, cell, number, type):
+        if type == None:
+            print("daont kill")
+            return
+        
         if type == "trio center": 
             if row != 0: 
                 miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60)) 
@@ -587,12 +595,15 @@ def battle():
         y2 += 60
         x2 = 730
 
-    def test():
+    def always_recv():
         while True:
-            data = client_socket.recv(400).decode()
+            data = client_socket.recv(30).decode()
+            data1 = client_socket.recv(25).decode()
             if data:
                 data = data.strip("[]")
                 data = list([int(num) for num in data.split(",")])
+
+                data1 = data1.strip("[]")
 
                 print(data)
  
@@ -601,14 +612,16 @@ def battle():
                 c_number = int(data[2])
                 c_type = int(data[3])
                 turn = int(data[4])
+                kill_type = data1
                 print(turn)
-                print(c_row, c_cell, c_number, c_type, turn)
+                print(c_row, c_cell, c_number, c_type, turn, kill_type)
                 empyt = 0
                 for item in row_list_player:  
                     if empyt == c_number: 
                         if c_type:
                             hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
                             print("hit")
+                            map(row_list_player, c_row, c_cell, c_number, kill_type)
                         elif not c_type:
                             miss_list.append(pygame.Rect(item.x, item.y ,60, 60))   
                             print("miss")
@@ -616,7 +629,7 @@ def battle():
                     empyt +=1
                 map(row_list_player, c_row, c_cell, c_number, c_type)
 
-    test_thread = Thread(target = test) 
+    test_thread = Thread(target = always_recv) 
     test_thread.start()
 
     while run_battle:    
@@ -706,6 +719,7 @@ def battle():
                         print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}")                    
                         item.CLOSE = True
                         type = finder(row, cell)
+                        print(type)
                         map(row_list_enemy, row, cell, number, type)
                         res = check(player_map2, player_map1)
                         
@@ -718,7 +732,7 @@ def battle():
                             else:
                                 return lose()
                             
-                        sending(row, cell, number, 1, 0)
+                        sending(row, cell, number, 1, 0, kill_type = type)
                   
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
                         miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
@@ -726,7 +740,7 @@ def battle():
                         item.CLOSE = True   
                         print("Поле врага: Не попал", row , cell , player_map2[row][cell])  
 
-                        sending(row, cell, number, 0, 1)  
+                        sending(row, cell, number, 0, 1, kill_type= None)  
                         turn = False 
 
                     number +=1
