@@ -336,7 +336,6 @@ def battle():
     def map(list, row, cell, number, type):
         if type == None:
             print("daont kill")
-            return
         
         if type == "trio center": 
             if row != 0: 
@@ -601,7 +600,7 @@ def battle():
             data1 = client_socket.recv(25).decode()
             if data:
                 data = data.strip("[]")
-                data = list([int(num) for num in data.split(",")])
+                data = [int(num) for num in data.split(",")]
 
                 data1 = data1.strip("[]")
 
@@ -613,16 +612,24 @@ def battle():
                 c_type = int(data[3])
                 turn = int(data[4])
                 kill_type = data1
+                kill_type = kill_type.strip(" ")
+                print(c_number)
+                print(kill_type)
                 print(turn)
                 print(c_row, c_cell, c_number, c_type, turn, kill_type)
                 empyt = 0
                 for item in row_list_player:  
                     if empyt == c_number: 
+                        if kill_type:
+                            map(row_list_player, c_row, c_cell, c_number, kill_type)
+                            print("map")
+
                         if c_type:
+                            print(turn)
                             hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
                             print("hit")
-                            map(row_list_player, c_row, c_cell, c_number, kill_type)
                         elif not c_type:
+                            print(turn)
                             miss_list.append(pygame.Rect(item.x, item.y ,60, 60))   
                             print("miss")
 
@@ -702,6 +709,7 @@ def battle():
                     row = number // 10
                     cell = number % 10
                     if item.collidepoint(position):
+                        print(turn)
                         print(row, cell, player_map2[row][cell])
                     
                     number += 1                    
