@@ -16,14 +16,6 @@ data = read_json(fd="settings.json")
 GOLD = data["main"]["GOLD"]
 FPS = data["main"]["FPS"]
 def menu():
-
-#GOLD = data['main']['GOLD']
-#print(GOLD)
-#GOLD += 100
-#print(GOLD)
-#data['main']['GOLD'] = GOLD
-#write_json(fd='settings.json', name_dict = data)
-    
     run_menu = True
 
     im_coin = pygame.image.load(os.path.abspath(__file__ + "/../../../image/coins/coin.png"))
@@ -55,24 +47,28 @@ def menu():
 
         count_gold.text_draw(screen = screen)
 
-        wait_opponent_window = button_play.checkPress(position = position, press = press)
-        settigs_window = button_settings.checkPress(position = position, press = press)
-        shop_win = button_shop.checkPress(position = position, press = press)
-        quit = button_quit.checkPress(position = position, press = press)
-
-        if wait_opponent_window:
-            placement()
-        if settigs_window:
-            settings_real()
-        if shop_win:
-            shop()
-        if quit:
-            run_menu = False
+        # print(clock.get_fps())
 
         pygame.display.flip()
         clock.tick(FPS)
 
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP and press[0]:
+
+                wait_opponent_window = button_play.checkPress(position = position, press = press)
+                settigs_window = button_settings.checkPress(position = position, press = press)
+                shop_win = button_shop.checkPress(position = position, press = press)
+                quit = button_quit.checkPress(position = position, press = press)
+
+                if wait_opponent_window:
+                    placement()
+                if settigs_window:
+                    settings_real()
+                if shop_win:
+                    shop()
+                if quit:
+                    run_menu = False
+
             if event.type == pygame.QUIT:
                 run_menu = False
                 pygame.quit()

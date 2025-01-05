@@ -41,53 +41,55 @@ def shop():
         shop_coursor3.button_draw(screen = screen)
         shop_coursor4.button_draw(screen = screen)
         shop_coursor5.button_draw(screen = screen)
-
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
         
-        shop_coursor_1 = shop_coursor1.checkPress(position = position, press = press)
-        shop_coursor_2 = shop_coursor2.checkPress(position = position, press = press)
-        shop_coursor_3 = shop_coursor3.checkPress(position = position, press = press)
-        shop_coursor_4 = shop_coursor4.checkPress(position = position, press = press)
-        shop_coursor_5 = shop_coursor5.checkPress(position = position, press = press)
-
-        if shop_coursor_1:
-            anchor = False
-            raft = False
-            pygame.mouse.set_visible(True)
-            pygame.mouse.set_cursor(*pygame.cursors.arrow)
-        if shop_coursor_2:
-            anchor = False
-            raft = False
-            pygame.mouse.set_visible(True)
-            pygame.mouse.set_cursor(*pygame.cursors.diamond)
-        if shop_coursor_3:
-            anchor = False
-            raft = False
-            pygame.mouse.set_visible(True)
-            pygame.mouse.set_cursor(*pygame.cursors.tri_left)
-        if shop_coursor_4:
-            anchor = True
-            raft = False
-        if shop_coursor_5:
-            anchor = False
-            raft = True
-        
-        if anchor:
-            pygame.mouse.set_visible(False)
-            cursor(name ="cursor_anchor",screen=screen)
-        
-        if raft:
-            pygame.mouse.set_visible(False)
-            cursor(name ="cursor_raft",screen=screen)
-        
-        
-        if back_to_menu:
-            return "HOME"
+        # print(clock.get_fps())
         
         pygame.display.flip()
-        clock.tick(FPS)
+        clock.tick(60)
 
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP and press[0]:
+
+                back_to_menu = button_back_menu.checkPress(position = position, press = press)
+                shop_coursor_1 = shop_coursor1.checkPress(position = position, press = press)
+                shop_coursor_2 = shop_coursor2.checkPress(position = position, press = press)
+                shop_coursor_3 = shop_coursor3.checkPress(position = position, press = press)
+                shop_coursor_4 = shop_coursor4.checkPress(position = position, press = press)
+                shop_coursor_5 = shop_coursor5.checkPress(position = position, press = press)
+
+                if shop_coursor_1:
+                    anchor = False
+                    raft = False
+                    pygame.mouse.set_visible(True)
+                    pygame.mouse.set_cursor(*pygame.cursors.arrow)
+                if shop_coursor_2:
+                    anchor = False
+                    raft = False
+                    pygame.mouse.set_visible(True)
+                    pygame.mouse.set_cursor(*pygame.cursors.diamond)
+                if shop_coursor_3:
+                    anchor = False
+                    raft = False
+                    pygame.mouse.set_visible(True)
+                    pygame.mouse.set_cursor(*pygame.cursors.tri_left)
+                if shop_coursor_4:
+                    anchor = True
+                    raft = False
+                if shop_coursor_5:
+                    anchor = False
+                    raft = True
+                
+                if anchor:
+                    pygame.mouse.set_visible(False)
+                    cursor(name ="cursor_anchor",screen=screen)
+                
+                if raft:
+                    pygame.mouse.set_visible(False)
+                    cursor(name ="cursor_raft",screen=screen)
+                
+                if back_to_menu:
+                    return "HOME"
+                
             if event.type == pygame.QUIT:
-                run_wait_opponent = False
+                run_shop = False
                 pygame.quit()

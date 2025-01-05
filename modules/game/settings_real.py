@@ -56,23 +56,26 @@ def settings_real():
         settings_text.text_draw(screen = screen)
         button_back_menu.button_draw(screen = screen)
         sound1.button_draw(screen = screen)
-
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
         
-        if back_to_menu:
-            return "HOME"
+        # print(clock.get_fps())
         
         pygame.display.flip()
         clock.tick(FPS)
 
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP and press[0]:
+                back_to_menu = button_back_menu.checkPress(position = position, press = press)
+            
+                if back_to_menu:
+                    return "HOME"
+                
             if event.type == pygame.MOUSEBUTTONUP and plus_rect.collidepoint(position) and press[0]:
                 ON +=1
                 pygame.mixer.music.set_volume(ON / 10)
             elif event.type == pygame.MOUSEBUTTONUP and min_rect.collidepoint(position) and press[0]:
                 ON -= 1
                 pygame.mixer.music.set_volume(ON / 10)
-                    
+                        
             if event.type == pygame.QUIT:
                 run_settings = False
                 pygame.quit()

@@ -21,18 +21,21 @@ def wait_opponent():
         press = pygame.mouse.get_pressed()
 
         wait_opponent_text.button_draw(screen = screen)
-        
-        placement_window = wait_opponent_text.checkPress(position = position, press = press)
-
-        if placement_window:
-            res = battle()
-            if res == "BACK":
-                return res
+            
+        # print(clock.get_fps())
         
         pygame.display.flip()
         clock.tick(FPS)
 
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONUP and press[0]:
+                placement_window = wait_opponent_text.checkPress(position = position, press = press)
+
+                if placement_window:
+                    res = battle()
+                    if res == "BACK":
+                        return res
+            
             if event.type == pygame.QUIT:
                 run_wait_opponent = False
                 pygame.quit()

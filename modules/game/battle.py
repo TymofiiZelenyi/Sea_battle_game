@@ -8,13 +8,12 @@ from threading import Thread
 from .basement import *
 from .map import *
 
-data = read_json(fd="settings.json")
+data_settings = read_json(fd="settings.json")
 
-PLACE_LENGTH = data["color"]["PLACE_LENGTH"]
-FPS = data["main"]["FPS"]
+PLACE_LENGTH = data_settings["color"]["PLACE_LENGTH"]
+FPS = data_settings["main"]["FPS"]
 
 def battle():
-    run_battle = True
 
     player_map2 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -29,7 +28,12 @@ def battle():
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
     
+    global turn
+    global run_battle
+
     turn = False
+    stop_thread = True
+    run_battle = True
 
     #Наше поле (your screen)
     sq_your = pygame.Rect((70, 180, PLACE_LENGTH, PLACE_LENGTH))
@@ -62,282 +66,280 @@ def battle():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def connect_to():
-        print("1")
         client_socket.connect(("192.168.1.12", 8081))
         print("connect")
     
-    def sending(row, cell, number, type, turn, kill_type):
-        data = [row, cell, number, type, turn]
-        data1 = [kill_type]
+    def sending(row, cell, number, shot_type, turn, kill_type):
+        data = [row, cell, number, shot_type, turn, kill_type]
         print(data)
-        print(data1)
         data = json.dumps(data)
-        data1 = json.dumps(data1)
         client_socket.sendall(data.encode())
-        client_socket.sendall(data1.encode())
-        print("sending")
-        
-        
-    def check(player_map, enemy_map):
-        if all(cell != 1 for row in player_map for cell in row):
-            # client_socket.sendall("WIN")
-            return "WIN"
-        
-        elif all(cell != 1 for row in enemy_map for cell in row):
-            # client_socket.sendall("LOSE")
-            return "LOSE"
 
-    def  finder(row, cell):
+        print("sending")
+
+    def check_lose():
+        if all(cell != 1 for row in player_map1 for cell in row):
+            data_settings["main"]["GOLD"] += 25
+            write_json(fd='settings.json', name_dict = data_settings)
+            return "LOSE"
+             
+    def check_win():
+        if all(cell != 1 for row in player_map2 for cell in row):
+            data_settings["main"]["GOLD"] += 100
+            write_json(fd='settings.json', name_dict = data_settings)
+            return "WIN"
+
+    def finder(row, cell):
         #########################
+        # 100 nothing
+        # 1 solo
+        # 1-1 11 duo left
+        # 1-2 12 duo top
+        # 1-3 13 duo right
+        # 1-4 14 duo down
+        # 2-0 20 trio center
  
         if row != 0 and row != 9 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = "solo"
+            type = 1
             return type
 
-        if row == 0 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
-            type = "solo"
+        elif row == 0 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
+            type = 1
             return type
 
-        if row == 9 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
-            type = "solo"
+        elif row == 9 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
+            type = 1
             return type
         
-        if cell == 0 and row != 0 and row != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = "solo"
+        elif cell == 0 and row != 0 and row != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 1
             return type
 
-        if cell == 9 and row != 0 and row != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = "solo"
+        elif cell == 9 and row != 0 and row != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 1
             return type
         
-        if cell == 0 and row == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0:
-            type = "solo"
+        elif cell == 0 and row == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0:
+            type = 1
             return type
 
-        if cell == 0 and row == 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row-1][cell] == 0:
-            type = "solo"
+        elif cell == 0 and row == 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row-1][cell] == 0:
+            type = 1
             return type
 
-        if cell == 9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
-            type = "solo"
+        elif cell == 9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
+            type = 1
             return type
 
-        if cell == 9 and row == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
-            type = "solo"
+        elif cell == 9 and row == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
+            type = 1
             return type
      
         #########################
 
-        if row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = "duo left"
+        elif row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 11
             return type
 
-        if row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-1] == 0 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0:
-            print("HELLO")
-            type = "duo left"
+        elif row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-1] == 0 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0:
+            type = 11
             return type
 
-        if row == 9 and cell != 0 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
-            print("ыгзук toфафафxa")
-            type = "duo left"
+        elif row == 9 and cell != 0 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
+            type = 11
             return type
 
-        if row != 0 and row != 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            print("ыгзук toxa")
-            type = "duo left"
+        elif row != 0 and row != 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 1-1
             return type
 
-        if row != 9 and row != 0 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0 and player_map2[row+1][cell] == 0:
-            print("toxa")
-            type = "duo left"
+        elif row != 9 and row != 0 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0 and player_map2[row+1][cell] == 0:
+            type = 11
             return type
       
-        if row == 0 and cell == 0  and player_map2[row][cell-1] == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2:
-            print("tttttttt")
-            type = "duo left"
+        elif row == 0 and cell == 0  and player_map2[row][cell-1] == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2:
+            type = 11
             return type
 
-        if row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0:
-            print("toxa1")
-            type = "duo left"
+        elif row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0:
+            type = 11
             return type
 
-        if row == 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+2] == 0:
-            print("toxa2")
-            type = "duo left"
+        elif row == 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+2] == 0:
+            type = 11
             return type
 
-        if row == 9 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0:
-            print("toxa3")
-            type = "duo left"
+        elif row == 9 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0:
+            type = 11
             return type
 
         ######################### 
         
-        if row != 0 and row != 9 and cell != 1 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = "duo right"
+        elif row != 0 and row != 9 and cell != 1 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 13
             return type
 
-        if row == 0 and cell != 1 and cell != 2 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0:
-            type = "duo right"
+        elif row == 0 and cell != 1 and cell != 2 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0:
+            type = 13
             return type
 
-        if row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row-1][cell] == 0:
-            type = "duo right"
+        elif row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row-1][cell] == 0:
+            type = 13
             return type
 
-        if row != 0 and row != 9 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and  player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = "duo right"
+        elif row != 0 and row != 9 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and  player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 13
             return type
 
-        if row != 9 and row != 0 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row-1][cell] == 0 and player_map2[row+1][cell] == 0:
-            type = "duo right"
+        elif row != 9 and row != 0 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row-1][cell] == 0 and player_map2[row+1][cell] == 0:
+            type = 13
             return type
       
-        if row == 0 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
-            print("LEFT TOP")
-            type = "duo right"
+        elif row == 0 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 13
             return type
 
-        if row == 0 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-2] == 0:
-            print("RIGHT TOP")
-            type = "duo right"
+        elif row == 0 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-2] == 0:
+            type = 13
             return type
 
-        if row == 9 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
-            print("LEFT BUTTON")
-            type = "duo right"
+        elif row == 9 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 13
             return type
 
-        if row == 9 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell-2] == 0:
-            print("RIGHT BUTTON")
-            type = "duo right"
+        elif row == 9 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell-2] == 0:
+            type = 13
             return type
 
         
         ###########################
 
-        if cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo top"
+        elif cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+            type = 12
             return type
 
-        if cell != 0 and cell !=9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo top"
+        elif cell != 0 and cell !=9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row][cell-1] == 0:
+            type = 12
             return type
 
-        if cell != 0 and cell !=9 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and  player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row][cell+1] == 0:
-            type = "duo top"
+        elif cell != 0 and cell !=9 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and  player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row][cell+1] == 0:
+            type = 12
             return type
 
-        if cell == 0 and row != 0 and row != 8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
-            type = "duo top"
+        elif cell == 0 and row != 0 and row != 8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 12
             return type
             
-        if cell == 9 and row != 0 and row != 8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo top"
+        elif cell == 9 and row != 0 and row != 8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 0:
+            type = 12
             return type
 
-        if cell == 0 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell+1] == 0:
-            print("duo top 1")
-            type = "duo top"
+        elif cell == 0 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 12
             return type
 
-        if cell == 9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell-1] == 0:
-            print("duo top 2 ")
-            type = "duo top"
+        elif cell == 9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell-1] == 0:
+            type = 12
             return type
 
-        if cell == 0 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
-            print("duo top 3")
-            type = "duo top"
+        elif cell == 0 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 12
             return type
 
-        if cell == 9 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row-1][cell] == 0 and player_map2[row-1][cell] == 0:
-            print("duo top 4")
-            type = "duo top"
+        elif cell == 9 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row-1][cell] == 0 and player_map2[row-1][cell] == 0:
+            type = 12
             return type
         
         #########################   
         
-        if cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo button"
+        elif cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+            type = 14
             return type
 
-        if cell != 0 and cell !=9 and row == 1 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2  and player_map2[row+1][cell] == 0  and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo button"
+        elif cell != 0 and cell !=9 and row == 1 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2  and player_map2[row+1][cell] == 0  and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+            type = 14
             return type
 
-        if  cell != 0 and cell !=9 and row == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0  and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo button"
+        elif  cell != 0 and cell !=9 and row == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0  and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+            type = 14
             return type
 
-        if row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
-            type = "duo button"
+        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 14
             return type
 
-        if row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
-            type = "duo button"
+        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
+            type = 14
             return type
 
-        if row == 1 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
-            type = "duo button"
+        elif row == 1 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 14
             return type
 
-        if row == 1 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo button"
+        elif row == 1 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-1] == 0:
+            type = 14
             return type
 
-        if row == 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell+1] == 0:
-            type = "duo button"
+        elif row == 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell+1] == 0:
+            type = 14
             return type
 
-        if row == 9 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell-1] == 0:
-            type = "duo button"
+        elif row == 9 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell-1] == 0:
+            type = 14
             return type
         
         #########################
 
-        if row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0: 
-            type = "trio center" 
+        elif row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0: 
+            type = 20 
             return type 
      
-        if cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0:  
-            type = "trio center" 
+        elif cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0:  
+            type = 20 
             return type
 
-        if cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0:  
-            type = "trio center" 
+        elif cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0:  
+            type = 20 
             return type
 
-        if row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row +1][cell] == 0:  
-            type = "trio center" 
+        elif row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row +1][cell] == 0:  
+            type = 20 
             return type
 
-        if row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row -1][cell] == 0:  
-            type = "trio center" 
+        elif row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row -1][cell] == 0:  
+            type = 20 
             return type
 
-        if row == 0 and cell == 2 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0:
-            type = "trio center" 
+        elif row == 0 and cell == 2 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0:
+            type = 20 
             return type
 
-        if row == 0 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row+1][cell] == 0:
-            type = "trio center" 
+        elif row == 0 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row+1][cell] == 0:
+            type = 20 
             return type
 
-        if row == 9 and cell == 2 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row-1][cell] == 0:
-            type = "trio center" 
+        elif row == 9 and cell == 2 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row-1][cell] == 0:
+            type = 20 
             return type
 
-        if row == 9 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row-1][cell] == 0:
-            type = "trio center" 
+        elif row == 9 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row-1][cell] == 0:
+            type = 20 
+            return type
+
+        else:
+            type = 100
             return type
                
-    def map(list, row, cell, number, type):
-        if type == None:
-            print("daont kill")
+    def map(list, row, cell, number, shot_type):
+
+        print(list[number].x, list[number].x)
+        print(type(row), type(cell), type(number), type(shot_type))
+        print(row, cell, number, shot_type) 
+
+        if shot_type == 100:
+            print("all good")
         
-        if type == "trio center": 
+        if shot_type == 20: 
             if row != 0: 
                 miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60)) 
                 list[number- 10].CLOSE = True 
@@ -371,7 +373,7 @@ def battle():
                 miss_list.append(pygame.Rect(list[number+12].x, list[number+12].y, 60, 60)) 
                 list[number+ 12].CLOSE = True
         
-        elif type == "duo top":
+        elif shot_type == 12:
             if row != 8:
                 miss_list.append(pygame.Rect(list[number+ 20].x, list[number+ 20].y, 60, 60))
                 list[number+ 20].CLOSE = True 
@@ -409,7 +411,7 @@ def battle():
                 list[number+ 21].CLOSE = True
                 print("RIGHR BUTTON")
             
-        elif type == "duo button":
+        elif shot_type == 14:
             if row != 9:
                 miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60))
                 list[number+ 10].CLOSE = True 
@@ -447,7 +449,7 @@ def battle():
                 list[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
         
-        elif type == "duo right":
+        elif shot_type == 13:
             if row != 0:
                 miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60))
                 list[number- 11].CLOSE = True
@@ -481,7 +483,7 @@ def battle():
                 list[number+ 11].CLOSE = True
                 print("RIGHR BUTTON")
         
-        elif type == "duo left":
+        elif shot_type == 11:
             if row != 0:
                 miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60))
                 list[number- 10].CLOSE = True
@@ -519,7 +521,8 @@ def battle():
                 list[number+ 12].CLOSE = True
                 print("RIGHR BUTTON")
             
-        elif type == "solo":
+        elif shot_type == 1:
+            print(shot_type, "I am here")
             if row != 9 and player_map2[row+1][cell] == 0:
                 miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60))
                 list[number+ 10].CLOSE = True 
@@ -561,22 +564,16 @@ def battle():
 
     print(player_map2)
     data = client_socket.recv(400)
-    
-    try:
-        player_map2 = json.loads(data.decode())
-        print("recv map")
-        print(player_map2)
-    except Exception as e:
-        print(f"Ошибка: {e}")
 
-    print(turn)
+    player_map2 = json.loads(data.decode())
+    print("recv map")
+    print(player_map2)
+
     turn = client_socket.recv(10).decode()
     if turn == "you":
         turn = True
     elif turn == "not":
         turn = False
-    print(turn)
-    
 
     for row in range(10):
         for cell in range(10):
@@ -595,46 +592,46 @@ def battle():
         x2 = 730
 
     def always_recv():
-        while True:
-            data = client_socket.recv(30).decode()
-            data1 = client_socket.recv(25).decode()
+        global turn
+        global run_battle
+        
+        while stop_thread:
+            data = client_socket.recv(35).decode()
             if data:
                 data = data.strip("[]")
                 data = [int(num) for num in data.split(",")]
 
-                data1 = data1.strip("[]")
-
-                print(data)
- 
                 c_row = int(data[0])
                 c_cell = int(data[1])
                 c_number = int(data[2])
                 c_type = int(data[3])
                 turn = int(data[4])
-                kill_type = data1
-                kill_type = kill_type.strip(" ")
-                print(c_number)
-                print(kill_type)
-                print(turn)
-                print(c_row, c_cell, c_number, c_type, turn, kill_type)
-                empyt = 0
-                for item in row_list_player:  
-                    if empyt == c_number: 
-                        if kill_type:
-                            map(row_list_player, c_row, c_cell, c_number, kill_type)
-                            print("map")
+                kill_type = int(data[5])
+                 
+                empyt= 0
+                for item in row_list_player:
+                    if empyt == c_number:
+                        if c_type == 1:                    
+                            hit_list.append(pygame.Rect(item.x, item.y ,60, 60)) 
+                            print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
+                            player_map1[c_row][c_cell] = 2
+                            print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}") 
 
-                        if c_type:
-                            print(turn)
-                            hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
+                            map(row_list_player, c_row, c_cell, c_number, kill_type)  
+
+                            res = check_lose()
+                            print(res)
                             print("hit")
-                        elif not c_type:
-                            print(turn)
-                            miss_list.append(pygame.Rect(item.x, item.y ,60, 60))   
+                            if res == "LOSE":
+                                turn = False
+                                run_battle = False
+                                lose()
+                        
+                        elif c_type == 0:
+                            miss_list.append(pygame.Rect(item.x, item.y ,60, 60))  
                             print("miss")
-
-                    empyt +=1
-                map(row_list_player, c_row, c_cell, c_number, c_type)
+                    
+                    empyt+= 1
 
     test_thread = Thread(target = always_recv) 
     test_thread.start()
@@ -671,7 +668,7 @@ def battle():
             number2 += 1
 
         for item in cell_list_enemy:
-            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)\
+            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, item)
             
         screen.blit(bg, (70, 180))
         screen.blit(bg, (730, 180))
@@ -698,6 +695,8 @@ def battle():
         for item in hit_list:
             screen.blit(hit, (item.x, item.y))
 
+        # print(clock.get_fps())
+        
         pygame.display.flip()
         clock.tick(FPS)      
         
@@ -726,30 +725,26 @@ def battle():
                         player_map2[row][cell] = 2
                         print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}")                    
                         item.CLOSE = True
-                        type = finder(row, cell)
-                        print(type)
-                        map(row_list_enemy, row, cell, number, type)
-                        res = check(player_map2, player_map1)
                         
-                        if res:
-                            print("test")
-                            if res == "WIN":  
-                                data['main']['GOLD'] += 100
-                                write_json(fd='settings.json', name_dict = data)
-                                return win()
-                            else:
-                                return lose()
-                            
-                        sending(row, cell, number, 1, 0, kill_type = type)
-                  
+                        shot_type = finder(row, cell)
+                        map(row_list_enemy, row, cell, number, shot_type)
+
+                        sending(row, cell, number, 1, 0, kill_type= shot_type)
+
+                        res = check_win()
+                        print(res)
+                        if res == "WIN":
+                            turn = False
+                            run_battle = False
+                            win()
+            
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
                         miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
-                        # turn = False
-                        item.CLOSE = True   
-                        print("Поле врага: Не попал", row , cell , player_map2[row][cell])  
+                        print("Поле врага: Не попал", row , cell , player_map2[row][cell])
+                        item.CLOSE = True  
+                        turn = False   
 
-                        sending(row, cell, number, 0, 1, kill_type= None)  
-                        turn = False 
+                        sending(row, cell, number, 0, 1, kill_type = 100)  
 
                     number +=1
 
@@ -771,6 +766,7 @@ def battle():
 
 def win():
     run_win = True
+
     while run_win:
         screen.fill((MAIN_WINDOW_COLOR))
         

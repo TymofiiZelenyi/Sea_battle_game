@@ -45,7 +45,7 @@ def placement():
 
     last = True
     last_row = 0 
-    last_cell =0
+    last_cell = 0
 
     while run_placement:
         screen.fill(MAIN_WINDOW_COLOR)
@@ -68,26 +68,21 @@ def placement():
         press = pygame.mouse.get_pressed()
         
         put_ships.button_draw(screen = screen)
-        your_ships.button_draw(screen = screen)
-        
+        your_ships.button_draw(screen = screen)   
         button_ready.button_draw(screen = screen)
-        button_ready_window = button_ready.checkPress(position = position, press = press)
-
-        if button_ready_window and any(ship.STAY for ship in ship_list):
-            res = wait_opponent()
-            if res == "BACK":
-                return "HOME"
 
         for ship in ship_list:
             ship.ship_draw(screen= screen)
             ship.move(position= position, press= press, screen= screen)
 
+        # print(clock.get_fps())
+
         pygame.display.flip()
         clock.tick(FPS)
         
-        for event in pygame.event.get():
+        for event in pygame.event.get():            
             if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
-                print("TAKE")
+                print("TAKE")  
                 number = 0
                 for item in row_list:
                     for ship in ship_list:
@@ -95,6 +90,7 @@ def placement():
                         row = number // 10 
                         
                         ship.take_ship(position= position, press= press)
+
                         if item.collidepoint(position) and ship.WHERE and last:
                             last_cell = cell
                             last_row = row
@@ -103,8 +99,7 @@ def placement():
                             last = True
 
                     number += 1
-            
-            
+
             if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
                 print("REBUT")
                 number = 0
@@ -118,14 +113,18 @@ def placement():
                                 player_map1[last_row][last_cell] = 0
                             if ship.count_length != 1 and ship.DIR:
                                 for i in range(ship.count_length):
-                                    player_map1[last_row][last_cell+i] = 0
+                                    print(last_cell + i)
+                                    if last_cell + i < 10:
+                                        player_map1[last_row][last_cell+i] = 0
                             if ship.count_length != 1 and not ship.DIR:
                                 for i in range(ship.count_length):
-                                    player_map1[last_row+i][last_cell] = 0
+                                    print(last_row + i)
+                                    if last_row + i < 10:
+                                        player_map1[last_row+i][last_cell] = 0
 
                     number += 1
             
-            if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:
+            if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:            
                 print("PUT DOWN")
                 number = 0
                 for item in row_list:
@@ -229,10 +228,7 @@ def placement():
                                 ship.DIR =  True
                                 ship.x = ship.start_x
                                 ship.y = ship.start_y
-                                          
-
-                        
-                        
+                                                            
                         #умова, при якій наший кораблик повертається на стартові координати, якщо його ставлять за рамками поля.
 
                         elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]:
@@ -242,13 +238,22 @@ def placement():
                             ship.x = ship.start_x
                             ship.y = ship.start_y
                         
-                    number += 1      
-            
-            if event.type == pygame.MOUSEBUTTONUP and press[2] and not press[1]:
+                    number += 1
+
+            if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
                 for ship in ship_list:
                     if ship.MOVE:
                         ship.LAST_DIR = ship.DIR
                         ship.DIR = not ship.DIR  
+
+            if press[0]:
+                button_ready_window = button_ready.checkPress(position = position, press = press)
+
+                if button_ready_window and any(ship.STAY for ship in ship_list):
+                    res = wait_opponent()
+            
+                    if res == "BACK":
+                        return "HOME"     
             
             if event.type == pygame.QUIT:
                 run_placement = False

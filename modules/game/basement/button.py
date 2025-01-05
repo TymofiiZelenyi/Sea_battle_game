@@ -1,6 +1,6 @@
 import pygame
 import os
-
+pygame.init()
 from .read_json import read_json
 
 data = read_json(fd="settings.json")
@@ -25,38 +25,29 @@ class Button():
         self.button_color = button_color
         
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.load_text()
     
-    
-    #функція відображення кнопки з її текстом.
-    def button_draw(self, screen):
-
+    def load_text(self):
         #шрифт тексту та його величина
         path_to_fonts = os.path.abspath(__file__+ "/../../../../fonts/")
         main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
 
-        button = pygame.image.load(os.path.abspath(__file__ + "/../../../../image/button/default_button_disable_600-150.png"))
-        button = pygame.transform.scale(button, [self.width, self.height])
+        self.button = pygame.image.load(os.path.abspath(__file__ + "/../../../../image/button/default_button_disable_600-150.png"))
+        self.button = pygame.transform.scale(self.button, [self.width, self.height])
 
         #текст та його колір
-        text = main_font.render(self.text, 1, MAIN_WINDOW_COLOR)
-        
-        
-        #створення кнопки з отриманням її ширини та висоти
-        # button = pygame.surface.Surface((self.width, self.height))
-        # #заповнити нашу кнопку кольором "BUTTON_COLOR"
-        # button.fill(self.button_color)
-
+        self.text_obj = main_font.render(self.text, 1, MAIN_WINDOW_COLOR)
         text_width = self.text_size * len(self.text)
 
-        text_height = self.text_size
-
-        text_x = (self.width - text_width) //2
-        text_y = (self.height - text_height) //2
-
-
+        self.text_x = (self.width - text_width) //2
+        self.text_y = (self.height - self.text_size) //2
+    
+    
+    #функція відображення кнопки з її текстом.
+    def button_draw(self, screen):
         #Розміщення нашої кнопки та тексту по кординатам.
-        screen.blit(button, (self.x, self.y))
-        screen.blit(text, (self.x + text_x, self.y + text_y))
+        screen.blit(self.button, (self.x, self.y))
+        screen.blit(self.text_obj, (self.x + self.text_x, self.y + self.text_y))
 
     #функція відслідження нажиму на кнопку
     def checkPress(self, position, press):
@@ -110,13 +101,17 @@ class Text():
         self.text_size = text_size
         self.color = color 
 
-    def text_draw(self, screen):
-        
+        self.load()
+
+    def load(self):
+                
         #шрифт тексту та його величина
         path_to_fonts = os.path.abspath(__file__+ "/../../../../fonts/")
-        main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
+        self.main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
 
-        text = main_font.render(self.text, 1, self.color)
+    def text_draw(self, screen):
+
+        text = self.main_font.render(self.text, 1, self.color)
 
         screen.blit(text, (self.x, self.y))
 
