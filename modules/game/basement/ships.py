@@ -69,8 +69,8 @@ class Ships():
             self.rect = pygame.Rect(self.x, self.y, 60, 60 * self.count_length)
             screen.blit(self.image_f, (self.x, self.y))
 
-    def take_ship(self, position, press):
-        if self.rect.collidepoint(position):   
+    def take_ship(self, position):
+        if self.rect.collidepoint(position) and all(ship.TAKE == False for ship in ship_list):   
             if not self.MOVE and big_sq.collidepoint(position):
                 self.WHERE = True
             elif not self.MOVE and small_sq .collidepoint(position):

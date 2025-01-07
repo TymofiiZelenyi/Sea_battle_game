@@ -16,4 +16,4 @@ player_map1 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
-
+player_coordinates = []

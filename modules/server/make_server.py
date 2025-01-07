@@ -57,7 +57,7 @@ def start_server():
                 shot2 = ",".join(map(str, shot2)) 
  
                 client_socket1.sendall(shot2.encode()) 
- 
+                
             elif number == 0: 
                 shot1 = client_socket1.recv(35).decode() 
  

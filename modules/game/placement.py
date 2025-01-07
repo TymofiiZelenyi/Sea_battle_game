@@ -81,16 +81,16 @@ def placement():
         clock.tick(FPS)
         
         for event in pygame.event.get():            
-            if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
+            if not press[1] and not press[2] and event.type == pygame.MOUSEBUTTONDOWN:
                 print("TAKE")  
                 number = 0
                 for item in row_list:
                     for ship in ship_list:
                         cell = number % 10
                         row = number // 10 
-                        
-                        ship.take_ship(position= position, press= press)
 
+                        ship.take_ship(position= position)
+                        
                         if item.collidepoint(position) and ship.WHERE and last:
                             last_cell = cell
                             last_row = row
@@ -101,7 +101,6 @@ def placement():
                     number += 1
 
             if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
-                print("REBUT")
                 number = 0
                 for item in row_list:
                     for ship in ship_list:
@@ -113,19 +112,17 @@ def placement():
                                 player_map1[last_row][last_cell] = 0
                             if ship.count_length != 1 and ship.DIR:
                                 for i in range(ship.count_length):
-                                    print(last_cell + i)
+
                                     if last_cell + i < 10:
                                         player_map1[last_row][last_cell+i] = 0
                             if ship.count_length != 1 and not ship.DIR:
                                 for i in range(ship.count_length):
-                                    print(last_row + i)
                                     if last_row + i < 10:
                                         player_map1[last_row+i][last_cell] = 0
 
                     number += 1
             
             if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:            
-                print("PUT DOWN")
                 number = 0
                 for item in row_list:
                     for ship in ship_list:
@@ -136,7 +133,6 @@ def placement():
                             #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                             if ship.DIR and cell + ship.count_length <= 10 and all(player_map1[row][cell + i] == 0 for i in range(ship.count_length)) and not ship.WHERE:
                                 ship.STAY = True 
-                                print("ИЗ СТАВИМ В НА ПУСТЫЕ КЛЕТКИ")
                                 ship.x = item.x
                                 ship.y = item.y
                                 for i in range(ship.count_length):
@@ -145,29 +141,25 @@ def placement():
 
                             elif ship.DIR and cell + ship.count_length <= 10 and all(player_map1[row][cell + i] == 0 for i in range(ship.count_length)) and ship.WHERE:
                                 ship.STAY = True
-                                print("В НА ПУСТЫЕ")
                                 ship.x = item.x
                                 ship.y = item.y
                                 for i in range(ship.count_length):
                                     player_map1[row][cell+i] = 1
 
                             elif ship.DIR and cell + ship.count_length <= 10 and any(player_map1[row][cell + i] == 1 for i in range(ship.count_length)) and not ship.WHERE: 
-                                print("ИЗ СТАВИМ В ВОЗВРАТ")
                                 ship.STAY = False 
                                 ship.DIR =  True
                                 ship.x = ship.start_x
                                 ship.y = ship.start_y 
 
-                            elif ship.DIR and cell + ship.count_length <= 10 and any(player_map1[row][cell + i] == 1 for i in range(ship.count_length)) and ship.WHERE: 
-                                print("В ВОЗВРАТ")  
+                            elif ship.DIR and cell + ship.count_length <= 10 and any(player_map1[row][cell + i] == 1 for i in range(ship.count_length)) and ship.WHERE:  
                                 ship.STAY = False                 
                                 ship.DIR =  True
                                 ship.x = ship.start_x
                                 ship.y = ship.start_y                   
                                                  
                             #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.
-                            elif ship.DIR and cell + ship.count_length > 10 and not ship.WHERE:
-                                print("ИЗ OVER")  
+                            elif ship.DIR and cell + ship.count_length > 10 and not ship.WHERE: 
                                 ship.STAY = False                    
                                 ship.DIR =  True
                                 ship.x = ship.start_x
@@ -175,7 +167,6 @@ def placement():
                                 
                             
                             elif ship.DIR and cell + ship.count_length > 10 and  ship.WHERE:
-                                print("В OVER")  
                                 ship.STAY = False 
                                 ship.DIR =  True
                                 ship.x = ship.start_x
@@ -185,7 +176,6 @@ def placement():
                             #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                             if not ship.DIR and row + ship.count_length <= 10 and all(player_map1[row + i][cell] == 0 for i in range(ship.count_length)) and not ship.WHERE:
                                 ship.STAY = True
-                                print("ИЗ СТАВИМ В НА ПУСТЫЕ КЛЕТКИ")
                                 ship.x = item.x
                                 ship.y = item.y
                                 for i in range(ship.count_length):
@@ -193,21 +183,18 @@ def placement():
 
                             elif not ship.DIR and row + ship.count_length <= 10 and all(player_map1[row + i][cell] == 0 for i in range(ship.count_length)) and ship.WHERE:
                                 ship.STAY = True
-                                print("В НА ПУСТЫЕ")
                                 ship.x = item.x
                                 ship.y = item.y
                                 for i in range(ship.count_length):
                                     player_map1[row+i][cell] = 1
 
                             elif not ship.DIR and row + ship.count_length <= 10 and any(player_map1[row + i][cell] == 1 for i in range(ship.count_length)) and not ship.WHERE: 
-                                print("ИЗ СТАВИМ В ВОЗВРАТ")
                                 ship.STAY = False 
                                 ship.DIR =  True
                                 ship.x = ship.start_x
                                 ship.y = ship.start_y 
 
                             elif not ship.DIR and row + ship.count_length <= 10 and any(player_map1[row+1][cell] == 1 for i in range(ship.count_length)) and ship.WHERE: 
-                                print("В ВОЗВРАТ") 
                                 ship.STAY = False                    
                                 ship.DIR =  True
                                 ship.x = ship.start_x
@@ -215,7 +202,6 @@ def placement():
                                                  
                             #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.
                             elif not ship.DIR and row + ship.count_length > 10 and not ship.WHERE:
-                                print("ИЗ OVER") 
                                 ship.STAY = False                       
                                 ship.DIR =  True
                                 ship.x = ship.start_x
@@ -223,7 +209,6 @@ def placement():
                                 
                             
                             elif not ship.DIR and row + ship.count_length > 10 and ship.WHERE:
-                                print("В OVER") 
                                 ship.STAY = False                      
                                 ship.DIR =  True
                                 ship.x = ship.start_x
@@ -232,7 +217,6 @@ def placement():
                         #умова, при якій наший кораблик повертається на стартові координати, якщо його ставлять за рамками поля.
 
                         elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]:
-                            print("OUT")  
                             ship.STAY = False       
                             ship.DIR =  True
                             ship.x = ship.start_x

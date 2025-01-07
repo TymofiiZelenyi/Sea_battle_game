@@ -87,7 +87,7 @@ your_ships = Button(x = 836 , y = 80, width = 430, height = 60, text = "Your shi
 button_ready = Button(x = 836, y = 630, width = 430, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
 
 #Створення кнопок для екрану WAIT_OPOENENT
-wait_opponent_text = Button(x = 400, y = 150, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Waiting for opponent...", text_size= 25)
+wait_opponent_text = Button(x = 400, y = 150, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Search for opponent...", text_size= 25)
 
 #Створення кнопок для екрану BATTLE
 your_screen_text = Button(x = 70, y = 98, width = 600, height = 80, text = "Your screen", text_size = 20, button_color = BUTTON_DARKER_COLOR)

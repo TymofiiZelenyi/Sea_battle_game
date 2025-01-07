@@ -88,6 +88,143 @@ def battle():
             data_settings["main"]["GOLD"] += 100
             write_json(fd='settings.json', name_dict = data_settings)
             return "WIN"
+        
+    def add_miss(list, number, place, operation):
+        if operation == "minus" and not list[number - place].CLOSE:
+            miss_list.append(pygame.Rect(list[number - place].x, list[number - place].y, 60, 60)) 
+            list[number - place].CLOSE = True 
+
+        elif operation == "plus" and not list[number + place].CLOSE:
+            miss_list.append(pygame.Rect(list[number + place].x, list[number + place].y, 60, 60)) 
+            list[number + place].CLOSE = True 
+
+    def map(list, row, cell, number, shot_type):
+        print(list[number].x, list[number].x)
+        print(type(row), type(cell), type(number), type(shot_type))
+        print(row, cell, number, shot_type) 
+
+        if shot_type == 100:
+            print("all good")
+
+        if shot_type == 20:
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 9, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 9, "plus")
+            if cell != 0 and cell != 1:
+                add_miss(list, number, 2, "minus")
+            if cell != 8 and cell != 9:
+                add_miss(list, number, 2, "plus")
+            if cell != 0 and cell != 1 and row != 0:
+                add_miss(list, number, 12, "minus")
+            if cell != 8 and cell != 9 and row != 0:
+                add_miss(list, number, 8, "minus")
+            if cell != 0 and cell != 1 and row != 9:
+                add_miss(list, number, 8, "plus")
+            if cell != 8 and cell != 9 and row != 9:
+                add_miss(list, number, 12, "plus")
+
+        elif shot_type == 12:
+            if row != 8:
+                add_miss(list, number, 20, "plus")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 9, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 11, "plus")
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+            if cell != 9 and row != 0:
+                add_miss(list, number, 9, "minus")
+            if cell != 0 and row != 8:
+                add_miss(list, number, 19, "plus")
+            if cell != 9 and row != 8:
+                add_miss(list, number, 21, "plus")
+
+        elif shot_type == 14:
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+            if row != 0 and row != 1:
+                add_miss(list, number, 20, "minus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 11, "minus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 9, "minus")
+            if cell != 0 and row != 0 and row != 1:
+                add_miss(list, number, 21, "minus")
+            if cell != 9 and row != 0 and row != 1:
+                add_miss(list, number, 19, "minus")
+            if cell != 0 and row != 9:
+                add_miss(list, number, 9, "plus")
+            if cell != 9 and row != 9:
+                add_miss(list, number, 11, "plus")
+
+        elif shot_type == 13:
+            if row != 0:
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 10, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 9, "plus")
+            if cell != 0 and cell != 1:
+                add_miss(list, number, 2, "minus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+            if cell != 0 and cell != 1 and row != 0:
+                add_miss(list, number, 12, "minus")
+            if cell != 8 and cell != 9 and row != 0:
+                add_miss(list, number, 9, "minus")
+            if cell != 0 and row != 9:
+                add_miss(list, number, 8, "plus")
+            if cell != 9 and row != 9:
+                add_miss(list, number, 11, "plus")
+
+        elif shot_type == 11:
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 9, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 11, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+            if cell != 8 and cell != 9:
+                add_miss(list, number, 2, "plus")
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+            if cell != 8 and cell != 9 and row != 0:
+                add_miss(list, number, 8, "minus")
+            if cell != 0 and row != 9:
+                add_miss(list, number, 9, "plus")
+            if cell != 8 and cell != 9 and row != 9:
+                add_miss(list, number, 12, "plus")
+
+        elif shot_type == 1:
+            if row != 9 and player_map2[row+1][cell] == 0:
+                add_miss(list, number, 10, "plus")
+            if row != 0 and player_map2[row-1][cell] == 0:
+                add_miss(list, number, 10, "minus")
+            if cell != 0 and player_map2[row][cell-1] == 0:
+                add_miss(list, number, 1, "minus")
+            if cell != 9 and player_map2[row][cell+1] == 0:
+                add_miss(list, number, 1, "plus")
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+            if cell != 9 and row != 0:
+                add_miss(list, number, 9, "minus")
+            if cell != 0 and row != 9:
+                add_miss(list, number, 9, "plus")
+            if cell != 9 and row != 9:
+                add_miss(list, number, 11, "plus")
 
     def finder(row, cell):
         #########################
@@ -329,232 +466,6 @@ def battle():
         else:
             type = 100
             return type
-               
-    def map(list, row, cell, number, shot_type):
-
-        print(list[number].x, list[number].x)
-        print(type(row), type(cell), type(number), type(shot_type))
-        print(row, cell, number, shot_type) 
-
-        if shot_type == 100:
-            print("all good")
-        
-        if shot_type == 20: 
-            if row != 0: 
-                miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60)) 
-                list[number- 10].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60)) 
-                list[number- 11].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number- 9].x, list[number- 9].y, 60, 60)) 
-                list[number- 9].CLOSE = True 
-            if row != 9: 
-                miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60)) 
-                list[number+ 10].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number+ 11].x, list[number+ 11].y, 60, 60)) 
-                list[number+ 11].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number+ 9].x, list[number+ 9].y, 60, 60)) 
-                list[number+ 9].CLOSE = True 
-            if cell !=0 and cell != 1 : 
-                miss_list.append(pygame.Rect(list[number- 2].x, list[number- 2].y, 60, 60)) 
-                list[number- 2].CLOSE = True 
-            if  cell != 8 and cell != 9: 
-                miss_list.append(pygame.Rect(list[number+ 2].x, list[number+ 2].y, 60, 60)) 
-                list[number+ 2].CLOSE = True 
-            if cell !=0 and cell != 1 and  row != 0: 
-                miss_list.append(pygame.Rect(list[number- 12].x, list[number- 12].y, 60, 60)) 
-                list[number- 12].CLOSE = True 
-            if  cell != 8 and cell != 9 and row != 0: 
-                miss_list.append(pygame.Rect(list[number- 8].x, list[number- 8].y, 60, 60)) 
-                list[number- 8].CLOSE = True 
-            if cell !=0 and cell != 1 and row != 9: 
-                miss_list.append(pygame.Rect(list[number+8].x, list[number+8].y, 60, 60)) 
-                list[number+ 8].CLOSE = True 
-            if  cell != 8 and cell != 9 and row != 9: 
-                miss_list.append(pygame.Rect(list[number+12].x, list[number+12].y, 60, 60)) 
-                list[number+ 12].CLOSE = True
-        
-        elif shot_type == 12:
-            if row != 8:
-                miss_list.append(pygame.Rect(list[number+ 20].x, list[number+ 20].y, 60, 60))
-                list[number+ 20].CLOSE = True 
-                print("BUTTON")
-            if row != 0:
-                miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60))
-                list[number- 10].CLOSE = True
-                print("TOP")
-            if cell != 0:
-                miss_list.append(pygame.Rect(list[number- 1].x, list[number- 1].y, 60, 60))
-                list[number- 1].CLOSE = True
-                miss_list.append(pygame.Rect(list[number+9].x, list[number+ 9].y, 60, 60))
-                list[number+ 9].CLOSE = True
-                print("LEFT")
-            if cell != 9:
-                miss_list.append(pygame.Rect(list[number+ 1].x, list[number+ 1].y, 60, 60)) 
-                list[number+ 1].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number+ 11].x, list[number+ 11].y, 60, 60))
-                list[number+ 11].CLOSE = True
-                print("RIGHT")
-            if cell != 0 and row != 0:
-                miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60))
-                list[number- 11].CLOSE = True 
-                print("LEFT TOP")
-            if cell != 9 and row != 0 :
-                miss_list.append(pygame.Rect(list[number- 9].x, list[number- 9].y, 60, 60))
-                list[number- 9].CLOSE = True 
-                print("RIGHT TOP")
-            if cell != 0 and row != 8:
-                miss_list.append(pygame.Rect(list[number+ 19].x, list[number+ 19].y, 60, 60))
-                list[number+ 19].CLOSE = True
-                print("LEFT BUTTON")
-            if cell != 9 and row !=8:
-                miss_list.append(pygame.Rect(list[number+ 21].x, list[number+ 21].y, 60, 60))
-                list[number+ 21].CLOSE = True
-                print("RIGHR BUTTON")
-            
-        elif shot_type == 14:
-            if row != 9:
-                miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60))
-                list[number+ 10].CLOSE = True 
-                print("BUTTON")
-            if row != 0 and row != 1:
-                miss_list.append(pygame.Rect(list[number- 20].x, list[number- 20].y, 60, 60))
-                list[number- 20].CLOSE = True
-                print("TOP")
-            if cell != 0:
-                miss_list.append(pygame.Rect(list[number- 1].x, list[number- 1].y, 60, 60))
-                list[number- 1].CLOSE = True
-                miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60))
-                list[number- 11].CLOSE = True
-                print("LEFT")
-            if cell != 9:
-                miss_list.append(pygame.Rect(list[number+ 1].x, list[number+ 1].y, 60, 60)) 
-                list[number+ 1].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number- 9].x, list[number- 9].y, 60, 60))
-                list[number- 9].CLOSE = True
-                print("RIGHT")
-            if cell != 0 and row != 0 and row != 1:
-                miss_list.append(pygame.Rect(list[number- 21].x, list[number- 21].y, 60, 60))
-                list[number- 21].CLOSE = True 
-                print("LEFT TOP")
-            if cell != 9 and row != 0 and row != 1:
-                miss_list.append(pygame.Rect(list[number- 19].x, list[number- 19].y, 60, 60))
-                list[number- 19].CLOSE = True 
-                print("RIGHT TOP")
-            if cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(list[number+ 9].x, list[number+ 9].y, 60, 60))
-                list[number+ 9].CLOSE = True
-                print("LEFT BUTTON")
-            if cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(list[number+ 11].x, list[number+ 11].y, 60, 60))
-                list[number+ 11].CLOSE = True
-                print("RIGHR BUTTON")
-        
-        elif shot_type == 13:
-            if row != 0:
-                miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60))
-                list[number- 11].CLOSE = True
-                miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60))
-                list[number- 10].CLOSE = True 
-            if row != 9:  
-                miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60))
-                list[number+ 10].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number+ 9].x, list[number+ 9].y, 60, 60))
-                list[number+ 9].CLOSE = True 
-            if cell != 0 and cell != 1:   
-                miss_list.append(pygame.Rect(list[number- 2].x, list[number- 2].y, 60, 60))
-                list[number- 2].CLOSE = True
-            if cell != 8 and cell != 9:
-                miss_list.append(pygame.Rect(list[number+ 1].x, list[number+ 1].y, 60, 60)) 
-                list[number+ 1].CLOSE = True
-            if cell != 0 and cell != 1 and row != 0:
-                miss_list.append(pygame.Rect(list[number- 12].x, list[number- 12].y, 60, 60))
-                list[number- 12].CLOSE = True 
-                print("LEFT TOP")
-            if cell != 8 and cell != 9 and row != 0:
-                miss_list.append(pygame.Rect(list[number- 9].x, list[number- 9].y, 60, 60))
-                list[number- 9].CLOSE = True 
-                print("RIGHT TOP")
-            if  cell != 1 and cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(list[number+ 8].x, list[number+ 8].y, 60, 60))
-                list[number+ 8].CLOSE = True
-                print("LEFT BUTTON")
-            if cell != 8 and cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(list[number+ 11].x, list[number+ 11].y, 60, 60))
-                list[number+ 11].CLOSE = True
-                print("RIGHR BUTTON")
-        
-        elif shot_type == 11:
-            if row != 0:
-                miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60))
-                list[number- 10].CLOSE = True
-                miss_list.append(pygame.Rect(list[number- 9].x, list[number- 9].y, 60, 60))
-                list[number- 9].CLOSE = True 
-                print("TOP")
-            if row != 9:  
-                miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60))
-                list[number+ 10].CLOSE = True 
-                miss_list.append(pygame.Rect(list[number+ 11].x, list[number+ 11].y, 60, 60))
-                list[number+ 11].CLOSE = True 
-                print("BUTTON")
-            if cell != 0:   
-                miss_list.append(pygame.Rect(list[number- 1].x, list[number- 1].y, 60, 60))
-                list[number- 1].CLOSE = True
-                print("LEFT")
-            if cell != 8 and cell != 9:
-                miss_list.append(pygame.Rect(list[number+ 2].x, list[number+ 2].y, 60, 60)) 
-                list[number+ 2].CLOSE = True
-                print("RIGHT")
-            if cell != 0 and row != 0:
-                miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60))
-                list[number- 11].CLOSE = True 
-                print("LEFT TOP")
-            if cell != 8 and cell != 9 and row != 0:
-                miss_list.append(pygame.Rect(list[number- 8].x, list[number- 8].y, 60, 60))
-                list[number- 8].CLOSE = True 
-                print("RIGHT TOP")
-            if cell != 8 and cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(list[number+ 9].x, list[number+ 9].y, 60, 60))
-                list[number+ 9].CLOSE = True
-                print("LEFT BUTTON")
-            if cell != 8 and cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(list[number+ 12].x, list[number+ 12].y, 60, 60))
-                list[number+ 12].CLOSE = True
-                print("RIGHR BUTTON")
-            
-        elif shot_type == 1:
-            print(shot_type, "I am here")
-            if row != 9 and player_map2[row+1][cell] == 0:
-                miss_list.append(pygame.Rect(list[number+ 10].x, list[number+ 10].y, 60, 60))
-                list[number+ 10].CLOSE = True 
-                print("BUTTON")
-            if row != 0 and player_map2[row-1][cell] == 0:
-                miss_list.append(pygame.Rect(list[number- 10].x, list[number- 10].y, 60, 60))
-                list[number- 10].CLOSE = True
-                print("TOP")
-            if cell != 0 and player_map2[row][cell-1] == 0:
-                miss_list.append(pygame.Rect(list[number- 1].x, list[number- 1].y, 60, 60))
-                list[number- 1].CLOSE = True
-                print("LEFT")
-            if cell != 9 and player_map2[row][cell+1] == 0:
-                miss_list.append(pygame.Rect(list[number+ 1].x, list[number+ 1].y, 60, 60)) 
-                list[number+ 1].CLOSE = True 
-                print("RIGHT")
-            if cell != 0 and row != 0:
-                miss_list.append(pygame.Rect(list[number- 11].x, list[number- 11].y, 60, 60))
-                list[number- 11].CLOSE = True 
-                print("LEFT TOP")
-            if cell != 9 and row != 0 :
-                miss_list.append(pygame.Rect(list[number- 9].x, list[number- 9].y, 60, 60))
-                list[number- 9].CLOSE = True 
-                print("RIGHT TOP")
-            if cell != 0 and row != 9:
-                miss_list.append(pygame.Rect(list[number+ 9].x, list[number+ 9].y, 60, 60))
-                list[number+ 9].CLOSE = True
-                print("LEFT BUTTON")
-            if cell != 9 and row !=9:
-                miss_list.append(pygame.Rect(list[number+ 11].x, list[number+ 11].y, 60, 60))
-                list[number+ 11].CLOSE = True
-                print("RIGHR BUTTON")
 
     connect_to()
 
@@ -562,14 +473,13 @@ def battle():
     client_socket.sendall(data.encode())  # Отправляем данные в байтовом формате
     print("sending map")
 
-    print(player_map2)
     data = client_socket.recv(400)
-
     player_map2 = json.loads(data.decode())
     print("recv map")
     print(player_map2)
 
     turn = client_socket.recv(10).decode()
+    
     if turn == "you":
         turn = True
     elif turn == "not":
@@ -608,9 +518,9 @@ def battle():
                 turn = int(data[4])
                 kill_type = int(data[5])
                  
-                empyt= 0
+                empty= 0
                 for item in row_list_player:
-                    if empyt == c_number:
+                    if empty == c_number:
                         if c_type == 1:                    
                             hit_list.append(pygame.Rect(item.x, item.y ,60, 60)) 
                             print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
@@ -631,7 +541,7 @@ def battle():
                             miss_list.append(pygame.Rect(item.x, item.y ,60, 60))  
                             print("miss")
                     
-                    empyt+= 1
+                    empty+= 1
 
     test_thread = Thread(target = always_recv) 
     test_thread.start()
@@ -801,7 +711,7 @@ def lose():
         
         button_back_menu.button_draw(screen=screen)
         back_to_menu = button_back_menu.checkPress(position = position, press = press)
-    
+        
         if back_to_menu:
             return "BACK"
         
