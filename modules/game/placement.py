@@ -59,16 +59,17 @@ def placement():
 
         empty = 0
         for holder in ship_holder_list:
-            screen.blit(holder, (836, 142 + empty))
+            screen.blit(holder, (836, 140 + empty))
             empty += SHIPS_BAY_LENGTH//5
 
+        pygame.draw.rect(screen, BUTTON_COLOR, (66, 140, PLACE_LENGTH+4, PLACE_LENGTH+4))
         screen.blit(bg, (68, 142))
 
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
         
         put_ships.button_draw(screen = screen)
-        your_ships.button_draw(screen = screen)   
+        your_ships.button_draw(screen = screen)
         button_ready.button_draw(screen = screen)
 
         for ship in ship_list:
@@ -137,7 +138,7 @@ def placement():
                                 ship.y = item.y
                                 for i in range(ship.count_length):
                                     player_map1[row][cell+i] = 1
-                                    print(player_map1[row][cell+i])                            
+                                    print(player_map1[row][cell+i])                    
 
                             elif ship.DIR and cell + ship.count_length <= 10 and all(player_map1[row][cell + i] == 0 for i in range(ship.count_length)) and ship.WHERE:
                                 ship.STAY = True
@@ -151,6 +152,7 @@ def placement():
                                 ship.DIR =  True
                                 ship.x = ship.start_x
                                 ship.y = ship.start_y 
+
 
                             elif ship.DIR and cell + ship.count_length <= 10 and any(player_map1[row][cell + i] == 1 for i in range(ship.count_length)) and ship.WHERE:  
                                 ship.STAY = False                 
@@ -179,7 +181,7 @@ def placement():
                                 ship.x = item.x
                                 ship.y = item.y
                                 for i in range(ship.count_length):
-                                    player_map1[row+i][cell] = 1                             
+                                    player_map1[row+i][cell] = 1   
 
                             elif not ship.DIR and row + ship.count_length <= 10 and all(player_map1[row + i][cell] == 0 for i in range(ship.count_length)) and ship.WHERE:
                                 ship.STAY = True
@@ -187,6 +189,7 @@ def placement():
                                 ship.y = item.y
                                 for i in range(ship.count_length):
                                     player_map1[row+i][cell] = 1
+
 
                             elif not ship.DIR and row + ship.count_length <= 10 and any(player_map1[row + i][cell] == 1 for i in range(ship.count_length)) and not ship.WHERE: 
                                 ship.STAY = False 

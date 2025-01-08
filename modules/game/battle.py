@@ -30,6 +30,7 @@ def battle():
     
     global turn
     global run_battle
+    global stop_thread
 
     turn = False
     stop_thread = True
@@ -104,7 +105,7 @@ def battle():
         print(row, cell, number, shot_type) 
 
         if shot_type == 100:
-            print("all good")
+            print("all good")      
 
         if shot_type == 20:
             if row != 0:
@@ -181,7 +182,7 @@ def battle():
                 add_miss(list, number, 1, "plus")
             if cell != 0 and cell != 1 and row != 0:
                 add_miss(list, number, 12, "minus")
-            if cell != 8 and cell != 9 and row != 0:
+            if cell != 9 and row != 0:
                 add_miss(list, number, 9, "minus")
             if cell != 0 and row != 9:
                 add_miss(list, number, 8, "plus")
@@ -226,7 +227,7 @@ def battle():
             if cell != 9 and row != 9:
                 add_miss(list, number, 11, "plus")
 
-    def finder(row, cell):
+    def finder(list, row, cell):
         #########################
         # 100 nothing
         # 1 solo
@@ -235,238 +236,238 @@ def battle():
         # 1-3 13 duo right
         # 1-4 14 duo down
         # 2-0 20 trio center
- 
-        if row != 0 and row != 9 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+            
+        if row != 0 and row != 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
             type = 1
             return type
 
-        elif row == 0 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
+        elif row == 0 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
             type = 1
             return type
 
-        elif row == 9 and cell != 0 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
+        elif row == 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
             type = 1
             return type
         
-        elif cell == 0 and row != 0 and row != 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+        elif cell == 0 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
             type = 1
             return type
 
-        elif cell == 9 and row != 0 and row != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+        elif cell == 9 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
             type = 1
             return type
         
-        elif cell == 0 and row == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0:
+        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
             type = 1
             return type
 
-        elif cell == 0 and row == 9 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 0 and player_map2[row-1][cell] == 0:
+        elif cell == 0 and row == 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
             type = 1
             return type
 
-        elif cell == 9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
+        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
             type = 1
             return type
 
-        elif cell == 9 and row == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
+        elif cell == 9 and row == 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
             type = 1
             return type
      
         #########################
 
-        elif row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+        elif row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
             type = 11
             return type
 
-        elif row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-1] == 0 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0:
+        elif row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
             type = 11
             return type
 
-        elif row == 9 and cell != 0 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0:
+        elif row == 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
             type = 11
             return type
 
-        elif row != 0 and row != 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
-            type = 1-1
+        elif row != 0 and row != 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 11
             return type
 
-        elif row != 9 and row != 0 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-1] == 0 and player_map2[row-1][cell] == 0 and player_map2[row+1][cell] == 0:
+        elif row != 9 and row != 0 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
             type = 11
             return type
       
-        elif row == 0 and cell == 0  and player_map2[row][cell-1] == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2:
+        elif row == 0 and cell == 0  and list[row][cell-1] == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+2] == 0 and list[row][cell+1] == 2:
             type = 11
             return type
 
-        elif row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0:
+        elif row == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:
             type = 11
             return type
 
-        elif row == 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+2] == 0:
+        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell+2] == 0:
             type = 11
             return type
 
-        elif row == 9 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell+1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0:
+        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell-2] == 0:
             type = 11
             return type
 
         ######################### 
         
-        elif row != 0 and row != 9 and cell != 1 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+        elif row != 0 and row != 9 and cell != 1 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
             type = 13
             return type
 
-        elif row == 0 and cell != 1 and cell != 2 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0:
+        elif row == 0 and cell != 1 and cell != 2 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
             type = 13
             return type
 
-        elif row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+1] == 0 and player_map2[row-1][cell] == 0:
+        elif row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
             type = 13
             return type
 
-        elif row != 0 and row != 9 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and  player_map2[row][cell+1] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0:
+        elif row != 0 and row != 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and  list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
             type = 13
             return type
 
-        elif row != 9 and row != 0 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row-1][cell] == 0 and player_map2[row+1][cell] == 0:
+        elif row != 9 and row != 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
             type = 13
             return type
       
-        elif row == 0 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif row == 0 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
             type = 13
             return type
 
-        elif row == 0 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-2] == 0:
+        elif row == 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell-2] == 0:
             type = 13
             return type
 
-        elif row == 9 and cell == 1 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif row == 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
             type = 13
             return type
 
-        elif row == 9 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell-2] == 0:
+        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell-2] == 0:
             type = 13
             return type
 
         
         ###########################
 
-        elif cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+        elif cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
             type = 12
             return type
 
-        elif cell != 0 and cell !=9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row][cell-1] == 0:
+        elif cell != 0 and cell !=9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0 and list[row][cell-1] == 0:
             type = 12
             return type
 
-        elif cell != 0 and cell !=9 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and  player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row][cell+1] == 0:
+        elif cell != 0 and cell !=9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and  list[row-1][cell] == 0 and list[row][cell-1] == 0 and list[row][cell+1] == 0:
             type = 12
             return type
 
-        elif cell == 0 and row != 0 and row != 8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif cell == 0 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
             type = 12
             return type
             
-        elif cell == 9 and row != 0 and row != 8 and row != 9 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row-1][cell] == 0 and player_map2[row][cell-1] == 0:
+        elif cell == 9 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell-1] == 0:
             type = 12
             return type
 
-        elif cell == 0 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell+1] == 0:
             type = 12
             return type
 
-        elif cell == 9 and row == 0 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row+2][cell] == 0 and player_map2[row][cell-1] == 0:
+        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0:
             type = 12
             return type
 
-        elif cell == 0 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row-1][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif cell == 0 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
             type = 12
             return type
 
-        elif cell == 9 and row == 8 and player_map2[row][cell] == 2 and player_map2[row+1][cell] == 2 and player_map2[row-1][cell] == 0 and player_map2[row-1][cell] == 0:
+        elif cell == 9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row-1][cell] == 0:
             type = 12
             return type
         
         #########################   
         
-        elif cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+        elif cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
             type = 14
             return type
 
-        elif cell != 0 and cell !=9 and row == 1 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2  and player_map2[row+1][cell] == 0  and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+        elif cell != 0 and cell !=9 and row == 1 and list[row][cell] == 2 and list[row-1][cell] == 2  and list[row+1][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
             type = 14
             return type
 
-        elif  cell != 0 and cell !=9 and row == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0  and player_map2[row][cell+1] == 0 and player_map2[row][cell-1] == 0:
+        elif  cell != 0 and cell !=9 and row == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
             type = 14
             return type
 
-        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
             type = 14
             return type
 
-        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell-1] == 0 and player_map2[row+1][cell] == 0:
+        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
             type = 14
             return type
 
-        elif row == 1 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif row == 1 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
             type = 14
             return type
 
-        elif row == 1 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row+1][cell] == 0 and player_map2[row][cell-1] == 0:
+        elif row == 1 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 0:
             type = 14
             return type
 
-        elif row == 9 and cell == 0 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell+1] == 0:
+        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell+1] == 0:
             type = 14
             return type
 
-        elif row == 9 and cell == 9 and player_map2[row][cell] == 2 and player_map2[row-1][cell] == 2 and player_map2[row-2][cell] == 0 and player_map2[row][cell-1] == 0:
+        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0:
             type = 14
             return type
         
         #########################
 
-        elif row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0 and player_map2[row-1][cell] == 0: 
+        elif row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0: 
             type = 20 
             return type 
      
-        elif cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0:  
+        elif cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:  
             type = 20 
             return type
 
-        elif cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0:  
+        elif cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0:  
             type = 20 
             return type
 
-        elif row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row +1][cell] == 0:  
+        elif row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row +1][cell] == 0:  
             type = 20 
             return type
 
-        elif row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row -1][cell] == 0:  
+        elif row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row -1][cell] == 0:  
             type = 20 
             return type
 
-        elif row == 0 and cell == 2 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row+1][cell] == 0:
+        elif row == 0 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
             type = 20 
             return type
 
-        elif row == 0 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row+1][cell] == 0:
+        elif row == 0 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row+1][cell] == 0:
             type = 20 
             return type
 
-        elif row == 9 and cell == 2 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell+2] == 0 and player_map2[row-1][cell] == 0:
+        elif row == 9 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row-1][cell] == 0:
             type = 20 
             return type
 
-        elif row == 9 and cell == 8 and player_map2[row][cell] == 2 and player_map2[row][cell-1] == 2 and player_map2[row][cell+1] == 2 and player_map2[row][cell-2] == 0 and player_map2[row-1][cell] == 0:
+        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0:
             type = 20 
             return type
 
         else:
             type = 100
             return type
-
+    
     connect_to()
 
     data = json.dumps(player_map1)  
@@ -484,27 +485,40 @@ def battle():
         turn = True
     elif turn == "not":
         turn = False
-
+#for row in range(10):
+#        for cell in range(10):
+#            row_list.append(RectBetter(x, y, 60, 60, False))
+#            cell_list.append(pygame.Rect(x + 2, y + 2, 56, 56))
+#            x +=60
+#        y += 60
+#        x = 68
     for row in range(10):
         for cell in range(10):
             row_list_player.append(RectBetter(x1, y1, 60, 60, False))
             cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
             x1 +=60
         y1 += 60
-        x1 = 70
-
-    for row in range(10):
-        for cell in range(10):
-            row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
-            cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
-            x2 +=60
-        y2 += 60
-        x2 = 730
+        x1 = 68
+    #for row in range(10):
+    #        for cell in range(10):
+    #            row_list_player.append(RectBetter(x1, y1, 60, 60, False))
+    #            cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
+    #            x1 +=60
+    #        y1 += 60
+    #        x1 = 70
+        for row in range(10):
+            for cell in range(10):
+                row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
+                cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
+                x2 +=60
+            y2 += 60
+            x2 = 730
 
     def always_recv():
         global turn
         global run_battle
-        
+        global stop_thread
+
         while stop_thread:
             data = client_socket.recv(35).decode()
             if data:
@@ -530,12 +544,8 @@ def battle():
                             map(row_list_player, c_row, c_cell, c_number, kill_type)  
 
                             res = check_lose()
-                            print(res)
-                            print("hit")
                             if res == "LOSE":
-                                turn = False
-                                run_battle = False
-                                lose()
+                                stop_thread = False
                         
                         elif c_type == 0:
                             miss_list.append(pygame.Rect(item.x, item.y ,60, 60))  
@@ -548,6 +558,15 @@ def battle():
 
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
+
+        res = check_lose()
+        if res == "LOSE":
+            turn = False
+            run_battle = False
+            back_lose = lose()
+            if back_lose == "BACK":
+                return "BACK"
+
 
         your_screen_text.button_draw(screen=screen)
         enemy_screen_text.button_draw(screen=screen)
@@ -588,7 +607,11 @@ def battle():
             cell = number1 % 10
             row = number1 // 10
             if player_map1[row][cell] == 1:
-                pygame.draw.rect(screen, "yellow", item)
+                #pygame.draw.rect(screen, "yellow", item)
+                for ship in ship_list:
+                    ship.ship_draw(screen= screen)  
+                    #Ships.ship_draw(item ,screen = screen)
+                    
             number1 += 1
 
         number2 = 0 
@@ -596,7 +619,8 @@ def battle():
             cell = number2 % 10
             row = number2 // 10
             if player_map2[row][cell] == 1:
-                pygame.draw.rect(screen, "green", item)
+                pass
+            #pygame.draw.rect(screen, "green", item)
             number2 += 1
         
         for item in miss_list:
@@ -636,7 +660,7 @@ def battle():
                         print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}")                    
                         item.CLOSE = True
                         
-                        shot_type = finder(row, cell)
+                        shot_type = finder(player_map2, row, cell)
                         map(row_list_enemy, row, cell, number, shot_type)
 
                         sending(row, cell, number, 1, 0, kill_type= shot_type)
@@ -646,7 +670,10 @@ def battle():
                         if res == "WIN":
                             turn = False
                             run_battle = False
-                            win()
+                            back = win()
+                            if back == "BACK":
+                                stop_thread = True
+                                return "BACK"
             
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
                         miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
@@ -686,15 +713,17 @@ def win():
         text_win.text_draw(screen=screen)
         
         button_back_menu.button_draw(screen=screen)
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
-
-        if back_to_menu:
-            return "BACK"
         
         pygame.display.flip()
         clock.tick(FPS) 
         
         for event in pygame.event.get():
+            if press[0]:
+                back_to_menu = button_back_menu.checkPress(position = position, press = press)
+
+                if back_to_menu:
+                    return "BACK"
+            
             if event.type == pygame.QUIT:
                 run_win = False
                 pygame.quit()
@@ -710,15 +739,17 @@ def lose():
         text_lose.text_draw(screen=screen)
         
         button_back_menu.button_draw(screen=screen)
-        back_to_menu = button_back_menu.checkPress(position = position, press = press)
-        
-        if back_to_menu:
-            return "BACK"
         
         pygame.display.flip()
         clock.tick(FPS) 
         
         for event in pygame.event.get():
+            if press[0]:
+                back_to_menu = button_back_menu.checkPress(position = position, press = press)
+        
+                if back_to_menu:
+                    return "BACK"
+            
             if event.type == pygame.QUIT:
                 run_lose = False
                 pygame.quit()

@@ -12,11 +12,12 @@ FPS =  data["main"]["FPS"]
 
 def wait_opponent():
     run_wait_opponent = True
-    
+    bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/wait_for_opponent_bg.png"))
+    bg = pygame.transform.scale(bg, [1400, 800])
 
     while run_wait_opponent:
         screen.fill(MAIN_WINDOW_COLOR)
-        
+        screen.blit(bg, (0, 0))
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
 
