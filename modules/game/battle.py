@@ -226,7 +226,7 @@ def battle():
                 add_miss(list, number, 9, "plus")
             if cell != 9 and row != 9:
                 add_miss(list, number, 11, "plus")
-
+    
     def finder(list, row, cell):
         #########################
         # 100 nothing
@@ -485,34 +485,22 @@ def battle():
         turn = True
     elif turn == "not":
         turn = False
-#for row in range(10):
-#        for cell in range(10):
-#            row_list.append(RectBetter(x, y, 60, 60, False))
-#            cell_list.append(pygame.Rect(x + 2, y + 2, 56, 56))
-#            x +=60
-#        y += 60
-#        x = 68
+
     for row in range(10):
         for cell in range(10):
             row_list_player.append(RectBetter(x1, y1, 60, 60, False))
             cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
             x1 +=60
         y1 += 60
-        x1 = 68
-    #for row in range(10):
-    #        for cell in range(10):
-    #            row_list_player.append(RectBetter(x1, y1, 60, 60, False))
-    #            cell_list_player.append(pygame.Rect(x1 + 2, y1 + 2, 56, 56))
-    #            x1 +=60
-    #        y1 += 60
-    #        x1 = 70
-        for row in range(10):
-            for cell in range(10):
-                row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
-                cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
-                x2 +=60
-            y2 += 60
-            x2 = 730
+        x1 = 70
+
+    for row in range(10):
+        for cell in range(10):
+            row_list_enemy.append(RectBetter(x2, y2, 60, 60, False))
+            cell_list_enemy.append(pygame.Rect(x2 + 2, y2 + 2, 56, 56))
+            x2 +=60
+        y2 += 60
+        x2 = 730
 
     def always_recv():
         global turn
@@ -607,11 +595,7 @@ def battle():
             cell = number1 % 10
             row = number1 // 10
             if player_map1[row][cell] == 1:
-                #pygame.draw.rect(screen, "yellow", item)
-                for ship in ship_list:
-                    ship.ship_draw(screen= screen)  
-                    #Ships.ship_draw(item ,screen = screen)
-                    
+                pygame.draw.rect(screen, "yellow", item)
             number1 += 1
 
         number2 = 0 
@@ -619,8 +603,7 @@ def battle():
             cell = number2 % 10
             row = number2 // 10
             if player_map2[row][cell] == 1:
-                pass
-            #pygame.draw.rect(screen, "green", item)
+                pygame.draw.rect(screen, "green", item)
             number2 += 1
         
         for item in miss_list:

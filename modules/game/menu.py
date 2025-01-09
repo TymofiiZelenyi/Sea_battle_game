@@ -25,7 +25,7 @@ def menu():
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/background.png"))
     bg = pygame.transform.scale(bg, [1400, 800])
 
-    count_gold = Text(x = 1050, y = 70, text = str(GOLD), text_size=25, color="#dba800")
+    count_gold = Text(x = 1050, y = 50, text = str(GOLD), text_size=25, color="#dba800")
     
     while run_menu:
         
@@ -33,7 +33,7 @@ def menu():
 
         screen.blit(bg, (0, 0))
         screen.blit(im_coin_holder,(1000, 20))
-        screen.blit(im_coin,(1250, 40))
+        screen.blit(im_coin,(1250, 25))
 
         #Створення кнопок "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
         

@@ -34,7 +34,7 @@ def placement():
     sq_list = [big_sq, small_sq]
     row_list = []
     cell_list = []
-
+    
     for row in range(10):
         for cell in range(10):
             row_list.append(RectBetter(x, y, 60, 60, False))
@@ -47,9 +47,20 @@ def placement():
     last_row = 0 
     last_cell = 0
 
+    def check(ID, rect):
+        for ship in ship_list:
+            if ship.ID != ID:  # не проверяем столкновение с самим собой
+                if rect.colliderect(ship.rect):
+                    print("False")
+                    return False
+
+        else:
+            print("True")
+            return True
+
     while run_placement:
         screen.fill(MAIN_WINDOW_COLOR)
-        
+        pygame.draw.rect(screen, BUTTON_COLOR, (66, 140, PLACE_LENGTH+4, PLACE_LENGTH+4))
         for sq in sq_list:
             pygame.draw.rect(screen, BUTTON_COLOR, sq)
         for item in row_list:
@@ -59,17 +70,16 @@ def placement():
 
         empty = 0
         for holder in ship_holder_list:
-            screen.blit(holder, (836, 140 + empty))
+            screen.blit(holder, (836, 142 + empty))
             empty += SHIPS_BAY_LENGTH//5
 
-        pygame.draw.rect(screen, BUTTON_COLOR, (66, 140, PLACE_LENGTH+4, PLACE_LENGTH+4))
         screen.blit(bg, (68, 142))
 
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
         
         put_ships.button_draw(screen = screen)
-        your_ships.button_draw(screen = screen)
+        your_ships.button_draw(screen = screen)   
         button_ready.button_draw(screen = screen)
 
         for ship in ship_list:
@@ -133,19 +143,33 @@ def placement():
 
                             #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                             if ship.DIR and cell + ship.count_length <= 10 and all(player_map1[row][cell + i] == 0 for i in range(ship.count_length)) and not ship.WHERE:
-                                ship.STAY = True 
-                                ship.x = item.x
-                                ship.y = item.y
-                                for i in range(ship.count_length):
-                                    player_map1[row][cell+i] = 1
-                                    print(player_map1[row][cell+i])                    
+                                place = check(ship.ID, ship.rect)
+                                if place:
+                                    ship.STAY = True 
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    for i in range(ship.count_length):
+                                        player_map1[row][cell+i] = 1
+                                        print(player_map1[row][cell+i])  
+                                else:
+                                    ship.STAY = False 
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y                  
 
                             elif ship.DIR and cell + ship.count_length <= 10 and all(player_map1[row][cell + i] == 0 for i in range(ship.count_length)) and ship.WHERE:
-                                ship.STAY = True
-                                ship.x = item.x
-                                ship.y = item.y
-                                for i in range(ship.count_length):
-                                    player_map1[row][cell+i] = 1
+                                place = check(ship.ID, ship.rect)
+                                if place:
+                                    ship.STAY = True
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    for i in range(ship.count_length):
+                                        player_map1[row][cell+i] = 1
+                                else:
+                                    ship.STAY = False 
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y
 
                             elif ship.DIR and cell + ship.count_length <= 10 and any(player_map1[row][cell + i] == 1 for i in range(ship.count_length)) and not ship.WHERE: 
                                 ship.STAY = False 
@@ -177,19 +201,33 @@ def placement():
 
                             #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                             if not ship.DIR and row + ship.count_length <= 10 and all(player_map1[row + i][cell] == 0 for i in range(ship.count_length)) and not ship.WHERE:
-                                ship.STAY = True
-                                ship.x = item.x
-                                ship.y = item.y
-                                for i in range(ship.count_length):
-                                    player_map1[row+i][cell] = 1   
+                                place = check(ship.ID, ship.rect)
+                                if place:
+                                    ship.STAY = True
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    for i in range(ship.count_length):
+                                        player_map1[row+i][cell] = 1  
+
+                                else:
+                                    ship.STAY = False 
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y 
 
                             elif not ship.DIR and row + ship.count_length <= 10 and all(player_map1[row + i][cell] == 0 for i in range(ship.count_length)) and ship.WHERE:
-                                ship.STAY = True
-                                ship.x = item.x
-                                ship.y = item.y
-                                for i in range(ship.count_length):
-                                    player_map1[row+i][cell] = 1
-
+                                place = check(ship.ID, ship.rect)
+                                if place:
+                                    ship.STAY = True
+                                    ship.x = item.x
+                                    ship.y = item.y
+                                    for i in range(ship.count_length):
+                                        player_map1[row+i][cell] = 1
+                                else:
+                                    ship.STAY = False 
+                                    ship.DIR =  True
+                                    ship.x = ship.start_x
+                                    ship.y = ship.start_y
 
                             elif not ship.DIR and row + ship.count_length <= 10 and any(player_map1[row + i][cell] == 1 for i in range(ship.count_length)) and not ship.WHERE: 
                                 ship.STAY = False 

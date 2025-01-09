@@ -44,8 +44,11 @@ class Ships():
         self.LAST_DIR = True
         self.MOVE = False
         self.TAKE = False
+        # self.PLACE = True
 
         self.STAY = False
+        
+        self.rect = pygame.Rect(self.x, self.y, 60* self.count_length, 60 )
 
         self.load()
 
@@ -63,10 +66,16 @@ class Ships():
     def ship_draw(self, screen):
         if self.DIR:
             self.rect = pygame.Rect(self.x, self.y, 60* self.count_length, 60 )
+            # self.sur = pygame.Surface(( 60* self.count_length, 60 ))
+            # screen.blit(self.sur, (self.x, self.y)) 
+            #HITBOX
             screen.blit(self.image_t, (self.x, self.y))
 
         elif not self.DIR:
             self.rect = pygame.Rect(self.x, self.y, 60, 60 * self.count_length)
+            # self.sur = pygame.Surface((60, 60 * self.count_length))
+            # screen.blit(self.sur, (self.x, self.y))
+            #HITBOX
             screen.blit(self.image_f, (self.x, self.y))
 
     def take_ship(self, position):
@@ -82,11 +91,19 @@ class Ships():
             self.x = position[0] - 30
             self.y = position[1] - 30
             self.MOVE = True
+            self.rect = pygame.Rect(self.x- 30, self.y-30, 60* self.count_length+60, 120 )
+            # self.sur = pygame.Surface((60* self.count_length+60, 120 ))
+            # screen.blit(self.sur, (self.x -30, self.y-30))
+            #HITBOX
             screen.blit(self.image_t, (self.x, self.y))
 
         elif press[0] and not self.DIR and self.TAKE:
             self.x = position[0] - 30
             self.y = position[1] - 30
+            self.rect = pygame.Rect(self.x-30, self.y-30, 120, (60 * self.count_length)+60)
+            # self.sur = pygame.Surface((120, 60 * self.count_length+60))
+            # screen.blit(self.sur, (self.x -30, self.y-30))
+            #HITBOX
             screen.blit(self.image_f, (self.x, self.y))
             self.MOVE = True
         else:

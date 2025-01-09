@@ -62,10 +62,10 @@ button_sound =Button(x = 10, y = 675, width = 275, height = 100, text = "+", tex
 button_plus_settings = Button(x = 10, y = 675, width = 275, height = 100, text = "+", text_size=20)    
 button_minus_settings = Button(x = 10, y = 675, width = 275, height = 100, text = "-", text_size=20)             
 #Створення кнопок для екрану МЕНЮ "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
-button_play = Button(x = 100, y = 100, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Play")
+button_play = Button(x = 100, y = 80, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Play")
 button_settings = Button(x = 100, y = 180, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Setting")
-button_shop = Button(x = 100, y = 260, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Shop")
-button_quit = Button(x = 100, y = 340, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Quit")
+button_shop = Button(x = 100, y = 280, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Shop")
+button_quit = Button(x = 100, y = 380, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Quit")
 
 
 shop_coursor1 = Button(x = 25, y = 200, width = 225, height = 450, text = "1")
