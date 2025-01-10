@@ -36,6 +36,25 @@ def battle():
     stop_thread = True
     run_battle = True
 
+    clean_right_side = False
+    clean_left_side = False
+    clean_down_side = False
+    clean_top_side = False
+    clean_side_list = [clean_right_side, clean_left_side, clean_down_side, clean_top_side]
+
+    ship_right_side = False
+    ship_left_side = False
+    ship_down_side = False
+    ship_top_side = False
+    ship_side_list = [ship_right_side, ship_left_side, ship_down_side, ship_top_side]
+
+    dead_ship_right_side = False
+    dead_ship_left_side = False
+    dead_ship_down_side = False
+    dead_ship_top_side = False
+    dead_ship_side_list = [dead_ship_right_side, dead_ship_left_side, dead_ship_down_side, dead_ship_top_side]
+
+
     #Наше поле (your screen)
     sq_your = pygame.Rect((70, 180, PLACE_LENGTH, PLACE_LENGTH))
     #Поле противника (enemy screen)
@@ -63,6 +82,247 @@ def battle():
 
     row_list_enemy = []
     cell_list_enemy = []
+
+    def old_finder(list, row, cell):
+        #########################
+        # 100 nothing
+        # 1 solo
+        # 1-1 11 duo left
+        # 1-2 12 duo top
+        # 1-3 13 duo right
+        # 1-4 14 duo down
+        # 2-0 20 trio center
+            
+        if row != 0 and row != 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 1
+            return type
+
+        elif row == 0 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
+            type = 1
+            return type
+
+        elif row == 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
+            type = 1
+            return type
+        
+        elif cell == 0 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 1
+            return type
+
+        elif cell == 9 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 1
+            return type
+        
+        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
+            type = 1
+            return type
+
+        elif cell == 0 and row == 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
+            type = 1
+            return type
+
+        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
+            type = 1
+            return type
+
+        elif cell == 9 and row == 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
+            type = 1
+            return type
+        
+        #########################
+
+        elif row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 11
+            return type
+
+        elif row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
+            type = 11
+            return type
+
+        elif row == 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
+            type = 11
+            return type
+
+        elif row != 0 and row != 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 11
+            return type
+
+        elif row != 9 and row != 0 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
+            type = 11
+            return type
+        
+        elif row == 0 and cell == 0  and list[row][cell-1] == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+2] == 0 and list[row][cell+1] == 2:
+            type = 11
+            return type
+
+        elif row == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:
+            type = 11
+            return type
+
+        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell+2] == 0:
+            type = 11
+            return type
+
+        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell-2] == 0:
+            type = 11
+            return type
+
+        ######################### 
+        
+        elif row != 0 and row != 9 and cell != 1 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 13
+            return type
+
+        elif row == 0 and cell != 1 and cell != 2 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
+            type = 13
+            return type
+
+        elif row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
+            type = 13
+            return type
+
+        elif row != 0 and row != 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and  list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
+            type = 13
+            return type
+
+        elif row != 9 and row != 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
+            type = 13
+            return type
+        
+        elif row == 0 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
+            type = 13
+            return type
+
+        elif row == 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell-2] == 0:
+            type = 13
+            return type
+
+        elif row == 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
+            type = 13
+            return type
+
+        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell-2] == 0:
+            type = 13
+            return type
+
+        
+        ###########################
+
+        elif cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
+            type = 12
+            return type
+
+        elif cell != 0 and cell !=9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0 and list[row][cell-1] == 0:
+            type = 12
+            return type
+
+        elif cell != 0 and cell !=9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and  list[row-1][cell] == 0 and list[row][cell-1] == 0 and list[row][cell+1] == 0:
+            type = 12
+            return type
+
+        elif cell == 0 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
+            type = 12
+            return type
+            
+        elif cell == 9 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell-1] == 0:
+            type = 12
+            return type
+
+        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell+1] == 0:
+            type = 12
+            return type
+
+        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0:
+            type = 12
+            return type
+
+        elif cell == 0 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
+            type = 12
+            return type
+
+        elif cell == 9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row-1][cell] == 0:
+            type = 12
+            return type
+        
+        #########################   
+        
+        elif cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
+            type = 14
+            return type
+
+        elif cell != 0 and cell !=9 and row == 1 and list[row][cell] == 2 and list[row-1][cell] == 2  and list[row+1][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
+            type = 14
+            return type
+
+        elif  cell != 0 and cell !=9 and row == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
+            type = 14
+            return type
+
+        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
+            type = 14
+            return type
+
+        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
+            type = 14
+            return type
+
+        elif row == 1 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
+            type = 14
+            return type
+
+        elif row == 1 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 0:
+            type = 14
+            return type
+
+        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell+1] == 0:
+            type = 14
+            return type
+
+        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0:
+            type = 14
+            return type
+        
+        #########################
+
+        elif row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0: 
+            type = 20 
+            return type 
+        
+        elif cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:  
+            type = 20 
+            return type
+
+        elif cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0:  
+            type = 20 
+            return type
+
+        elif row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row +1][cell] == 0:  
+            type = 20 
+            return type
+
+        elif row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row -1][cell] == 0:  
+            type = 20 
+            return type
+
+        elif row == 0 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
+            type = 20 
+            return type
+
+        elif row == 0 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row+1][cell] == 0:
+            type = 20 
+            return type
+
+        elif row == 9 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row-1][cell] == 0:
+            type = 20 
+            return type
+
+        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0:
+            type = 20 
+            return type
+
+        else:
+            type = 100
+            return type
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -105,7 +365,10 @@ def battle():
         print(row, cell, number, shot_type) 
 
         if shot_type == 100:
-            print("all good")      
+            print("miss")  
+
+        if shot_type == 10:
+            print("gooooood")    
 
         if shot_type == 20:
             if row != 0:
@@ -226,8 +489,27 @@ def battle():
                 add_miss(list, number, 9, "plus")
             if cell != 9 and row != 9:
                 add_miss(list, number, 11, "plus")
-    
-    def finder(list, row, cell):
+         
+    def radar(list, list2, row, cell, type):
+        print(list2, row, cell, type)
+
+        for i in range(len(list2)):
+            list2[i] = False
+
+        if list[row][cell] == 2:
+            if cell + 1 <= 9 and list[row][cell+1] == type:
+                list2[0] = True
+            if cell - 1 >= 0 and list[row][cell-1] == type:
+                list2[1] = True
+            if row + 1 <= 9 and list[row+1][cell] == type:
+                list2[2] = True
+            if row - 1 >= 0 and list[row-1][cell] == type:
+                list2[3] = True 
+        
+        return list2
+
+    def new_finder(list, row, cell):
+
         #########################
         # 100 nothing
         # 1 solo
@@ -236,238 +518,79 @@ def battle():
         # 1-3 13 duo right
         # 1-4 14 duo down
         # 2-0 20 trio center
+        
+        clean = radar(list, clean_side_list, row, cell, 0)
+        ship = radar(list, ship_side_list, row, cell, 1)
+        dead_ship = radar(list, dead_ship_side_list, row, cell, 2)
+
+        print(clean)
+        print(ship)
+        print(dead_ship)
+
+        if all(meaning for meaning in clean) or all(not meaning for meaning in ship) and all(not meaning for meaning in dead_ship):
+            return 1
+        
+        
+        number = 0
+        for dead in dead_ship:
+            print(dead)
+
+            if dead and number == 0:
+                clean = radar(list, clean_side_list, row, cell + 1, 0)
+                ship = radar(list, ship_side_list, row, cell + 1, 1)
+                dead_ship = radar(list, dead_ship_side_list, row, cell + 1, 2)
+
+                print(clean)
+                print(ship)
+                print(dead_ship)
+
+                if cell != 9 and clean[1] == 2 and clean[1] or cell == 9:
+                    return 13
+                
+            if dead and number == 1:
+                clean = radar(list, clean_side_list, row, cell - 1, 0)
+                ship = radar(list, ship_side_list, row, cell - 1, 1)
+                dead_ship = radar(list, dead_ship_side_list, row, cell - 1, 2)
+
+                print(clean)
+                print(ship)
+                print(dead_ship)
+
+                if cell != 9 and clean[1] == 2 and clean[1] or cell == 9:
+                    return 11
+                
+            if dead and number == 2:
+                clean = radar(list, clean_side_list, row+ 1, cell, 0)
+                ship = radar(list, ship_side_list, row+ 1, cell, 1)
+                dead_ship = radar(list, dead_ship_side_list+ 1, row, cell, 2)
+
+                print(clean)
+                print(ship)
+                print(dead_ship)
+
+                if row != 9 and clean[1] == 2 and clean[1] or row == 9:
+                    return 12
+                
+            if dead and number == 3:
+                clean = radar(list, clean_side_list, row - 1, cell, 0)
+                ship = radar(list, ship_side_list, row - 1, cell, 1)
+                dead_ship = radar(list, dead_ship_side_list, row - 1, cell, 2)
+
+                print(clean)
+                print(ship)
+                print(dead_ship)
+
+                if row != 9 and clean[1] == 2 and clean[1] or row == 9:
+                    return 14
+                
+                
+                
             
-        if row != 0 and row != 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-
-        elif row == 0 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
-            type = 1
-            return type
-
-        elif row == 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
+            number += 1
         
-        elif cell == 0 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 9 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-        
-        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 0 and row == 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 9 and row == 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-     
-        #########################
-
-        elif row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 11
-            return type
-
-        elif row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
-            type = 11
-            return type
-
-        elif row == 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
-            type = 11
-            return type
-
-        elif row != 0 and row != 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 11
-            return type
-
-        elif row != 9 and row != 0 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
-            type = 11
-            return type
-      
-        elif row == 0 and cell == 0  and list[row][cell-1] == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+2] == 0 and list[row][cell+1] == 2:
-            type = 11
-            return type
-
-        elif row == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:
-            type = 11
-            return type
-
-        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell+2] == 0:
-            type = 11
-            return type
-
-        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell-2] == 0:
-            type = 11
-            return type
-
-        ######################### 
-        
-        elif row != 0 and row != 9 and cell != 1 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 13
-            return type
-
-        elif row == 0 and cell != 1 and cell != 2 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
-            type = 13
-            return type
-
-        elif row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
-            type = 13
-            return type
-
-        elif row != 0 and row != 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and  list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 13
-            return type
-
-        elif row != 9 and row != 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
-            type = 13
-            return type
-      
-        elif row == 0 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
-            type = 13
-            return type
-
-        elif row == 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell-2] == 0:
-            type = 13
-            return type
-
-        elif row == 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
-            type = 13
-            return type
-
-        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell-2] == 0:
-            type = 13
-            return type
-
-        
-        ###########################
-
-        elif cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell != 0 and cell !=9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell != 0 and cell !=9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and  list[row-1][cell] == 0 and list[row][cell-1] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-
-        elif cell == 0 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-            
-        elif cell == 9 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-
-        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell == 0 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-
-        elif cell == 9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row-1][cell] == 0:
-            type = 12
-            return type
-        
-        #########################   
-        
-        elif cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif cell != 0 and cell !=9 and row == 1 and list[row][cell] == 2 and list[row-1][cell] == 2  and list[row+1][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif  cell != 0 and cell !=9 and row == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
-            type = 14
-            return type
-
-        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
-            type = 14
-            return type
-
-        elif row == 1 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
-            type = 14
-            return type
-
-        elif row == 1 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell+1] == 0:
-            type = 14
-            return type
-
-        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-        
-        #########################
-
-        elif row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0: 
-            type = 20 
-            return type 
-     
-        elif cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:  
-            type = 20 
-            return type
-
-        elif cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0:  
-            type = 20 
-            return type
-
-        elif row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row +1][cell] == 0:  
-            type = 20 
-            return type
-
-        elif row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row -1][cell] == 0:  
-            type = 20 
-            return type
-
-        elif row == 0 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
-            type = 20 
-            return type
-
-        elif row == 0 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row+1][cell] == 0:
-            type = 20 
-            return type
-
-        elif row == 9 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row-1][cell] == 0:
-            type = 20 
-            return type
-
-        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0:
-            type = 20 
-            return type
-
         else:
-            type = 100
-            return type
-    
+            return 100
+   
     connect_to()
 
     data = json.dumps(player_map1)  
@@ -476,7 +599,6 @@ def battle():
 
     data = client_socket.recv(400)
     player_map2 = json.loads(data.decode())
-    print("recv map")
     print(player_map2)
 
     turn = client_socket.recv(10).decode()
@@ -643,7 +765,7 @@ def battle():
                         print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}")                    
                         item.CLOSE = True
                         
-                        shot_type = finder(player_map2, row, cell)
+                        shot_type = new_finder(player_map2, row, cell)
                         map(row_list_enemy, row, cell, number, shot_type)
 
                         sending(row, cell, number, 1, 0, kill_type= shot_type)

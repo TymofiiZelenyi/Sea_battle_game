@@ -18,14 +18,14 @@ FPS = data["main"]["FPS"]
 def menu():
     run_menu = True
 
-    im_coin = pygame.image.load(os.path.abspath(__file__ + "/../../../image/coins/coin.png"))
+    im_coin = pygame.image.load(os.path.abspath(__file__ + "/../../../image/coins/coin_silver.png"))
     im_coin = pygame.transform.scale(im_coin, [60, 60])
     im_coin_holder = pygame.image.load(os.path.abspath(__file__ + "/../../../image/coins/coin_holder2.png"))
     im_coin_holder = pygame.transform.scale(im_coin_holder, [375, 75])
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/background.png"))
     bg = pygame.transform.scale(bg, [1400, 800])
 
-    count_gold = Text(x = 1050, y = 50, text = str(GOLD), text_size=25, color="#dba800")
+    count_gold = Text(x = 1050, y = 50, text = str(GOLD), text_size=25, color="Grey")
     
     while run_menu:
         
