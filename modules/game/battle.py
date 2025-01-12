@@ -173,25 +173,6 @@ def battle():
             if cell != 9 and row != 9:
                 add_miss(list, number, 11, "plus")
 
-        # if shot_type == 23:
-        #     print("trio center ver") 
-        #     unuse
-
-        elif shot_type == 23:
-            print("trio center ver")
-            if row > 1:
-                add_miss(list, number, 20, "minus")
-            if row < 8:
-                add_miss(list, number, 20, "plus")
-            if cell != 0:
-                add_miss(list, number, 1, "minus")
-                add_miss(list, number, 11, "plus")
-                add_miss(list, number, 19, "plus")
-            if cell != 9:
-                add_miss(list, number, 1, "plus")
-                add_miss(list, number, 9, "plus")
-                add_miss(list, number, 21, "plus")
-
         elif shot_type == 24:
             print("trio top ver") 
             if row != 9 and row != 8 and row != 7:
@@ -270,25 +251,26 @@ def battle():
             if row != 0:
                 add_miss(list, number, 10, "minus")
                 add_miss(list, number, 11, "minus")
-                add_miss(list, number, 12, "minus")
-                add_miss(list, number, 13, "minus")
+                add_miss(list, number, 9, "minus")
+                add_miss(list, number, 8, "minus")
             if row != 9:
                 add_miss(list, number, 10, "plus")
                 add_miss(list, number, 11, "plus")
                 add_miss(list, number, 12, "plus")
-                add_miss(list, number, 13, "plus")
-            if cell > 2:
-                add_miss(list, number, 3, "minus")
-            if cell < 7:
+                add_miss(list, number, 9, "plus")
+            if cell != 1:
+                add_miss(list, number, 2, "minus")
+            if cell != 7:
                 add_miss(list, number, 3, "plus")
-            if cell > 2 and row != 0:
-                add_miss(list, number, 14, "minus")
-            if cell < 7 and row != 0:
-                add_miss(list, number, 6, "minus")
-            if cell > 2 and row != 9:
-                add_miss(list, number, 6, "plus")
-            if cell < 7 and row != 9:
-                add_miss(list, number, 14, "plus")
+            
+            if cell != 1 and row != 0:
+                add_miss(list, number, 12, "minus")
+            if cell != 7 and row != 0:
+                add_miss(list, number, 7, "minus")
+            if cell != 1 and row != 9:
+                add_miss(list, number, 8, "plus")
+            if cell != 7 and row != 9:
+                add_miss(list, number, 13, "plus")
         
         # if shot_type == 31:
         #     print("four 2center gor") 
@@ -300,24 +282,24 @@ def battle():
                 add_miss(list, number, 10, "minus")
                 add_miss(list, number, 11, "minus")
                 add_miss(list, number, 12, "minus")
-                add_miss(list, number, 13, "minus")
+                add_miss(list, number, 9, "minus")
             if row != 9:
                 add_miss(list, number, 10, "plus")
                 add_miss(list, number, 11, "plus")
-                add_miss(list, number, 12, "plus")
-                add_miss(list, number, 13, "plus")
-            if cell > 2:
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 8, "plus")
+            if cell != 2:
                 add_miss(list, number, 3, "minus")
-            if cell < 7:
-                add_miss(list, number, 3, "plus")
-            if cell > 2 and row != 0:
-                add_miss(list, number, 14, "minus")
-            if cell < 7 and row != 0:
-                add_miss(list, number, 6, "minus")
-            if cell > 2 and row != 9:
-                add_miss(list, number, 6, "plus")
-            if cell < 7 and row != 9:
-                add_miss(list, number, 14, "plus")
+            if cell != 8:
+                add_miss(list, number, 2, "plus")
+            if cell != 2 and row != 0:
+                add_miss(list, number, 13, "minus")
+            if cell != 8 and row != 0:
+                add_miss(list, number, 8, "minus")
+            if cell != 2 and row != 9:
+                add_miss(list, number, 7, "plus")
+            if cell != 8 and row != 9:
+                add_miss(list, number, 12, "plus")
 
         # if shot_type == 32:
         #     print("four left gor") 
@@ -328,22 +310,24 @@ def battle():
                 add_miss(list, number, 10, "minus")
                 add_miss(list, number, 9, "minus")
                 add_miss(list, number, 8, "minus")
+                add_miss(list, number, 7, "minus")
             if row != 9:
                 add_miss(list, number, 10, "plus")
                 add_miss(list, number, 11, "plus")
                 add_miss(list, number, 12, "plus")
+                add_miss(list, number, 13, "plus")
             if cell != 0:
                 add_miss(list, number, 1, "minus")
-            if cell != 7:
+            if cell != 6:
                 add_miss(list, number, 4, "plus")
             
             if cell != 0 and row != 0:
                 add_miss(list, number, 11, "minus")
-            if cell != 7 and row != 0:
+            if cell != 6 and row != 0:
                 add_miss(list, number, 6, "minus")
             if cell != 0 and row != 9:
                 add_miss(list, number, 9, "plus")
-            if cell != 7 and row != 9:
+            if cell != 6 and row != 9:
                 add_miss(list, number, 14, "plus")
 
         # if shot_type == 33:
@@ -355,10 +339,12 @@ def battle():
                 add_miss(list, number, 10, "minus")
                 add_miss(list, number, 11, "minus")
                 add_miss(list, number, 12, "minus")
+                add_miss(list, number, 13, "minus")
             if row != 9:
                 add_miss(list, number, 10, "plus")
                 add_miss(list, number, 9, "plus")
                 add_miss(list, number, 8, "plus")
+                add_miss(list, number, 7, "plus")
             if cell != 9:
                 add_miss(list, number, 1, "plus")
             if cell != 2:
@@ -366,12 +352,12 @@ def battle():
             
             if cell != 9  and row != 0:
                 add_miss(list, number, 9, "minus")
-            if cell != 7 and row != 0:
-                add_miss(list, number, 13, "minus")
+            if cell != 2 and row != 0:
+                add_miss(list, number, 14, "minus")
             if cell != 9 and row != 9:
                 add_miss(list, number, 11, "plus")
-            if cell != 7 and row != 9:
-                add_miss(list, number, 7, "plus")
+            if cell != 2 and row != 9:
+                add_miss(list, number, 6, "plus")
 
         # if shot_type == 34:
         #     print("four 1center ver") 
@@ -379,19 +365,32 @@ def battle():
 
         elif shot_type == 34:
             print("four 1center ver")
-            if row > 2:
-                add_miss(list, number, 30, "minus")
-            if row < 7:
+            if row != 7:
                 add_miss(list, number, 30, "plus")
+            if row != 1:
+                add_miss(list, number, 20, "minus")
             if cell != 0:
                 add_miss(list, number, 1, "minus")
-                add_miss(list, number, 11, "plus")
-                add_miss(list, number, 19, "plus")
-                add_miss(list, number, 21, "plus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 19, "minus")
             if cell != 9:
                 add_miss(list, number, 1, "plus")
-                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 9, "minus")
                 add_miss(list, number, 21, "plus")
+
+            if cell != 0 and row != 7:
+                add_miss(list, number, 29, "plus")
+
+            if cell != 9 and row != 7:
+                add_miss(list, number, 11, "plus")
+
+            if cell != 0 and row != 1:
+                add_miss(list, number, 21, "minus")
+
+            if cell != 9 and row != 1:
+                add_miss(list, number, 19, "minus")
 
         # if shot_type == 35:
         #     print("four 2center ver")
@@ -399,19 +398,32 @@ def battle():
 
         elif shot_type == 35:
             print("four 2center ver")
-            if row > 2:
+            if row != 8:
+                add_miss(list, number, 20, "plus")
+            if row != 2:
                 add_miss(list, number, 30, "minus")
-            if row < 7:
-                add_miss(list, number, 30, "plus")
             if cell != 0:
                 add_miss(list, number, 1, "minus")
-                add_miss(list, number, 11, "plus")
-                add_miss(list, number, 19, "plus")
-                add_miss(list, number, 21, "plus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 21, "minus")
             if cell != 9:
                 add_miss(list, number, 1, "plus")
-                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 9, "minus")
+                add_miss(list, number, 19, "minus")
+
+            if cell != 0 and row != 8:
+                add_miss(list, number, 19, "plus")
+
+            if cell != 9 and row != 8:
                 add_miss(list, number, 21, "plus")
+
+            if cell != 0 and row != 2:
+                add_miss(list, number, 31, "minus")
+
+            if cell != 9 and row != 2:
+                add_miss(list, number, 29, "minus")
 
         # if shot_type == 36:
         #     print("four top ver") 
@@ -456,9 +468,9 @@ def battle():
                 add_miss(list, number, 40, "minus")
             if cell != 0:
                 add_miss(list, number, 1, "minus")
-                add_miss(list, number, 11, "plus")
-                add_miss(list, number, 21, "plus")
-                add_miss(list, number, 31, "plus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 21, "minus")
+                add_miss(list, number, 31, "minus")
             if cell != 9:
                 add_miss(list, number, 1, "plus")
                 add_miss(list, number, 9, "minus")
@@ -477,32 +489,7 @@ def battle():
             if row != 3 and cell != 0:
                 add_miss(list, number, 39, "minus")
                 
-
-        # elif shot_type == 20:
-        #     if row != 0:
-        #         add_miss(list, number, 10, "minus")
-        #         add_miss(list, number, 11, "minus")
-        #         add_miss(list, number, 9, "minus")
-        #     if row != 9:
-        #         add_miss(list, number, 10, "plus")
-        #         add_miss(list, number, 11, "plus")
-        #         add_miss(list, number, 9, "plus")
-        #     if cell != 0 and cell != 1:
-        #         add_miss(list, number, 2, "minus")
-        #     if cell != 8 and cell != 9:
-        #         add_miss(list, number, 2, "plus")
-        #     if cell != 0 and cell != 1 and row != 0:
-        #         add_miss(list, number, 12, "minus")
-        #     if cell != 8 and cell != 9 and row != 0:
-        #         add_miss(list, number, 8, "minus")
-        #     if cell != 0 and cell != 1 and row != 9:
-        #         add_miss(list, number, 8, "plus")
-        #     if cell != 8 and cell != 9 and row != 9:
-        #         add_miss(list, number, 12, "plus")
-        #     unuse
-
-        if shot_type == 20:
-            print("trio center gor")
+        elif shot_type == 20:
             if row != 0:
                 add_miss(list, number, 10, "minus")
                 add_miss(list, number, 11, "minus")
@@ -511,18 +498,41 @@ def battle():
                 add_miss(list, number, 10, "plus")
                 add_miss(list, number, 11, "plus")
                 add_miss(list, number, 9, "plus")
-            if cell > 1:
+            if cell != 0 and cell != 1:
                 add_miss(list, number, 2, "minus")
-            if cell < 8:
+            if cell != 8 and cell != 9:
                 add_miss(list, number, 2, "plus")
-            if cell > 1 and row != 0:
+            if cell != 0 and cell != 1 and row != 0:
                 add_miss(list, number, 12, "minus")
-            if cell < 8 and row != 0:
+            if cell != 8 and cell != 9 and row != 0:
                 add_miss(list, number, 8, "minus")
-            if cell > 1 and row != 9:
+            if cell != 0 and cell != 1 and row != 9:
                 add_miss(list, number, 8, "plus")
-            if cell < 8 and row != 9:
+            if cell != 8 and cell != 9 and row != 9:
                 add_miss(list, number, 12, "plus")
+           
+        if shot_type == 23:
+            print("trio center vert")
+            if row != 1:
+                add_miss(list, number, 20, "minus")           
+            if row != 8:
+                add_miss(list, number, 20, "plus")            
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 9, "plus")  
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 9, "minus")
+            if cell != 0 and row != 1:
+                add_miss(list, number, 21, "minus")
+            if cell != 9 and row != 1:
+                add_miss(list, number, 19, "minus")
+            if cell != 0 and row != 8:
+                add_miss(list, number, 19, "plus")
+            if cell != 9 and row != 8:
+                add_miss(list, number, 21, "plus")
 
         elif shot_type == 12:
             if row != 8:
@@ -626,11 +636,15 @@ def battle():
         ship_count = 2
         if type == 0 and cell + 2 <= 9:
             new_cell = cell + 2
+            next_cell = new_cell +1
             print("RIGHT")
             while run:
                 if new_cell <= 9 and list[row][new_cell] == 2:
                     print("RIGHT + 1")
                     ship_count += 1
+                elif next_cell <= 9 and list[row][next_cell] == 1:
+                    print("RIGHT NEXT SHIP OUT")
+                    return
                 elif new_cell <= 9 and list[row][new_cell] == 0:
                     print("RIGHT CLEAN")
                     return ship_count
@@ -642,16 +656,20 @@ def battle():
         
         if type == 1 and cell - 2 >= 0:
             new_cell = cell - 2
+            next_cell = new_cell - 1
             print("LEFT")
             while  run:
                 if new_cell >= 0 and list[row][new_cell] == 2:
                     print("Left + 1")
                     ship_count += 1
+                elif next_cell >= 0 and list[row][new_cell] == 1:
+                    print("Left NEXT SHIP OUT")
+                    return
                 elif new_cell >= 0 and list[row][new_cell] == 0:
                     print("Left CLEAN")
                     return ship_count
                 
-                elif new_cell <= 0:
+                elif new_cell < 0:
                     print("Left CLEAN")
                     return ship_count
                 
@@ -659,15 +677,19 @@ def battle():
         
         if type == 2 and row + 2 <= 9:
             new_row = row + 2
+            next_row = new_row + 1
             print("TOP")
             while run:
                 if new_row <= 9 and list[new_row][cell] == 2:
                     print("Top + 1")
                     ship_count += 1
+                elif next_row <= 9 and list[next_row][cell] == 1:
+                    print("Top NEXT SHIP OUT")
+                    return
                 elif new_row <= 9 and list[new_row][cell] == 0:
                     print("Top CLEAN")
                     return ship_count
-                elif new_row > 0:
+                elif new_row > 9:
                     print("Top CLOSE")
                     return ship_count
     
@@ -675,11 +697,15 @@ def battle():
         
         if type == 3 and row - 2 >= 0:
             new_row = row - 2
+            next_row = new_row - 1
             print("DOWN")
             while run:
                 if new_row >= 0 and list[new_row][cell] == 2:
                     print("DOWN + 1")
                     ship_count += 1
+                elif next_row >= 0 and list[next_row][cell] == 1:
+                    print("DOWN NEXT SHIP OUT")
+                    return
                 elif new_row >= 0 and list[new_row][cell] == 0:
                     print("DOWN CLEAN")
                     return ship_count
@@ -740,6 +766,38 @@ def battle():
 
         if all(meaning for meaning in clean) or all(not meaning for meaning in ship) and all(not meaning for meaning in dead_ship):
             return 1
+        
+        if dead_ship[0] and dead_ship[1]:
+            right = check_side(0, list, row, cell)
+            left = check_side(1, list, row, cell)
+
+            if right == 2 and left == 2:
+                print("TRIO CENTER GOH")
+                return 20
+            
+            elif right == 2 and left == 3:
+                print("FOUR")
+                return 30
+            
+            elif right == 3 and left == 2:
+                print("FOUR 2")
+                return 31
+            
+        if dead_ship[2] and dead_ship[3]:
+            down = check_side(2, list, row, cell)
+            top = check_side(3, list, row, cell)
+
+            if down == 2 and top == 2:
+                print("TRIO CENTER VER")
+                return 23
+            
+            elif down == 2 and top == 3:
+                print("FOUR VER ")
+                return 35
+            
+            elif down == 3 and top == 2:
+                print("FOUR VER 2")
+                return 34
         
         for index, dead in enumerate(dead_ship) :
             print(dead, index)
