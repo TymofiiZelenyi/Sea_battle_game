@@ -83,246 +83,7 @@ def battle():
     row_list_enemy = []
     cell_list_enemy = []
 
-    def old_finder(list, row, cell):
-        #########################
-        # 100 nothing
-        # 1 solo
-        # 1-1 11 duo left
-        # 1-2 12 duo top
-        # 1-3 13 duo right
-        # 1-4 14 duo down
-        # 2-0 20 trio center
-            
-        if row != 0 and row != 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-
-        elif row == 0 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
-            type = 1
-            return type
-
-        elif row == 9 and cell != 0 and cell != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-        
-        elif cell == 0 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 9 and row != 0 and row != 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-        
-        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 0 and row == 9 and list[row][cell] == 2 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
-            type = 1
-            return type
-
-        elif cell == 9 and row == 9 and list[row][cell] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
-            type = 1
-            return type
-        
-        #########################
-
-        elif row != 0 and row != 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 11
-            return type
-
-        elif row == 0 and cell != 0 and cell != 1 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
-            type = 11
-            return type
-
-        elif row == 9 and cell != 0 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell-1] == 0 and list[row-1][cell] == 0:
-            type = 11
-            return type
-
-        elif row != 0 and row != 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 11
-            return type
-
-        elif row != 9 and row != 0 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row][cell-1] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
-            type = 11
-            return type
-        
-        elif row == 0 and cell == 0  and list[row][cell-1] == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+2] == 0 and list[row][cell+1] == 2:
-            type = 11
-            return type
-
-        elif row == 0 and list[row][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:
-            type = 11
-            return type
-
-        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell+2] == 0:
-            type = 11
-            return type
-
-        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell+1] == 2 and list[row-1][cell] == 0 and list[row][cell-1] == 2 and list[row][cell-2] == 0:
-            type = 11
-            return type
-
-        ######################### 
-        
-        elif row != 0 and row != 9 and cell != 1 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 13
-            return type
-
-        elif row == 0 and cell != 1 and cell != 2 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row+1][cell] == 0:
-            type = 13
-            return type
-
-        elif row == 9 and cell != 1 and cell != 2 and cell != 9 and cell != 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row][cell+1] == 0 and list[row-1][cell] == 0:
-            type = 13
-            return type
-
-        elif row != 0 and row != 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and  list[row][cell+1] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0:
-            type = 13
-            return type
-
-        elif row != 9 and row != 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0 and list[row+1][cell] == 0:
-            type = 13
-            return type
-        
-        elif row == 0 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
-            type = 13
-            return type
-
-        elif row == 0 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row+1][cell] == 0 and list[row][cell-2] == 0:
-            type = 13
-            return type
-
-        elif row == 9 and cell == 1 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
-            type = 13
-            return type
-
-        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row-1][cell] == 0 and list[row][cell-2] == 0:
-            type = 13
-            return type
-
-        
-        ###########################
-
-        elif cell != 0 and cell != 9 and row !=0 and row !=8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell != 0 and cell !=9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell != 0 and cell !=9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and  list[row-1][cell] == 0 and list[row][cell-1] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-
-        elif cell == 0 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-            
-        elif cell == 9 and row != 0 and row != 8 and row != 9 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row-1][cell] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell == 0 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-
-        elif cell == 9 and row == 0 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row+2][cell] == 0 and list[row][cell-1] == 0:
-            type = 12
-            return type
-
-        elif cell == 0 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row][cell+1] == 0:
-            type = 12
-            return type
-
-        elif cell == 9 and row == 8 and list[row][cell] == 2 and list[row+1][cell] == 2 and list[row-1][cell] == 0 and list[row-1][cell] == 0:
-            type = 12
-            return type
-        
-        #########################   
-        
-        elif cell != 0 and cell != 9 and row !=0 and row !=1 and row != 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif cell != 0 and cell !=9 and row == 1 and list[row][cell] == 2 and list[row-1][cell] == 2  and list[row+1][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif  cell != 0 and cell !=9 and row == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0  and list[row][cell+1] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
-            type = 14
-            return type
-
-        elif row != 1 and row != 9 and row != 0 and row != 8 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0 and list[row+1][cell] == 0:
-            type = 14
-            return type
-
-        elif row == 1 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell+1] == 0:
-            type = 14
-            return type
-
-        elif row == 1 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row+1][cell] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-
-        elif row == 9 and cell == 0 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell+1] == 0:
-            type = 14
-            return type
-
-        elif row == 9 and cell == 9 and list[row][cell] == 2 and list[row-1][cell] == 2 and list[row-2][cell] == 0 and list[row][cell-1] == 0:
-            type = 14
-            return type
-        
-        #########################
-
-        elif row != 0 and row != 9 and cell !=0 and cell != 9 and cell != 1 and cell !=  8 and cell != 2 and cell !=  7 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row][cell+2] == 0 and list[row+1][cell] == 0 and list[row-1][cell] == 0: 
-            type = 20 
-            return type 
-        
-        elif cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0:  
-            type = 20 
-            return type
-
-        elif cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0:  
-            type = 20 
-            return type
-
-        elif row == 0 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row +1][cell] == 0:  
-            type = 20 
-            return type
-
-        elif row != 9 and cell != 0 and cell != 1 and cell != 8 and cell != 9 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row -1][cell] == 0:  
-            type = 20 
-            return type
-
-        elif row == 0 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row+1][cell] == 0:
-            type = 20 
-            return type
-
-        elif row == 0 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row+1][cell] == 0:
-            type = 20 
-            return type
-
-        elif row == 9 and cell == 2 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell+2] == 0 and list[row-1][cell] == 0:
-            type = 20 
-            return type
-
-        elif row == 9 and cell == 8 and list[row][cell] == 2 and list[row][cell-1] == 2 and list[row][cell+1] == 2 and list[row][cell-2] == 0 and list[row-1][cell] == 0:
-            type = 20 
-            return type
-
-        else:
-            type = 100
-            return type
+    run = True
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -360,29 +121,388 @@ def battle():
             list[number + place].CLOSE = True 
 
     def map(list, row, cell, number, shot_type):
-        print(list[number].x, list[number].x)
-        print(type(row), type(cell), type(number), type(shot_type))
-        print(row, cell, number, shot_type) 
 
+        print(row, cell, number, shot_type)
+        
         if shot_type == 100:
             print("miss")  
 
-        if shot_type == 21:
-            print("trio left gor")    
-
-        if shot_type == 22:
+        if shot_type == 21: 
+            print("trio left goh")   
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 8, "minus")
+                add_miss(list, number, 9, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 12, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+            if cell != 7 and cell != 8 and cell != 9:
+                add_miss(list, number, 3, "plus")
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+            if cell != 7 and cell != 8 and cell != 9 and row != 0:
+                add_miss(list, number, 7, "minus")
+            if cell != 0 and row != 9:
+                add_miss(list, number, 9, "plus")
+            if cell != 7 and cell != 8 and cell != 9 and row != 9:
+                add_miss(list, number, 13, "plus")
+ 
+        elif shot_type == 22:
             print("trio right gor") 
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 12, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 8, "plus")
+            if cell != 1 and cell != 2 and cell != 0:
+                add_miss(list, number, 3, "minus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+            if cell != 1 and cell != 2 and cell != 0 and row != 0:
+                add_miss(list, number, 13, "minus")
+            if cell != 9 and row != 0:
+                add_miss(list, number, 9, "minus")
+            if cell != 1 and cell != 2 and cell != 0 and row != 9:
+                add_miss(list, number, 7, "plus")
+            if cell != 9 and row != 9:
+                add_miss(list, number, 11, "plus")
 
-        if shot_type == 23:
-            print("trio center ver") 
+        # if shot_type == 23:
+        #     print("trio center ver") 
+        #     unuse
 
-        if shot_type == 24:
-            print("trio left ver") 
+        elif shot_type == 23:
+            print("trio center ver")
+            if row > 1:
+                add_miss(list, number, 20, "minus")
+            if row < 8:
+                add_miss(list, number, 20, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 19, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 21, "plus")
 
-        if shot_type == 25:
-            print("trio right ver") 
+        elif shot_type == 24:
+            print("trio top ver") 
+            if row != 9 and row != 8 and row != 7:
+                add_miss(list, number, 30, "plus")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 19, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 21, "plus")
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+            if cell != 9 and row != 0:
+                add_miss(list, number, 9, "minus")
+            if cell != 0 and row != 7 and row != 8 and row != 9:
+                add_miss(list, number, 29, "plus")
+            if cell != 9 and row != 7 and row != 8 and row != 9:
+                add_miss(list, number, 31, "plus")
+
+        # if shot_type == 25:
+        #     print("trio down ver") 
+        
+        elif shot_type == 25:
+            print("trio down ver")
+            if row != 2:
+                add_miss(list, number, 30, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 21, "minus")
+                add_miss(list, number, 11, "minus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 9, "minus")
+                add_miss(list, number, 19, "minus")
+            
+            if cell != 0 and row != 9:
+                add_miss(list, number, 9, "plus")
+            if cell != 9 and row != 9:
+                add_miss(list, number, 11, "plus")
+            
+            if cell != 0 and row != 2:
+                add_miss(list, number, 31, "minus")
+
+            if cell != 9 and row != 2:
+                add_miss(list, number, 29, "minus")
+            
+            # if row < 7:
+            #     add_miss(list, number, 30, "plus")
+            # if row != 9:
+            #     add_miss(list, number, 10, "plus")
+            # if cell != 0:
+            #     add_miss(list, number, 1, "minus")
+            #     add_miss(list, number, 9, "plus")
+            #     add_miss(list, number, 19, "plus")
+            # if cell != 9:
+            #     add_miss(list, number, 1, "plus")
+            #     add_miss(list, number, 11, "plus")
+            #     add_miss(list, number, 21, "plus")
+            # if cell != 0 and row < 7:
+            #     add_miss(list, number, 29, "plus")
+            # if cell != 9 and row < 7:
+            #     add_miss(list, number, 31, "plus")
+  
+        # if shot_type == 30:
+        #     print("four 1center gor") 
+        #     unuse
+
+        elif shot_type == 30:
+            print("four 1center gor")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 12, "minus")
+                add_miss(list, number, 13, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 12, "plus")
+                add_miss(list, number, 13, "plus")
+            if cell > 2:
+                add_miss(list, number, 3, "minus")
+            if cell < 7:
+                add_miss(list, number, 3, "plus")
+            if cell > 2 and row != 0:
+                add_miss(list, number, 14, "minus")
+            if cell < 7 and row != 0:
+                add_miss(list, number, 6, "minus")
+            if cell > 2 and row != 9:
+                add_miss(list, number, 6, "plus")
+            if cell < 7 and row != 9:
+                add_miss(list, number, 14, "plus")
+        
+        # if shot_type == 31:
+        #     print("four 2center gor") 
+        # #     unuse   
+
+        elif shot_type == 31:
+            print("four 2center gor")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 12, "minus")
+                add_miss(list, number, 13, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 12, "plus")
+                add_miss(list, number, 13, "plus")
+            if cell > 2:
+                add_miss(list, number, 3, "minus")
+            if cell < 7:
+                add_miss(list, number, 3, "plus")
+            if cell > 2 and row != 0:
+                add_miss(list, number, 14, "minus")
+            if cell < 7 and row != 0:
+                add_miss(list, number, 6, "minus")
+            if cell > 2 and row != 9:
+                add_miss(list, number, 6, "plus")
+            if cell < 7 and row != 9:
+                add_miss(list, number, 14, "plus")
+
+        # if shot_type == 32:
+        #     print("four left gor") 
+
+        elif shot_type == 32:
+            print("four left gor")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 9, "minus")
+                add_miss(list, number, 8, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 12, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+            if cell != 7:
+                add_miss(list, number, 4, "plus")
+            
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+            if cell != 7 and row != 0:
+                add_miss(list, number, 6, "minus")
+            if cell != 0 and row != 9:
+                add_miss(list, number, 9, "plus")
+            if cell != 7 and row != 9:
+                add_miss(list, number, 14, "plus")
+
+        # if shot_type == 33:
+        #     print("four right gor") 
+
+        elif shot_type == 33:
+            print("four right gor")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+                add_miss(list, number, 11, "minus")
+                add_miss(list, number, 12, "minus")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 8, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+            if cell != 2:
+                add_miss(list, number, 4, "minus")
+            
+            if cell != 9  and row != 0:
+                add_miss(list, number, 9, "minus")
+            if cell != 7 and row != 0:
+                add_miss(list, number, 13, "minus")
+            if cell != 9 and row != 9:
+                add_miss(list, number, 11, "plus")
+            if cell != 7 and row != 9:
+                add_miss(list, number, 7, "plus")
+
+        # if shot_type == 34:
+        #     print("four 1center ver") 
+        #     unuse
+
+        elif shot_type == 34:
+            print("four 1center ver")
+            if row > 2:
+                add_miss(list, number, 30, "minus")
+            if row < 7:
+                add_miss(list, number, 30, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 19, "plus")
+                add_miss(list, number, 21, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 21, "plus")
+
+        # if shot_type == 35:
+        #     print("four 2center ver")
+        #     unuse
+
+        elif shot_type == 35:
+            print("four 2center ver")
+            if row > 2:
+                add_miss(list, number, 30, "minus")
+            if row < 7:
+                add_miss(list, number, 30, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 19, "plus")
+                add_miss(list, number, 21, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 21, "plus")
+
+        # if shot_type == 36:
+        #     print("four top ver") 
+
+        elif shot_type == 36:
+            print("four top ver")
+            if row != 0:
+                add_miss(list, number, 10, "minus")
+            if row != 6:
+                add_miss(list, number, 40, "plus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 9, "plus")
+                add_miss(list, number, 19, "plus")
+                add_miss(list, number, 29, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 21, "plus")
+                add_miss(list, number, 31, "plus")
+
+            if cell != 0 and row != 0:
+                add_miss(list, number, 11, "minus")
+
+            if cell != 9 and row != 0:
+                add_miss(list, number, 9, "minus")
+
+            if cell != 0 and row != 6:
+                add_miss(list, number, 39, "plus")
+
+            if cell != 9 and row != 6:
+                add_miss(list, number, 41, "plus")
+
+        # if shot_type == 37:
+        #     print("four down ver")
+
+        elif shot_type == 37:
+            print("four down ver")
+            if row != 9:
+                add_miss(list, number, 10, "plus")
+            if row != 3:
+                add_miss(list, number, 40, "minus")
+            if cell != 0:
+                add_miss(list, number, 1, "minus")
+                add_miss(list, number, 11, "plus")
+                add_miss(list, number, 21, "plus")
+                add_miss(list, number, 31, "plus")
+            if cell != 9:
+                add_miss(list, number, 1, "plus")
+                add_miss(list, number, 9, "minus")
+                add_miss(list, number, 19, "minus")
+                add_miss(list, number, 29, "minus")
+
+            if row != 9 and cell != 0:
+                add_miss(list, number, 9, "plus")
+
+            if row != 9 and cell != 9:
+                add_miss(list, number, 11, "plus")
+
+            if row != 3 and cell != 0:
+                add_miss(list, number, 41, "minus")
+            
+            if row != 3 and cell != 0:
+                add_miss(list, number, 39, "minus")
+                
+
+        # elif shot_type == 20:
+        #     if row != 0:
+        #         add_miss(list, number, 10, "minus")
+        #         add_miss(list, number, 11, "minus")
+        #         add_miss(list, number, 9, "minus")
+        #     if row != 9:
+        #         add_miss(list, number, 10, "plus")
+        #         add_miss(list, number, 11, "plus")
+        #         add_miss(list, number, 9, "plus")
+        #     if cell != 0 and cell != 1:
+        #         add_miss(list, number, 2, "minus")
+        #     if cell != 8 and cell != 9:
+        #         add_miss(list, number, 2, "plus")
+        #     if cell != 0 and cell != 1 and row != 0:
+        #         add_miss(list, number, 12, "minus")
+        #     if cell != 8 and cell != 9 and row != 0:
+        #         add_miss(list, number, 8, "minus")
+        #     if cell != 0 and cell != 1 and row != 9:
+        #         add_miss(list, number, 8, "plus")
+        #     if cell != 8 and cell != 9 and row != 9:
+        #         add_miss(list, number, 12, "plus")
+        #     unuse
 
         if shot_type == 20:
+            print("trio center gor")
             if row != 0:
                 add_miss(list, number, 10, "minus")
                 add_miss(list, number, 11, "minus")
@@ -391,17 +511,17 @@ def battle():
                 add_miss(list, number, 10, "plus")
                 add_miss(list, number, 11, "plus")
                 add_miss(list, number, 9, "plus")
-            if cell != 0 and cell != 1:
+            if cell > 1:
                 add_miss(list, number, 2, "minus")
-            if cell != 8 and cell != 9:
+            if cell < 8:
                 add_miss(list, number, 2, "plus")
-            if cell != 0 and cell != 1 and row != 0:
+            if cell > 1 and row != 0:
                 add_miss(list, number, 12, "minus")
-            if cell != 8 and cell != 9 and row != 0:
+            if cell < 8 and row != 0:
                 add_miss(list, number, 8, "minus")
-            if cell != 0 and cell != 1 and row != 9:
+            if cell > 1 and row != 9:
                 add_miss(list, number, 8, "plus")
-            if cell != 8 and cell != 9 and row != 9:
+            if cell < 8 and row != 9:
                 add_miss(list, number, 12, "plus")
 
         elif shot_type == 12:
@@ -502,12 +622,75 @@ def battle():
             if cell != 9 and row != 9:
                 add_miss(list, number, 11, "plus")
          
+    def check_side(type, list, row, cell):
+        ship_count = 2
+        if type == 0 and cell + 2 <= 9:
+            new_cell = cell + 2
+            print("RIGHT")
+            while run:
+                if new_cell <= 9 and list[row][new_cell] == 2:
+                    print("RIGHT + 1")
+                    ship_count += 1
+                elif new_cell <= 9 and list[row][new_cell] == 0:
+                    print("RIGHT CLEAN")
+                    return ship_count
+                elif new_cell > 9:
+                    print("RIGHT CLOSE")
+                    return ship_count
+                
+                new_cell = new_cell + 1
+        
+        if type == 1 and cell - 2 >= 0:
+            new_cell = cell - 2
+            print("LEFT")
+            while  run:
+                if new_cell >= 0 and list[row][new_cell] == 2:
+                    print("Left + 1")
+                    ship_count += 1
+                elif new_cell >= 0 and list[row][new_cell] == 0:
+                    print("Left CLEAN")
+                    return ship_count
+                
+                elif new_cell <= 0:
+                    print("Left CLEAN")
+                    return ship_count
+                
+                new_cell = new_cell - 1
+        
+        if type == 2 and row + 2 <= 9:
+            new_row = row + 2
+            print("TOP")
+            while run:
+                if new_row <= 9 and list[new_row][cell] == 2:
+                    print("Top + 1")
+                    ship_count += 1
+                elif new_row <= 9 and list[new_row][cell] == 0:
+                    print("Top CLEAN")
+                    return ship_count
+                elif new_row > 0:
+                    print("Top CLOSE")
+                    return ship_count
     
-    def check_next_cell():
-        pass
+                new_row = new_row + 1
+        
+        if type == 3 and row - 2 >= 0:
+            new_row = row - 2
+            print("DOWN")
+            while run:
+                if new_row >= 0 and list[new_row][cell] == 2:
+                    print("DOWN + 1")
+                    ship_count += 1
+                elif new_row >= 0 and list[new_row][cell] == 0:
+                    print("DOWN CLEAN")
+                    return ship_count
+                elif new_row < 0:
+                    print("DOWN CLOSE")
+                    return ship_count
     
+                new_row = new_row - 1
+          
     def radar(list, list2, row, cell, type):
-        print(list2, row, cell, type)
+        # print(list2, row, cell, type)
 
         for i in range(len(list2)):
             list2[i] = False
@@ -523,205 +706,135 @@ def battle():
                 list2[3] = True 
         
         return list2
-
+    
     def new_finder(list, row, cell):
 
         #########################
         # 100 nothing
         # 1 solo
+        
         # 1-1 11 duo left
         # 1-2 12 duo top
         # 1-3 13 duo right
         # 1-4 14 duo down
-        # 2-0 20 trio center gor
-        # 2-0 21 trio left gor
-        # 2-0 22 trio right gor
-        # 2-0 23 trio center ver
-        # 2-0 24 trio left ver
-        # 2-0 24 trio right ver
-
-
         
+        # 2-0 20 trio center gor///
+        # 2-1 21 trio left gor
+        # 2-2 22 trio right gor
+        # 2-3 23 trio center ver////
+        # 2-4 24 trio top ver
+        # 2-5 25 trio down ver
+
+        # 3-0 30 four 1center gor//
+        # 3-1 31 four 2center gor//
+        # 3-2 32 four left gor
+        # 3-3 33 four right gor
+        # 3-4 34 four 1center ver//
+        # 3-5 35 four 2center ver//
+        # 3-6 36 four top ver
+        # 3-7 37 four down ver
+
         clean = radar(list, clean_side_list, row, cell, 0)
         ship = radar(list, ship_side_list, row, cell, 1)
         dead_ship = radar(list, dead_ship_side_list, row, cell, 2)
-
-        print("CLICK")
-        print(clean)
-        print(ship)
-        print(dead_ship)
 
         if all(meaning for meaning in clean) or all(not meaning for meaning in ship) and all(not meaning for meaning in dead_ship):
             return 1
         
         for index, dead in enumerate(dead_ship) :
             print(dead, index)
-                
+
+            ##########
+
             if cell != 0 and dead and index == 0 and clean[1]:
-                new_cell = cell + 1
-                clean = radar(list, clean_side_list, row, new_cell, 0)
-                ship = radar(list, ship_side_list, row, new_cell, 1)
-                dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
+                res = check_side(index, list, row, cell)
+                print(f"ship_count {res}")
+                if res == 2:
+                    return  11               
+                elif res == 3:
+                    return 21               
+                elif res == 4:
+                    return  32
 
-                print(clean)
-                print(ship)
-                print(dead_ship)
 
-                if new_cell == 9:
-                    return 11
-
-                if new_cell != 9 and clean[0]:
-                    return 11
-                
-                if new_cell !=9 and dead_ship[0]:
-                    new_cell = cell + 2
-                    clean = radar(list, clean_side_list, row, new_cell, 0)
-                    ship = radar(list, ship_side_list, row, new_cell, 1)
-                    dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
-
-                    print(clean)
-                    print(ship)
-                    print(dead_ship)
-
-                    if new_cell == 9:
-                        print("aso;fghso;\npapadpapaa\n spsfipspgspjgspj")
-                        return 21
-
-                    if new_cell != 9 and clean[0]:
-                        print("aso;fghso;\npapadpapaa\n spsfipspgspjgspj")
-                        return 21
-                    
-                    if new_cell !=9 and dead_ship[0]:
-                        new_cell = cell + 3
-                        clean = radar(list, clean_side_list, row, new_cell, 0)
-                        ship = radar(list, ship_side_list, row, new_cell, 1)
-                        dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
-
-                        print(clean)
-                        print(ship)
-                        print(dead_ship)
-
-                        if new_cell == 9:
-                            print("44444444444")
-                            # return 21
-
-                        if new_cell != 9 and clean[0]:
-                            print("555555555555555555555555555")
-                            # return 21
-            #########################################################
             if cell == 0 and dead and index == 0:
-                new_cell = cell + 1
-                clean = radar(list, clean_side_list, row, new_cell, 0)
-                ship = radar(list, ship_side_list, row, new_cell, 1)
-                dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
-
-                print(clean)
-                print(ship)
-                print(dead_ship)
-
-                if new_cell == 9:
-                    return 11
-
-                if new_cell != 9 and clean[0]:
-                    return 11
-                
-                if new_cell !=9 and dead_ship[0]:
-                    new_cell = cell + 2
-                    clean = radar(list, clean_side_list, row, new_cell, 0)
-                    ship = radar(list, ship_side_list, row, new_cell, 1)
-                    dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
-
-                    print(clean)
-                    print(ship)
-                    print(dead_ship)
-
-                    if new_cell == 9:
-                        print("aso;fghso;\npapadpapaa\n spsfipspgspjgspj")
-                        return 21
-
-                    if new_cell != 9 and clean[0]:
-                        print("aso;fghso;\npapadpapaa\n spsfipspgspjgspj")
-                        return 21
-                    
-                    if new_cell !=9 and dead_ship[0]:
-                        new_cell = cell + 3
-                        clean = radar(list, clean_side_list, row, new_cell, 0)
-                        ship = radar(list, ship_side_list, row, new_cell, 1)
-                        dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
-
-                        print(clean)
-                        print(ship)
-                        print(dead_ship)
-
-                        if new_cell == 9:
-                            print("44444444444")
-                            # return 21
-
-                        if new_cell != 9 and clean[0]:
-                            print("4444444444444444444444444444444444444")
-                            # return 21
-
+                res = check_side(index, list, row, cell)
+                print(f"ship_count {res}")
+                if res == 2:
+                    return  11               
+                elif res == 3:
+                    return 21               
+                elif res == 4:
+                    return  32
             
-            
-            
-            
+            ##########
             
             if cell != 9 and dead and index == 1 and clean[0]:
-                new_cell = cell - 1
-                print(row, cell, new_cell)
-                clean = radar(list, clean_side_list, row, new_cell, 0)
-                ship = radar(list, ship_side_list, row, new_cell, 1)
-                dead_ship = radar(list, dead_ship_side_list, row, new_cell, 2)
-
-                
-                print("NEW")
-                print(clean)
-                print(ship)
-                print(dead_ship)
-
-                if new_cell == 0:
-                    print("cell == 9")
-                    return 13
-
-                elif new_cell != 0 and clean[1]:
-                    print("cell != 9 and ...")
-                    return 13
-                
-            if dead and index == 2:
-                new_row = row + 1
-                clean = radar(list, clean_side_list, new_row, cell, 0)
-                ship = radar(list, ship_side_list, new_row, cell, 1)
-                dead_ship = radar(list, dead_ship_side_list, new_row, cell, 2)
-
-                print(clean)
-                print(ship)
-                print(dead_ship)
-
-                if new_row != 9:
-                    return 12
-
-                if row != 9 and clean[2]:
-                    return 12
-                
-            if dead and index == 3:
-                new_row = row - 1
-                clean = radar(list, clean_side_list, new_row, cell, 0)
-                ship = radar(list, ship_side_list, new_row, cell, 1)
-                dead_ship = radar(list, dead_ship_side_list, new_row, cell, 2)
-
-                print(clean)
-                print(ship)
-                print(dead_ship)
-
-                if new_row != 0:
-                    return 14
-
-                if new_row != 0 and clean[3]:
-                    return 14
+                res = check_side(index, list, row, cell)
+                print(f"ship_count {res}")
+                if res == 2:
+                    return 13                 
+                elif res == 3:
+                    return 22               
+                elif res == 4:
+                    return  33
             
-        else:
-            return 100
-   
+            if cell == 9 and dead and index == 1:
+                res = check_side(index, list, row, cell)
+                print(f"ship_count {res}")
+                if res == 2:
+                    return 13                 
+                elif res == 3:
+                    return 22               
+                elif res == 4:
+                    return  33
+            
+            ##########
+            
+            if row != 0 and dead and index == 2 and clean[3]:
+                res = check_side(index, list, row, cell)
+                print("ship_count", res)
+                if res == 2:
+                    return 12                
+                elif res == 3:
+                    return 24               
+                elif res == 4:
+                    return  36
+
+            if row == 0 and dead and index == 2:
+                res = check_side(index, list, row, cell)
+                print("ship_count", res)
+                if res == 2:
+                    return 12                
+                elif res == 3:
+                    return 24               
+                elif res == 4:
+                    return  36
+            
+            ##########
+            
+            if row != 9 and dead and index == 3 and clean[2]:
+                res = check_side(index, list, row, cell)
+                print("ship_count", res)
+                if res == 2:
+                    return 14                 
+                elif res == 3:
+                    return 25               
+                elif res == 4:
+                    return  37
+
+            if row == 9 and dead and index == 3:
+                res = check_side(index, list, row, cell)
+                print("ship_count", res)
+                if res == 2:
+                    return 14                 
+                elif res == 3:
+                    return 25               
+                elif res == 4:
+                    return  37
+        
+        return 100
+
     connect_to()
 
     data = json.dumps(player_map1)  
@@ -797,6 +910,10 @@ def battle():
     test_thread = Thread(target = always_recv) 
     test_thread.start()
 
+    for ship in ship_list:
+        ship.x += 3
+        ship.y += 38
+
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
 
@@ -848,7 +965,8 @@ def battle():
             cell = number1 % 10
             row = number1 // 10
             if player_map1[row][cell] == 1:
-                pygame.draw.rect(screen, "yellow", item)
+                for ship in ship_list:
+                    ship.ship_draw(screen= screen)  
             number1 += 1
 
         number2 = 0 
