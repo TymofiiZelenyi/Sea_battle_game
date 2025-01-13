@@ -54,6 +54,11 @@ def battle():
     dead_ship_top_side = False
     dead_ship_side_list = [dead_ship_right_side, dead_ship_left_side, dead_ship_down_side, dead_ship_top_side]
 
+    point = 0
+
+    Text_point = Text(x= 1250, y= 30, text = str(point), color= "Black", text_size= 50)
+
+    buy = None
 
     #Наше поле (your screen)
     sq_your = pygame.Rect((70, 180, PLACE_LENGTH, PLACE_LENGTH))
@@ -88,7 +93,7 @@ def battle():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def connect_to():
-        client_socket.connect(("192.168.1.12", 8081))
+        client_socket.connect(("192.168.0.109", 8081))
         print("connect")
     
     def sending(row, cell, number, shot_type, turn, kill_type):
@@ -653,6 +658,7 @@ def battle():
                     return ship_count
                 
                 new_cell = new_cell + 1
+                next_cell = next_cell + 1
         
         if type == 1 and cell - 2 >= 0:
             new_cell = cell - 2
@@ -674,6 +680,7 @@ def battle():
                     return ship_count
                 
                 new_cell = new_cell - 1
+                next_cell = next_cell + 1
         
         if type == 2 and row + 2 <= 9:
             new_row = row + 2
@@ -694,6 +701,7 @@ def battle():
                     return ship_count
     
                 new_row = new_row + 1
+                next_row = next_row + 1
         
         if type == 3 and row - 2 >= 0:
             new_row = row - 2
@@ -714,6 +722,7 @@ def battle():
                     return ship_count
     
                 new_row = new_row - 1
+                next_row = next_row + 1
           
     def radar(list, list2, row, cell, type):
         # print(list2, row, cell, type)
@@ -777,11 +786,11 @@ def battle():
             
             elif right == 2 and left == 3:
                 print("FOUR")
-                return 30
+                return 31
             
             elif right == 3 and left == 2:
                 print("FOUR 2")
-                return 31
+                return 30
             
         if dead_ship[2] and dead_ship[3]:
             down = check_side(2, list, row, cell)
@@ -975,6 +984,13 @@ def battle():
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
 
+        Text_point = Text(x= 1300, y= 20, text = str(point), color= "Black", text_size= 50)
+
+        Text_point.text_draw(screen=screen)
+
+        position = pygame.mouse.get_pos()
+        press = pygame.mouse.get_pressed()
+        
         res = check_lose()
         if res == "LOSE":
             turn = False
@@ -987,8 +1003,6 @@ def battle():
         your_screen_text.button_draw(screen=screen)
         enemy_screen_text.button_draw(screen=screen)
 
-        position = pygame.mouse.get_pos()
-        press = pygame.mouse.get_pressed()
 
         for sq in sq_list:
             pygame.draw.rect(screen, BUTTON_COLOR, sq)
@@ -1041,14 +1055,32 @@ def battle():
         for item in hit_list:
             screen.blit(hit, (item.x, item.y))
 
+        for skill in skills_list:
+            skill.draw_skill(screen=screen)
+            skill.move(position= position, press= press, screen= screen)
+
         # print(clock.get_fps())
         
         pygame.display.flip()
         clock.tick(FPS)      
         
         for event in pygame.event.get():
+
+            if not press[1] and not press[2] and event.type == pygame.MOUSEBUTTONDOWN:
+                print("TAKE")  
+                for skill in skills_list:
+                    if skill.rect.collidepoint(position):
+                        skill.take(position= position)
+
+            if event.type == pygame.MOUSEBUTTONUP and press[0]:         
+                for skill in skills_list:
+                    if skill.plus_rect.collidepoint(position):
+                        buy = skill.plus(point)
+
+                if buy:
+                    point -= 20
             
-            if event.type == pygame.MOUSEBUTTONUP and press[1]:
+            if event.type == pygame.MOUSEBUTTONUP and press[1]:             
                 number = 0
                 for item in row_list_enemy:
                     row = number // 10
@@ -1069,7 +1101,8 @@ def battle():
                         hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
                         print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
                         player_map2[row][cell] = 2
-                        print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}")                    
+                        print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}") 
+                        point += 10                   
                         item.CLOSE = True
                         
                         shot_type = new_finder(player_map2, row, cell)
@@ -1090,6 +1123,7 @@ def battle():
                     elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
                         miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
                         print("Поле врага: Не попал", row , cell , player_map2[row][cell])
+                        point += 2
                         item.CLOSE = True  
                         turn = False   
 
@@ -1114,6 +1148,8 @@ def battle():
                 pygame.quit()
 
 def win():
+
+
     run_win = True
 
     while run_win:
