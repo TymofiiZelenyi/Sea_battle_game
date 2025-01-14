@@ -7,7 +7,7 @@ def start_server():
     # створили socket для передачи даних вказавши версію IP TCP тип з'єднання 
     with socket.socket(family = socket.AF_INET, type = socket.SOCK_STREAM) as server_socket: 
         # зв'язуємо socket з IP та портом 
-        server_socket.bind(("192.168.0.109", 8081)) #той айпішнік, який не дома у Тимофія 
+        server_socket.bind(("localhost", 8081)) #той айпішнік, який не дома у Тимофія 
  
         server_socket.listen(2) 
 

@@ -93,7 +93,7 @@ def battle():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def connect_to():
-        client_socket.connect(("192.168.0.109", 8081))
+        client_socket.connect(("localhost", 8081))
         print("connect")
     
     def sending(row, cell, number, shot_type, turn, kill_type):
