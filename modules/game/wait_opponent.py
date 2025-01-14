@@ -1,9 +1,9 @@
 import pygame
-import socket
 
 from .basement import *
 from .map import *
 from .battle import battle
+from ..server import server_thread
 
 data = read_json(fd="settings.json")
 
@@ -21,7 +21,8 @@ def wait_opponent():
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
 
-        wait_opponent_text.button_draw(screen = screen)
+        join.button_draw(screen = screen)
+        create.button_draw(screen= screen)
             
         # print(clock.get_fps())
         
@@ -30,11 +31,22 @@ def wait_opponent():
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and press[0]:
-                placement_window = wait_opponent_text.checkPress(position = position, press = press)
+                join_bool = join.checkPress(position = position, press = press)
+                
+                create_server = create.checkPress(position = position, press = press)
 
-                if placement_window:
+                if create_server:
+                    server_thread.start() 
+                    print("Работаю одновременно с запуском сервера")
                     res = battle()
                     if res == "BACK":
+                        # отключить сервер
+                        return res
+
+                if join_bool:
+                    res = battle()
+                    if res == "BACK":
+                        # отключиться от сервера
                         return res
             
             if event.type == pygame.QUIT:

@@ -998,11 +998,12 @@ def battle():
             back_lose = lose()
             if back_lose == "BACK":
                 return "BACK"
-
+            
+        for skill in skills_list:
+            skill.draw_skill(screen=screen)
 
         your_screen_text.button_draw(screen=screen)
         enemy_screen_text.button_draw(screen=screen)
-
 
         for sq in sq_list:
             pygame.draw.rect(screen, BUTTON_COLOR, sq)
@@ -1066,22 +1067,13 @@ def battle():
         
         for event in pygame.event.get():
 
-            if not press[1] and not press[2] and event.type == pygame.MOUSEBUTTONDOWN:
-                print("TAKE")  
-                for skill in skills_list:
-                    if skill.rect.collidepoint(position):
-                        skill.take(position= position)
-
-            if event.type == pygame.MOUSEBUTTONUP and press[0]:         
-                for skill in skills_list:
-                    if skill.plus_rect.collidepoint(position):
-                        buy = skill.plus(point)
-
-                if buy:
-                    point -= 20
+            if not press[1] and not press[2] and event.type == pygame.MOUSEBUTTONDOWN:  
+                for skill in skills_list: 
+                    if skill.rect_move.collidepoint(position):
+                        print("TAKE")   
+                        skill.take() 
             
             if event.type == pygame.MOUSEBUTTONUP and press[1]:             
-                number = 0
                 for item in row_list_enemy:
                     row = number // 10
                     cell = number % 10
@@ -1091,7 +1083,24 @@ def battle():
                     
                     number += 1                    
             
-            if event.type == pygame.MOUSEBUTTONUP and press[0] and not press[1] and not press[2]:
+            if event.type == pygame.MOUSEBUTTONUP and press[0] and not press[1] and not press[2]:      
+                for skill in skills_list: 
+                    if skill.plus_rect.collidepoint(position): 
+                        buy = skill.plus(point) 
+
+                        if buy:   
+                            point -= 20
+                    
+                    if not sq_list[1].collidepoint(position) and not sq_list[0].collidepoint(position) and turn and not skill.TAKE:
+                        print("OUT")
+                        print(skill.rect_x, skill.rect_y)
+                        print(skill.x,skill.y)
+                        skill.rect_x = skill.x
+                        skill.rect_y = skill.y
+                        print("STOP")
+                        skill.OUT = True
+                        skill.TAKE = False 
+
                 number = 0
                 for item in row_list_enemy:          
                     cell = number % 10

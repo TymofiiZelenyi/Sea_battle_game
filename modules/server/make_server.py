@@ -69,5 +69,5 @@ def start_server():
                 client_socket2.sendall(shot1.encode())  
  
 server_thread = Thread(target = start_server)  
-server_thread.start() 
-print("Работаю одновременно с запуском сервера")
+# server_thread.start() 
+# print("Работаю одновременно с запуском сервера")
