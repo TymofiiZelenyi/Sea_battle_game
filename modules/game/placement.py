@@ -15,6 +15,13 @@ BUTTON_COLOR = data["button"]["COLOR"]
 FPS = data["main"]["FPS"]
 
 def placement():
+    '''
+    
+    '''
+    
+    
+    
+    
     run_placement = True
     
     x, y = 68, 142
@@ -25,6 +32,9 @@ def placement():
 
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/battle_field.png"))
     bg = pygame.transform.scale(bg, [PLACE_LENGTH, PLACE_LENGTH])
+
+    backgound = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/placement_bg.png"))
+    backgound= pygame.transform.scale(backgound, [1400, 800])
 
     ship_holder = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/place_holder.png"))
     ship_holder = pygame.transform.scale(ship_holder, [SHIPS_BAY_LENGTH+ 30, SHIPS_BAY_LENGTH//5])
@@ -51,16 +61,17 @@ def placement():
         for ship in ship_list:
             if ship.ID != ID:  # не проверяем столкновение с самим собой
                 if rect.colliderect(ship.rect):
-                    print("False")
                     return False
 
         else:
-            print("True")
             return True
 
     while run_placement:
-        screen.fill(MAIN_WINDOW_COLOR)
+        screen.fill((MAIN_WINDOW_COLOR))
+        # screen.blit(backgound, (0, 0))
+        
         pygame.draw.rect(screen, BUTTON_COLOR, (66, 140, PLACE_LENGTH+4, PLACE_LENGTH+4))
+        
         for sq in sq_list:
             pygame.draw.rect(screen, BUTTON_COLOR, sq)
         for item in row_list:

@@ -68,6 +68,9 @@ def battle():
     bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/battle_field.png"))
     bg = pygame.transform.scale(bg, [PLACE_LENGTH, PLACE_LENGTH])
 
+    frame= pygame.image.load(os.path.abspath(__file__ + "/../../../image/skills/sp_weapon_holder.png"))
+    frame= pygame.transform.scale(frame, [85, 85])
+
     hit = pygame.image.load(os.path.abspath(__file__ + "/../../../image/cell/hit.png"))
     hit = pygame.transform.scale(hit, [60,60])
     
@@ -87,6 +90,9 @@ def battle():
 
     row_list_enemy = []
     cell_list_enemy = []
+
+    miss_change = True
+    hit_change = True
 
     run = True
 
@@ -984,6 +990,13 @@ def battle():
     while run_battle:    
         screen.fill((MAIN_WINDOW_COLOR))
 
+        shot = True
+
+        gap = 68
+        for i in range(0, 7):
+            screen.blit(frame, (gap, 12))
+            gap += 120
+
         Text_point = Text(x= 1300, y= 20, text = str(point), color= "Black", text_size= 50)
 
         Text_point.text_draw(screen=screen)
@@ -1069,7 +1082,7 @@ def battle():
 
             if not press[1] and not press[2] and event.type == pygame.MOUSEBUTTONDOWN:  
                 for skill in skills_list: 
-                    if skill.rect_move.collidepoint(position):
+                    if skill.rect.collidepoint(position):
                         print("TAKE")   
                         skill.take() 
             
@@ -1101,44 +1114,123 @@ def battle():
                         skill.OUT = True
                         skill.TAKE = False 
 
-                number = 0
-                for item in row_list_enemy:          
-                    cell = number % 10
-                    row = number // 10           
+                    number = 0 
+                    for item in row_list_enemy:          
+                        cell = number % 10
+                        row = number // 10   
 
-                    if item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 1 and not item.CLOSE and turn: 
-                        hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
-                        print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
-                        player_map2[row][cell] = 2
-                        print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}") 
-                        point += 10                   
-                        item.CLOSE = True
+                        if item.collidepoint(position) and sq_list[1].collidepoint(position) and turn and skill.TAKE and not item.CLOSE:
+                            if skill.id == 1:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("BomB")
+
+                            if skill.id == 2:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("Dynamite")
+                            
+                            if skill.id == 3:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("Unfire")
+
+                            if skill.id == 4:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("Flamethower")
+
+                            if skill.id == 5:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("Rocet")
+
+                            if skill.id == 7:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("Topedo")
+                                for i in range(0, 10):
+                                    print(player_map2[row][i], row, i)
+                                    if player_map2[row][i] == 1 and shot:
+                                        num = int(str(row) + str(i))
+                                        hit_list.append(pygame.Rect(row_list_enemy[num].x, row_list_enemy[num].y ,60, 60))   
+                                        print(f"Изменение player_map2[{row}][{i}] до: {player_map2[row][i]}")
+                                        player_map2[row][i] = 2
+                                        print(f"Изменение player_map2[{row}][{i}] после: {player_map2[row][i]}") 
+                                        point += 10                   
+                                        item.CLOSE = True
+                                        
+                                        shot_type = new_finder(player_map2, row, i)
+                                        map(row_list_enemy, row, i, num, shot_type)
+
+                                        sending(row, i, num, 1, 0, kill_type= shot_type)
+
+                                        print(f'Попал по кораблику')
+                                        shot = False
+                                        
+                                        res = check_win()
+                                        print(res)
+                                        if res == "WIN":
+                                            turn = False
+                                            run_battle = False
+                                            back = win()
+                                            if back == "BACK":
+                                                stop_thread = True
+                                                return "BACK"
+                            
+                            shot = False
+
+                        number += 1
+              
+                    number = 0 
+                    for item in row_list_player:          
+                        cell = number % 10
+                        row = number // 10           
+
+                        if item.collidepoint(position) and sq_list[0].collidepoint(position) and turn and skill.TAKE and not item.CLOSE:
+                            if skill.id == 6:
+                                print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
+                                print("Sild")
+                            
+                            shot = False
                         
-                        shot_type = new_finder(player_map2, row, cell)
-                        map(row_list_enemy, row, cell, number, shot_type)
+                        
+                        number += 1
 
-                        sending(row, cell, number, 1, 0, kill_type= shot_type)
+                
+                if shot:
+                    number = 0
+                    for item in row_list_enemy:          
+                        cell = number % 10
+                        row = number // 10           
 
-                        res = check_win()
-                        print(res)
-                        if res == "WIN":
-                            turn = False
-                            run_battle = False
-                            back = win()
-                            if back == "BACK":
-                                stop_thread = True
-                                return "BACK"
-            
-                    elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
-                        miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
-                        print("Поле врага: Не попал", row , cell , player_map2[row][cell])
-                        point += 2
-                        item.CLOSE = True  
-                        turn = False   
+                        if item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 1 and not item.CLOSE and turn: 
+                            hit_list.append(pygame.Rect(item.x, item.y ,60, 60))   
+                            print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
+                            player_map2[row][cell] = 2
+                            print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}") 
+                            point += 10                   
+                            item.CLOSE = True
+                            
+                            shot_type = new_finder(player_map2, row, cell)
+                            map(row_list_enemy, row, cell, number, shot_type)
 
-                        sending(row, cell, number, 0, 1, kill_type = 100)  
+                            sending(row, cell, number, 1, 0, kill_type= shot_type)
 
-                    number +=1
+                            res = check_win()
+                            print(res)
+                            if res == "WIN":
+                                turn = False
+                                run_battle = False
+                                back = win()
+                                if back == "BACK":
+                                    stop_thread = True
+                                    return "BACK"
+                
+                        elif item.collidepoint(position) and sq_list[1].collidepoint(position) and player_map2[row][cell] == 0 and not item.CLOSE and turn:
+                            miss_list.append(pygame.Rect(item.x, item.y, 60, 60))
+                            print("Поле врага: Не попал", row , cell , player_map2[row][cell])
+                            point += 2
+                            item.CLOSE = True  
+                            turn = False   
+
+                            sending(row, cell, number, 0, 1, kill_type = 100)  
+
+                        number +=1
 
             #Працюємо з нашим полем
             if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:

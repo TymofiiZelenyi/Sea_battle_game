@@ -16,15 +16,15 @@ sq_enemy = pygame.Rect((730, 180, PLACE_LENGTH, PLACE_LENGTH))
 sq_list = [sq_your,  sq_enemy]
  
 class Skills(): 
-    def __init__(self, name_skill, x, y, price): 
-        self.skill = name_skill 
-        self.count = 0 
+    def __init__(self,name_skill ,x ,y ,price , id): 
+        self.skill= name_skill 
+        self.count= 0 
         self.x= x  
-        self.y = y 
-        self.price = price 
+        self.y= y 
+        self.price= price 
+        self.id= id
          
         self.TAKE = False 
-        self.OUT = False
  
         self.rect_x = x 
         self.rect_y = y 
@@ -43,20 +43,19 @@ class Skills():
         self.image_plus = pygame.transform.scale(self.image_plus, [30, 30]) 
  
         self.plus_rect = pygame.Rect((self.x + 80, self.y, 30, 30)) 
-        self.rect_move = pygame.Rect(self.x,self.y, 80, 80) 
+        # self.rect_move = pygame.Rect(self.x,self.y, 80, 80) 
         self.counter = Text(self.x, self.y, text= str(self.count), color = "Black") 
-
-        # self.rect = pygame.Rect((self.x + 15, self.y + 15, 50, 50)) 
-        # self.rect = pygame.Rect((self.rect_x, self.rect_y, 50, 50)) 
+        
+        self.rect = pygame.Rect((self.rect_x, self.rect_y, 80, 80)) 
  
     def draw_skill(self, screen): 
-        self.counter.text_draw(screen= screen) 
         pygame.draw.rect(screen, "Green", self.plus_rect) 
-        screen.blit(self.image_plus, (self.x + 75, self.y)) 
-        self.price_text.text_draw(screen= screen) 
- 
-        pygame.draw.rect(screen, "Yellow", self.rect_move) 
+        screen.blit(self.image_plus, (self.x + 80, self.y)) 
+        # pygame.draw.rect(screen, "Yellow", self.rect) 
         screen.blit(self.image, (self.x, self.y)) 
+ 
+        self.counter.text_draw(screen= screen) 
+        self.price_text.text_draw(screen= screen) 
  
     def plus(self, point):    
         if point >= 20: 
@@ -78,21 +77,15 @@ class Skills():
 
             screen.blit(self.image, (self.rect_x, self.rect_y)) 
 
-        # elif not self.TAKE and self.OUT:
-        #     print("out")
-        #     self.rect_x= self.x
-        #     self.rect_y= self.y
-        #     self.OUT= False
+        else:
+            self.TAKE = False
 
-
-
- 
-bomb= Skills(name_skill = "bomb",x= 70 ,y= 15 ,price= 500) 
-dynamite= Skills(name_skill = "dynamite",x= 190 ,y= 15, price= 30) 
-unfire= Skills(name_skill= "unfire",x= 310, y= 15, price= 40) 
-flamethrower = Skills(name_skill = "flamethrower", x= 430 ,y= 15, price= 50) 
-rocket= Skills(name_skill = "rocket",x= 550 , y= 15, price= 30) 
-shield= Skills(name_skill = "shield",x= 670 ,y= 15, price= 20) 
-torpedo= Skills(name_skill = "torpedo",x= 790 , y= 15, price= 40) 
+bomb= Skills(name_skill = "bomb",x= 70 ,y= 15 ,price= 500, id= 1) 
+dynamite= Skills(name_skill = "dynamite",x= 190 ,y= 15, price= 30, id= 2) 
+unfire= Skills(name_skill= "unfire",x= 310, y= 15, price= 40, id= 3) 
+flamethrower = Skills(name_skill = "flamethrower", x= 430 ,y= 15, price= 50, id= 4) 
+rocket= Skills(name_skill = "rocket",x= 550 , y= 15, price= 30, id= 5) 
+shield= Skills(name_skill = "shield",x= 670 ,y= 15, price= 20, id= 6) 
+torpedo= Skills(name_skill = "torpedo",x= 790 , y= 15, price= 40, id= 7) 
  
 skills_list = [bomb, dynamite, unfire, flamethrower, rocket, shield, torpedo]

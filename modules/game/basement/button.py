@@ -64,21 +64,24 @@ button_minus_settings = Button(x = 10, y = 675, width = 275, height = 100, text 
 #Створення кнопок для екрану МЕНЮ "play" "settings" "quit", задавання їх величини та кординат на головному екрані. Містять у собі рядковий контент.
 button_play = Button(x = 100, y = 80, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Play")
 button_settings = Button(x = 100, y = 180, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Setting")
-button_shop = Button(x = 100, y = 280, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Shop")
+button_Armory = Button(x = 100, y = 280, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Armory")
 button_quit = Button(x = 100, y = 380, width = BUTTON_MENU_WIDTH, height = BUTTON_MENU_HEIGHT, text = "Quit")
 
 
-shop_coursor1 = Button(x = 25, y = 200, width = 225, height = 450, text = "1")
-shop_coursor2 = Button(x = 300, y = 200, width = 225, height = 450, text = "2")
-shop_coursor3 = Button(x = 575, y = 200, width = 225, height = 450, text = "3")
-shop_coursor4 = Button(x = 850, y = 200, width = 225, height = 450, text = "4")
-shop_coursor5 = Button(x = 1125, y = 200, width = 225, height = 450, text = "5")
+# shop_coursor1 = Button(x = 25, y = 200, width = 225, height = 450, text = "1")
+# shop_coursor2 = Button(x = 300, y = 200, width = 225, height = 450, text = "2")
+# shop_coursor3 = Button(x = 575, y = 200, width = 225, height = 450, text = "3")
+# shop_coursor4 = Button(x = 850, y = 200, width = 225, height = 450, text = "4")
+# shop_coursor5 = Button(x = 1125, y = 200, width = 225, height = 450, text = "5")
+
+
 
 #Створення кнопок для екрану 
 button_ready = Button(x = 970, y = 680, width = BUTTON_PLACEMENT_WIDTH, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
 
-# #Створення кнопок для екрану SETTTING
-sound1 = Button(x = 50, y = 300, width = 200, height = 100, text = "Sound", text_size = 25)
+#Створення кнопок для екрану SETTTING
+sound1 = Button(x = 50, y = 300, width = 200, height = 100, text = "Sounds", text_size = 25)
+settings_cursors = Button(x = 50, y = 450, width = 200, height = 100, text = "Cursors", text_size = 25)
 
 #Створення кнопок для екрану PLACEMENT
 put_ships = Button(x = 66, y = 76, width = 604, height = 60, text = "Put the ships down!", text_size = 20, button_color = BUTTON_DARKER_COLOR)
@@ -86,7 +89,7 @@ your_ships = Button(x = 836 , y = 76, width = 430, height = 60, text = "Your shi
 
 button_ready = Button(x = 836, y = 630, width = 430, height = BUTTON_PLACEMENT_HEIGHT, text = "ready")
 
-#Створення кнопок для екрану WAIT_OPPOENENT
+#Створення кнопок для екрану WAIT_OPPONENT
 join = Button(x = 1000, y = 300, width = 300, height = BUTTON_MENU_HEIGHT, text = "Join", text_size= 25)
 create = Button(x = 200, y = 300, width = 400, height = BUTTON_MENU_HEIGHT, text = "Create server", text_size= 25)
 
@@ -117,6 +120,6 @@ class Text():
         screen.blit(text, (self.x, self.y))
 
 settings_text = Text(x = 50, y = 100, text = "Settings", text_size=45)
-shop_text = Text(x = 50, y = 100, text = "Shop", text_size=45)
+Armory_text = Text(x = 50, y = 100, text = "Armory", text_size=45)
 text_win = Text(x = 560, y = 320, text = "WIN", text_size=100, color="Red")
 text_lose = Text(x = 560, y = 320, text = "LOSE", text_size=100, color="Red")

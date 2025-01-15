@@ -4,7 +4,7 @@ import os
 from .basement import *
 from .placement import placement
 from .settings_real import settings_real
-from .shop import shop
+from .armory import shop
 
 play_music("All I Want for Christmas Is You", volume = 0)
 
@@ -39,7 +39,7 @@ def menu():
         
         button_play.button_draw(screen = screen)
         button_settings.button_draw(screen = screen)
-        button_shop.button_draw(screen = screen)
+        button_Armory.button_draw(screen = screen)
         button_quit.button_draw(screen = screen)
 
         position = pygame.mouse.get_pos()
@@ -57,14 +57,14 @@ def menu():
 
                 wait_opponent_window = button_play.checkPress(position = position, press = press)
                 settigs_window = button_settings.checkPress(position = position, press = press)
-                shop_win = button_shop.checkPress(position = position, press = press)
+                Armory_win = button_Armory.checkPress(position = position, press = press)
                 quit = button_quit.checkPress(position = position, press = press)
 
                 if wait_opponent_window:
                     placement()
                 if settigs_window:
                     settings_real()
-                if shop_win:
+                if Armory_win:
                     shop()
                 if quit:
                     run_menu = False
