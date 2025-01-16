@@ -37,6 +37,11 @@ class Skills():
         path = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}.png") 
         self.image = pygame.image.load(path) 
         self.image = pygame.transform.scale(self.image, [80, 80]) 
+
+        if self.id != 3 and self.id != 4 and self.id !=6:
+            path_c = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}_clean.png") 
+            self.image_c = pygame.image.load(path_c) 
+            self.image_c = pygame.transform.scale(self.image_c, [80, 80]) 
  
         path_p = os.path.abspath(__file__ + f"/../../../../image/skills/plus.png") 
         self.image_plus = pygame.image.load(path_p) 
@@ -75,7 +80,7 @@ class Skills():
             self.rect_x = position[0] - 25 
             self.rect_y = position[1] - 25 
 
-            screen.blit(self.image, (self.rect_x, self.rect_y)) 
+            screen.blit(self.image_c, (self.rect_x, self.rect_y)) 
 
         else:
             self.TAKE = False

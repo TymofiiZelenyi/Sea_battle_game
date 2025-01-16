@@ -102,8 +102,8 @@ def battle():
         client_socket.connect(("localhost", 8081))
         print("connect")
     
-    def sending(row, cell, number, shot_type, turn, kill_type):
-        data = [row, cell, number, shot_type, turn, kill_type]
+    def sending(row, cell, number, shot_type, turn, kill_type, skill = 0):
+        data = [row, cell, number, shot_type, turn, kill_type, skill]
         print(data)
         data = json.dumps(data)
         client_socket.sendall(data.encode())
@@ -958,15 +958,53 @@ def battle():
                 c_type = int(data[3])
                 turn = int(data[4])
                 kill_type = int(data[5])
-                 
+                skill = int(data[6])
+                
+
+                print(skill)
+                if skill == 2:
+                    print("EHEHEHEHRERRERERER")
+                    dynamite_list= [(c_row, c_cell), (c_row, c_cell- 1), (c_row, c_cell+ 1), (c_row- 1, c_cell), (c_row+ 1, c_cell)]
+                    for coordinate in dynamite_list:
+                        if coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map1[coordinate[0]][coordinate[1]] == 1:
+                            print(coordinate[0], coordinate[1], player_map1[coordinate[0]][coordinate[1]])
+                            num = int(str(coordinate[0]) + str(coordinate[1]))
+                            hit_list.append(pygame.Rect(row_list_player[num].x, row_list_player[num].y ,60, 60))   
+                            player_map1[coordinate[0]][coordinate[1]] = 2                 
+                            row_list_player[num].CLOSE = True
+                            
+                            shot_type = new_finder(player_map1, coordinate[0], coordinate[1])
+                            map(row_list_player, coordinate[0], coordinate[1], num, shot_type)
+
+                            print(f'Попал по кораблику')
+                            
+                            res = check_win()
+                            print(res)
+                            if res == "WIN":
+                                turn = False
+                                run_battle = False
+                                back = win()
+                                if back == "BACK":
+                                    stop_thread = True
+                                    return "BACK"
+
+                        elif coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map1[coordinate[0]][coordinate[1]] == 0:
+                            print(coordinate[0], coordinate[1], player_map2[coordinate[0]][coordinate[1]])
+
+                            num = int(str(coordinate[0]) + str(coordinate[1]))
+                            miss_list.append(pygame.Rect(row_list_player[num].x, row_list_player[num].y, 60, 60))
+                            print("Поле врага: Не попал", [coordinate[0]], [coordinate[1]] , player_map1[coordinate[0]][coordinate[1]])
+                            row_list_player[num].CLOSE = True  
+                            turn = False                  
+                    
                 empty= 0
                 for item in row_list_player:
                     if empty == c_number:
                         if c_type == 1:                    
                             hit_list.append(pygame.Rect(item.x, item.y ,60, 60)) 
-                            print(f"Изменение player_map2[{row}][{cell}] до: {player_map2[row][cell]}")
+                            print(f"Изменение player_map2[{row}][{cell}] до: {player_map1[row][cell]}")
                             player_map1[c_row][c_cell] = 2
-                            print(f"Изменение player_map2[{row}][{cell}] после: {player_map2[row][cell]}") 
+                            print(f"Изменение player_map2[{row}][{cell}] после: {player_map1[row][cell]}") 
 
                             map(row_list_player, c_row, c_cell, c_number, kill_type)  
 
@@ -1127,6 +1165,54 @@ def battle():
                             if skill.id == 2:
                                 print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
                                 print("Dynamite")
+
+                                first_cell = True
+                                
+                                dynamite_list= [(row, cell), (row, cell- 1), (row, cell+ 1), (row- 1, cell), (row+ 1, cell)]
+                                for coordinate in dynamite_list:
+                                    if coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map2[coordinate[0]][coordinate[1]] == 1:
+                                        print(coordinate[0], coordinate[1], player_map2[coordinate[0]][coordinate[1]])
+                                        num = int(str(coordinate[0]) + str(coordinate[1]))
+                                        hit_list.append(pygame.Rect(row_list_enemy[num].x, row_list_enemy[num].y ,60, 60))   
+                                        player_map2[coordinate[0]][coordinate[1]] = 2
+                                        point += 10                   
+                                        row_list_enemy[num].CLOSE = True
+                                        
+                                        shot_type = new_finder(player_map2, coordinate[0], coordinate[1])
+                                        map(row_list_enemy, coordinate[0], coordinate[1], num, shot_type)
+
+                                        if first_cell:
+                                            print(coordinate[0], coordinate[1], num, 0, 1, kill_type= shot_type)
+                                            sending(coordinate[0], coordinate[1], num, 0, 1, kill_type= shot_type, skill= 2)
+                                            first_cell = False
+
+                                        print(f'Попал по кораблику')
+                                        shot = False
+                                        
+                                        res = check_win()
+                                        print(res)
+                                        if res == "WIN":
+                                            turn = False
+                                            run_battle = False
+                                            back = win()
+                                            if back == "BACK":
+                                                stop_thread = True
+                                                return "BACK"
+
+                                    elif coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map2[coordinate[0]][coordinate[1]] == 0:
+                                        print(coordinate[0], coordinate[1], player_map2[coordinate[0]][coordinate[1]])
+
+                                        num = int(str(coordinate[0]) + str(coordinate[1]))
+                                        miss_list.append(pygame.Rect(row_list_enemy[num].x, row_list_enemy[num].y, 60, 60))
+                                        print("Поле врага: Не попал", [coordinate[0]], [coordinate[1]] , player_map2[coordinate[0]][coordinate[1]])
+                                        point += 2
+                                        row_list_enemy[num].CLOSE = True  
+                                        turn = False   
+                                            
+                                        if first_cell:
+                                            sending(coordinate[0], coordinate[1], num, 0, 1, kill_type = 100, skill= 2)
+                                            first_cell = False 
+                            
                             
                             if skill.id == 3:
                                 print(f"ENEMY FEILD {skill.id}, {row}, {cell}")
@@ -1152,12 +1238,12 @@ def battle():
                                         player_map2[row][i] = 2
                                         print(f"Изменение player_map2[{row}][{i}] после: {player_map2[row][i]}") 
                                         point += 10                   
-                                        item.CLOSE = True
+                                        row_list_enemy[num].CLOSE = True
                                         
                                         shot_type = new_finder(player_map2, row, i)
                                         map(row_list_enemy, row, i, num, shot_type)
 
-                                        sending(row, i, num, 1, 0, kill_type= shot_type)
+                                        sending(row, i, num, 0, 1, kill_type= shot_type)
 
                                         print(f'Попал по кораблику')
                                         shot = False
@@ -1171,6 +1257,10 @@ def battle():
                                             if back == "BACK":
                                                 stop_thread = True
                                                 return "BACK"
+                                            
+                                if shot:
+                                    turn = False   
+                                    sending(0, 0, 0, 0, 1, kill_type = 10)
                             
                             shot = False
 
@@ -1243,6 +1333,7 @@ def battle():
                         print("Это ваше поле")
                         print(row, cell)
 
+            shot = True
 
             if event.type == pygame.QUIT:
                 run_battle = False
