@@ -6,8 +6,6 @@ from .placement import placement
 from .settings_real import settings_real
 from .armory import shop
 
-play_music("All I Want for Christmas Is You", volume = 0)
-
 # pygame.mouse.set_cursor(*pygame.cursors.tri_left)
 # pygame.mouse.set_cursor()
 
@@ -15,6 +13,10 @@ data = read_json(fd="settings.json")
 
 GOLD = data["main"]["GOLD"]
 FPS = data["main"]["FPS"]
+MUSIC_NAME = str(data["main"]["MUSIC_NAME"])
+
+play_music(f"\{MUSIC_NAME}", volume = 0)
+
 def menu():
     run_menu = True
 
