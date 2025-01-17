@@ -18,10 +18,6 @@ def placement():
     '''
     
     '''
-    
-    
-    
-    
     run_placement = True
     
     x, y = 68, 142
@@ -30,13 +26,13 @@ def placement():
     big_sq = pygame.Rect(68, 142, PLACE_LENGTH, PLACE_LENGTH)
     small_sq = pygame.Rect(836, 142, SHIPS_BAY_LENGTH + 30, SHIPS_BAY_LENGTH - SHIPS_BAY_LENGTH//5)
 
-    bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/battle_field.png"))
+    bg = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/battle_field.png")).convert_alpha()
     bg = pygame.transform.scale(bg, [PLACE_LENGTH, PLACE_LENGTH])
 
-    backgound = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/placement_bg.png"))
+    backgound = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/placement_bg.png")).convert_alpha()
     backgound= pygame.transform.scale(backgound, [1400, 800])
 
-    ship_holder = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/place_holder.png"))
+    ship_holder = pygame.image.load(os.path.abspath(__file__ + "/../../../image/bg/place_holder.png")).convert_alpha()
     ship_holder = pygame.transform.scale(ship_holder, [SHIPS_BAY_LENGTH+ 30, SHIPS_BAY_LENGTH//5])
 
     ship_holder_list = (ship_holder, ship_holder, ship_holder, ship_holder)
@@ -67,8 +63,8 @@ def placement():
             return True
 
     while run_placement:
-        screen.fill((MAIN_WINDOW_COLOR))
-        # screen.blit(backgound, (0, 0))
+        # screen.fill((MAIN_WINDOW_COLOR))
+        screen.blit(backgound, (0, 0))
         
         pygame.draw.rect(screen, BUTTON_COLOR, (66, 140, PLACE_LENGTH+4, PLACE_LENGTH+4))
         

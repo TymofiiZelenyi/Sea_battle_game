@@ -34,28 +34,28 @@ class Skills():
     def load(self): 
         self.price_text = Text(self.x + 16, self.y + 60, text= str(self.price), color = "Black", text_size= 25) 
  
-        path = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}.png") 
+        path = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}.png")
         self.image = pygame.image.load(path) 
         self.image = pygame.transform.scale(self.image, [80, 80]) 
 
         if self.id != 3 and self.id != 4 and self.id !=6:
-            path_c = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}_clean.png") 
+            path_c = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}_clean.png")
             self.image_c = pygame.image.load(path_c) 
             self.image_c = pygame.transform.scale(self.image_c, [80, 80]) 
  
-        path_p = os.path.abspath(__file__ + f"/../../../../image/skills/plus.png") 
+        path_p = os.path.abspath(__file__ + f"/../../../../image/skills/plus.png")
         self.image_plus = pygame.image.load(path_p) 
         self.image_plus = pygame.transform.scale(self.image_plus, [30, 30]) 
  
         self.plus_rect = pygame.Rect((self.x + 80, self.y, 30, 30)) 
         # self.rect_move = pygame.Rect(self.x,self.y, 80, 80) 
-        self.counter = Text(self.x, self.y, text= str(self.count), color = "Black") 
+        self.counter = Text(self.x, self.y, text= str(self.count), color = "#D3D3D3") 
         
         self.rect = pygame.Rect((self.rect_x, self.rect_y, 80, 80)) 
  
     def draw_skill(self, screen): 
-        pygame.draw.rect(screen, "Green", self.plus_rect) 
-        screen.blit(self.image_plus, (self.x + 80, self.y)) 
+        # pygame.draw.rect(screen, "Green", self.plus_rect) 
+        screen.blit(self.image_plus, (self.x + 85, self.y)) 
         # pygame.draw.rect(screen, "Yellow", self.rect) 
         screen.blit(self.image, (self.x, self.y)) 
  
@@ -65,7 +65,7 @@ class Skills():
     def plus(self, point):    
         if point >= 20: 
             self.count += 1 
-            self.counter = Text(self.x, self.y, text= str(self.count), color = "Black") 
+            self.counter = Text(self.x, self.y, text= str(self.count), color = "#D3D3D3") 
             return True
          
         return False
@@ -80,7 +80,11 @@ class Skills():
             self.rect_x = position[0] - 25 
             self.rect_y = position[1] - 25 
 
-            screen.blit(self.image_c, (self.rect_x, self.rect_y)) 
+            if self.id != 3 and self.id != 4 and self.id !=6:
+                screen.blit(self.image_c, (self.rect_x, self.rect_y)) 
+
+            elif self.id == 3 or self.id == 4 or self.id ==6:
+                screen.blit(self.image, (self.rect_x, self.rect_y)) 
 
         else:
             self.TAKE = False

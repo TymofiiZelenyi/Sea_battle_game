@@ -11,14 +11,12 @@ FPS = data["main"]["FPS"]
 def settings_real():
     run_settings = True
 
+    SOUND = data["main"]["MUSICK"]
+
     sound_list = []
     space_off = 55
     space_on = 55
-    ON = 5
-
-    sounds_activated = True
-    cursors_activated = None
-
+    ON = SOUND
 
     # sounds_activated = False
 
@@ -33,31 +31,28 @@ def settings_real():
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
 
-
         #поле взаємодії з гучністю звука
-        if sounds_activated:
-            min_rect = pygame.Rect(320, 230, 100, 100)
-            plus_rect = pygame.Rect(1000, 230, 100, 100)
-            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, min_rect)
-            pygame.draw.rect(screen, MAIN_WINDOW_COLOR, plus_rect)
+        min_rect = pygame.Rect(320, 230, 100, 100)
+        plus_rect = pygame.Rect(1000, 230, 100, 100)
+        pygame.draw.rect(screen, MAIN_WINDOW_COLOR, min_rect)
+        pygame.draw.rect(screen, MAIN_WINDOW_COLOR, plus_rect)
 
+        #контроль налаштування гучності в рамках 10-ти кнопок 
+        if ON < 0:
+            ON = 0
+        elif ON > 10:
+            ON = 10
 
-            #контроль налаштування гучності в рамках 10-ти кнопок 
-            if ON < 0:
-                ON = 0
-            elif ON > 10:
-                ON = 10
+        #цикл відмальовування ДИЗактивованих ступней гучності
+        for item in sound_list:
+            pygame.draw.rect(screen, "black", item)
 
-            #цикл відмальовування ДИЗактивованих ступней гучності
-            for item in sound_list:
-                pygame.draw.rect(screen, "black", item)
+        #цикл відмальовування Активованих ступней гучності
+        for item in range(ON):
+            pygame.draw.rect(screen, "red", (380 + space_on, 230, 50, 100))
+            space_on += 55
 
-            #цикл відмальовування Активованих ступней гучності
-            for item in range(ON):
-                pygame.draw.rect(screen, "red", (380 + space_on, 230, 50, 100))
-                space_on += 55
-
-            space_on = 55
+        space_on = 55
         
 
         #відмальовування статичних частин вікна SETTINGS
@@ -85,8 +80,6 @@ def settings_real():
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and press[0]:
                 back_to_menu = button_back_menu.checkPress(position = position, press = press)
-                cursors_activated = settings_cursors.checkPress(position = position, press = press)
-                sounds_activated = sound1.checkPress(position = position, press = press)
 
                 if back_to_menu:
                     return "HOME"
@@ -96,13 +89,17 @@ def settings_real():
                 #     return "CURSORS"
                 
                 
-            if sounds_activated:
-                if event.type == pygame.MOUSEBUTTONUP and plus_rect.collidepoint(position) and press[0]:
-                    ON +=1
-                    pygame.mixer.music.set_volume(ON / 10)
-                elif event.type == pygame.MOUSEBUTTONUP and min_rect.collidepoint(position) and press[0]:
-                    ON -= 1
-                    pygame.mixer.music.set_volume(ON / 10)
+            # if sounds_activated:
+            if event.type == pygame.MOUSEBUTTONUP and plus_rect.collidepoint(position) and press[0]:
+                ON +=1
+                pygame.mixer.music.set_volume(ON / 10)
+                data["main"]["MUSICK"] = ON
+                SOUND = data["main"]["MUSICK"]
+            elif event.type == pygame.MOUSEBUTTONUP and min_rect.collidepoint(position) and press[0]:
+                ON -= 1
+                pygame.mixer.music.set_volume(ON / 10)
+                data["main"]["MUSICK"] = ON
+                SOUND = data["main"]["MUSICK"]
                             
             if event.type == pygame.QUIT:
                 run_settings = False

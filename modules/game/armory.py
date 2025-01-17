@@ -1,4 +1,4 @@
-import pygame 
+import pygame
 import os
 
 from .basement import *
@@ -25,8 +25,18 @@ def shop():
     #     y -= 16
     #     screen.blit(image, (x, y))
 
+    card = pygame.image.load(os.path.abspath(__file__ + "/../../../image/skills/card.png"))
+    card = pygame.transform.scale(card, [240, 380])
+
+    card_list= [card, card, card, card, card]
+
     while run_shop:
         screen.fill(MAIN_WINDOW_COLOR)
+        
+        gap = 30
+        for card in card_list:
+            screen.blit(card, (gap, 230))
+            gap += 270
         
         position = pygame.mouse.get_pos()
         press = pygame.mouse.get_pressed()
