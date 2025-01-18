@@ -1,3 +1,6 @@
+'''
+Цей модуль створює екран, а також може змінити його розмір у файлі `settings.json`
+'''
 import pygame
 
 from .read_json import read_json

@@ -8,7 +8,7 @@ def start_server():
     with socket.socket(family = socket.AF_INET, type = socket.SOCK_STREAM) as server_socket: 
         # зв'язуємо socket з IP та портом 
         server_socket.bind(("localhost", 8081)) #той айпішнік, який не дома у Тимофія 
- 
+
         server_socket.listen(2) 
 
         try:

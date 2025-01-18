@@ -1,3 +1,12 @@
+'''
+Цей модуль створює кнопки
+
+Він використовує модулі:
+    `pygame`
+    `os`
+'''
+
+
 import pygame
 import os
 
@@ -17,6 +26,12 @@ MAIN_WINDOW_COLOR = data["main"]["MAIN_WINDOW_COLOR"]
 
 #клас Кнопки (+ її хітбокс "rect")
 class Button():
+    '''
+    За допомогою цього класу ви можете створювати кнопки
+
+    Приклад застосування:
+        >>> Button(x = 350, y = 230, width = 500, height = 100, text = "str", text_size = 18, button_color = BUTTON_DARKER_COLOR) 
+    '''
     def __init__(self, x: int, y: int, width: int, height: int, text: str, text_size = 40, button_color = BUTTON_COLOR):
         self.x = x
         self.y = y
@@ -30,6 +45,11 @@ class Button():
         self.load_text()
     
     def load_text(self):
+        '''
+        Знаходить та завантажує шрифт до гри та змінює його колір та розмір   
+
+        '''
+        
         #шрифт тексту та його величина
         path_to_fonts = os.path.abspath(__file__+ "/../../../../fonts/")
         main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
@@ -46,13 +66,26 @@ class Button():
     
     
     #функція відображення кнопки з її текстом.
-    def button_draw(self, screen):
+    def button_draw(self, screen: object):
+        '''
+        Відмальовує та розміщює кнопку та текст по координатам -> (x,y)
+        
+        Приклад застосування:
+            >>> button_draw(screen = `screen`)
+        '''
         #Розміщення нашої кнопки та тексту по кординатам.
         screen.blit(self.button, (self.x, self.y))
         screen.blit(self.text_obj, (self.x + self.text_x, self.y + self.text_y))
 
     #функція відслідження нажиму на кнопку
-    def checkPress(self, position, press):
+    def checkPress(self, position: str, press: bool) -> True:
+        '''
+        Перевіряє чи нажав гравець на лкм на хітбокс кнопки
+
+        Приклад застосування:
+            >>> checkPress(position = `position`, press = `press`)
+        '''
+        
         # if position[0] in range(self.rect.left, self.rect.right) and position[1] in range(self.rect.top, self.rect.bottom) and press[0]:
         if self.rect.collidepoint(position) and press[0]:
             return True
@@ -87,8 +120,8 @@ button_ready = Button(x = 836, y = 630, width = 430, height = BUTTON_PLACEMENT_H
 
 
 #Створення кнопок для екрану WAIT_OPPONENT
-join = Button(x = 1000, y = 300, width = 300, height = BUTTON_MENU_HEIGHT, text = "Join", text_size= 25)
-create = Button(x = 200, y = 300, width = 400, height = BUTTON_MENU_HEIGHT, text = "Create server", text_size= 25)
+join = Button(x = 1000, y = 600, width = 300, height = BUTTON_MENU_HEIGHT, text = "Join", text_size= 25)
+create = Button(x = 200, y = 600, width = 400, height = BUTTON_MENU_HEIGHT, text = "Create server", text_size= 25)
 
 #Створення кнопок для екрану BATTLE
 your_screen_text = Button(x = 70, y = 133, width = 604, height = 45, text = "Your screen", text_size = 18, button_color = BUTTON_DARKER_COLOR)
@@ -100,6 +133,10 @@ trolo = Button(x = 350, y = 530, width = 500, height = 100, text = "trolo", text
 rammstein = Button(x = 350, y = 680, width = 500, height = 100, text = "rammstein", text_size = 18, button_color = BUTTON_DARKER_COLOR) 
 
 class Text():
+    '''
+    Створює текст за допомогою шрифтоф, які потрібно завантажити
+    '''
+    
     def __init__(self, x, y, text, text_size = 20, color = MAIN_WINDOW_COLOR):
         self.x = x
         self.y= y
@@ -110,16 +147,18 @@ class Text():
         self.load()
 
     def load(self):
-                
+        '''
+        Знаходить та завантажує шрифт до гри та змінює розмір 
+        '''        
         #шрифт тексту та його величина
         path_to_fonts = os.path.abspath(__file__+ "/../../../../fonts/")
         self.main_font = pygame.font.Font(path_to_fonts + "/m_font.ttf", self.text_size)
-
-    def text_draw(self, screen):
-
-        text = self.main_font.render(self.text, 1, self.color)
-
-        screen.blit(text, (self.x, self.y))
+        self.text = self.main_font.render(self.text, 1, self.color)
+    def text_draw(self, screen: object):
+        '''
+        Відмальовує на екрані по координатам -> (x,y)
+        '''
+        screen.blit(self.text, (self.x, self.y))
 
 settings_text = Text(x = 50, y = 100, text = "Settings", text_size=45)
 Armory_text = Text(x = 50, y = 100, text = "Armory", text_size=45)

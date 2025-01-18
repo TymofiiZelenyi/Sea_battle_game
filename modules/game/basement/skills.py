@@ -38,7 +38,7 @@ class Skills():
         self.image = pygame.image.load(path) 
         self.image = pygame.transform.scale(self.image, [80, 80]) 
 
-        if self.id != 3 and self.id != 4 and self.id !=6:
+        if self.id != 3 and self.id != 5:
             path_c = os.path.abspath(__file__ + f"/../../../../image/skills/{self.skill}_clean.png")
             self.image_c = pygame.image.load(path_c) 
             self.image_c = pygame.transform.scale(self.image_c, [80, 80]) 
@@ -80,10 +80,10 @@ class Skills():
             self.rect_x = position[0] - 25 
             self.rect_y = position[1] - 25 
 
-            if self.id != 3 and self.id != 4 and self.id !=6:
+            if self.id != 3 and self.id !=5:
                 screen.blit(self.image_c, (self.rect_x, self.rect_y)) 
 
-            elif self.id == 3 or self.id == 4 or self.id ==6:
+            elif self.id == 3 or self.id == 5:
                 screen.blit(self.image, (self.rect_x, self.rect_y)) 
 
         else:
@@ -91,10 +91,12 @@ class Skills():
 
 bomb= Skills(name_skill = "bomb",x= 70 ,y= 15 ,price= 500, id= 1) 
 dynamite= Skills(name_skill = "dynamite",x= 190 ,y= 15, price= 30, id= 2) 
-unfire= Skills(name_skill= "unfire",x= 310, y= 15, price= 40, id= 3) 
-flamethrower = Skills(name_skill = "flamethrower", x= 430 ,y= 15, price= 50, id= 4) 
-rocket= Skills(name_skill = "rocket",x= 550 , y= 15, price= 30, id= 5) 
-shield= Skills(name_skill = "shield",x= 670 ,y= 15, price= 20, id= 6) 
-torpedo= Skills(name_skill = "torpedo",x= 790 , y= 15, price= 40, id= 7) 
+radar = Skills(name_skill= "Radar",x= 310, y= 15, price= 40, id= 3) 
+rocket= Skills(name_skill = "rocket",x= 430 , y= 15, price= 30, id= 4) 
+shield= Skills(name_skill = "shield",x= 550 ,y= 15, price= 20, id= 5) 
+torpedo= Skills(name_skill = "torpedo",x= 670 , y= 15, price= 40, id= 6) 
+# unfire= Skills(name_skill= "unfire",x= 790, y= 15, price= 40, id= 7) 
+# flamethrower = Skills(name_skill = "flamethrower", x= 910 ,y= 15, price= 50, id= 8) 
  
-skills_list = [bomb, dynamite, unfire, flamethrower, rocket, shield, torpedo]
+skills_list = [bomb, dynamite, radar, rocket, shield, torpedo]
+# skills_list = [bomb, dynamite, radar, rocket, shield, torpedo, unfire, flamethrower,]
