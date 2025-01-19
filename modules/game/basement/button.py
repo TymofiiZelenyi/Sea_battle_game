@@ -131,6 +131,11 @@ c418 = Button(x = 350, y = 230, width = 500, height = 100, text = "c418", text_s
 new_year = Button(x = 350, y = 380, width = 500, height = 100, text = "new_year", text_size = 18, button_color = BUTTON_DARKER_COLOR)
 trolo = Button(x = 350, y = 530, width = 500, height = 100, text = "trolo", text_size = 18, button_color = BUTTON_DARKER_COLOR)
 rammstein = Button(x = 350, y = 680, width = 500, height = 100, text = "rammstein", text_size = 18, button_color = BUTTON_DARKER_COLOR) 
+#
+
+armory_page1 = Button(x = 1000, y = 50, width = 75, height = 75, text = " 1")
+armory_page2 = Button(x = 1100, y = 50, width = 75, height = 75, text = " 2")
+armory_page3 = Button(x = 1200, y = 50, width = 75, height = 75, text = " 3")
 
 class Text():
     '''
@@ -164,3 +169,11 @@ settings_text = Text(x = 50, y = 100, text = "Settings", text_size=45)
 Armory_text = Text(x = 50, y = 100, text = "Armory", text_size=45)
 text_win = Text(x = 560, y = 320, text = "WIN", text_size=100, color="Red")
 text_lose = Text(x = 560, y = 320, text = "LOSE", text_size=100, color="Red")
+text_dynamite = Text(x = 0, y = 20, text = "Підриває все у формі +", text_size=45, color="Black")
+text_torpedo = Text(x = 30, y = 20, text = "Підриває 1 клітину на цілому рядку", text_size=45, color="Black")
+text_radar = Text(x = 60, y = 20, text = "Показує місце знаходження кораблів супротивника у радіусі 1 клітини", text_size=45, color="Black")
+text_missile = Text(x = 90, y = 20, text = "Підриває 1 корабель у радіусі 2 клітин", text_size=45, color="Black")
+text_shield = Text(x = 120, y = 20, text = "Ставить щит на корабель \n який захищає його від 1 попадання", text_size=45, color="Black")
+text_bomb= Text(x = 150, y = 20, text = "Підриває всі кораблі у радіусі 1 клітини", text_size=45, color="Black")
+
+skills_info_text = [text_dynamite, text_bomb, text_missile, text_radar, text_shield, text_torpedo]

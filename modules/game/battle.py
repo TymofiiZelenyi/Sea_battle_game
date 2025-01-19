@@ -1058,9 +1058,9 @@ def battle():
                         elif coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map1[coordinate[0]][coordinate[1]] == 0:
                             print(coordinate[0], coordinate[1], player_map1[coordinate[0]][coordinate[1]])
 
-                        # elif coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map1[coordinate[0]][coordinate[1]] == 3:
-                        #     print(coordinate[0], coordinate[1], player_map1[coordinate[0]][coordinate[1]])
-                        #     player_map2[c_row][c_cell] = 1
+                        elif coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map1[coordinate[0]][coordinate[1]] == 3:
+                            print(coordinate[0], coordinate[1], player_map1[coordinate[0]][coordinate[1]])
+                            player_map2[c_row][c_cell] = 1
 
                 if skill == 2:
                     dynamite_list= [(c_row, c_cell), (c_row, c_cell- 1), (c_row, c_cell+ 1), (c_row- 1, c_cell), (c_row+ 1, c_cell)]
@@ -1094,7 +1094,12 @@ def battle():
                             miss_list.append(pygame.Rect(row_list_player[num].x, row_list_player[num].y, 60, 60))
                             print("Поле врага: Не попал", [coordinate[0]], [coordinate[1]] , player_map1[coordinate[0]][coordinate[1]])
                             row_list_player[num].CLOSE = True  
-                            # turn = False                  
+                            # turn = False      
+                            # 
+                        
+                        elif coordinate[0] >= 0 and coordinate[0] <= 9 and coordinate[1] >= 0 and coordinate[1] <= 9 and player_map1[coordinate[0]][coordinate[1]] == 3:
+                            print(coordinate[0], coordinate[1], player_map1[coordinate[0]][coordinate[1]])
+                            player_map2[c_row][c_cell] = 1            
 
                 if skill == 5:
                     # add_shield(row_list_enemy, number)
@@ -1351,6 +1356,8 @@ def battle():
                                         turn = False
 
                                         num = int(str(coordinate[0]) + str(coordinate[1]))
+
+                                        player_map2[coordinate[0]][coordinate[1]] = 1
                                             
                                         if first_cell:
                                             sending(coordinate[0], coordinate[1], num, 3, 1, kill_type = 10, skill= skill.id)
@@ -1414,6 +1421,9 @@ def battle():
 
                                         num = int(str(coordinate[0]) + str(coordinate[1]))
                                         print("Поле врага: Щит", [coordinate[0]], [coordinate[1]] , player_map2[coordinate[0]][coordinate[1]])
+
+                                        player_map2[coordinate[0]][coordinate[1]] = 1
+                                        
                                         point += 5
                                             
                                         if first_cell:
