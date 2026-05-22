@@ -11,6 +11,12 @@ Our game includes:
 - stunning graphics
 - clever achievements and rewards
 
+## 👤 Our team
+
+Tymofii - Teamlead + Coder in a team of 4. 
+Egor - Coder
+Ivan - Coder + Designer
+Ratmir - Coder
 
 ## 🛠 Tech stack
 
