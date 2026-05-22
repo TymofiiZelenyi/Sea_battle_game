@@ -1,53 +1,43 @@
 ![Icon](/image/readme_images/game_icon.png)
 
-# Sea Battle Game
-Our project is a unique online game that lets you dive into action-packed battles between sailing ships and steamboats. It was built to give a fresh take on the classic Battleship game, enhanced with new and interesting features.
+# Sea battle game
+Наш проект - унікальна онлайн гра, яка дозволяє понуритися до екшн боїв між парусниками та пароходами. Цей проект був створеним задля нового погляду на стару гру в яку ви ще могли грати дітлахами, удосконалену цікавим функціоналом.
+Наша гра включає в себе:
+- унікальний гейплей
+- великий арсенал зброї 
+- Дивовижні спрайти
+- елегантний супровід легендарних треків 20-го століття
+- приголомшливу графіку
+- хитромудрі ачівки та винагороди
 
-Our game includes:
-- unique gameplay
-- a large arsenal of weapons
-- amazing sprites
-- an elegant soundtrack of legendary 20th-century tracks
-- stunning graphics
-- clever achievements and rewards
 
+### DIFFERENT INFORMATION 
 
-## 🛠 Tech stack
+- [How use it on Windows](#how-use-it-on-windows)
 
-Python · Pygame · raw TCP sockets · threading · JSON · Pillow
-
-## 🎮 Demo
-
-![Menu](/image/readme_images/menu_photo.png)
-
----
-
-### TABLE OF CONTENTS
-
-- [How to use it on Windows](#how-to-use-it-on-windows)
-
-- [How to use it on Linux or MAC](#how-to-use-it-on-linux-or-mac)
+- [How use it on Linux or MAC](#how-use-it-on-linux-or-mac)
 
 - [Our project structure](#our-project-structure)
 
 - [Information about our team](#information-about-our-team)
 
+- [Support team](#support-team)
 
 - [Technologies and languages we used](#technologies-and-languages-we-used)
 
 - [Modules used](#modules-used)
 
-- [Game functionality](#game-functionality)
+- [Game functional](#game-functional)
 
-- [Armory functionality](#armory-functionality)
+- [Armory functional](#armory-functional)
 
 - [Credits](#credits)
 
 
 
 
-# How to use it on Windows:
-1. Open git bash
+# How use it on Windows:
+1. enter git bash
 
 2. git clone https://github.com/TymofiiZelenyi/Sea_battle_game.git
 
@@ -55,15 +45,15 @@ Python · Pygame · raw TCP sockets · threading · JSON · Pillow
 
 3. venv/Scripts/activate
 
-4. Select your activated virtual environment
+4. choose your activated virtual enviroment
  
 5. pip install -r requirements.txt
 
 6. Launch main.py 
 
-- [BACK](#table-of-contents)
-# How to use it on Linux or MAC:
-1. Open bash
+- [BACK](#different-information)
+# How use it on Linux or MAC:
+1. enter bash
 
 2. git clone https://github.com/TymofiiZelenyi/Sea_battle_game.git
 
@@ -71,45 +61,45 @@ Python · Pygame · raw TCP sockets · threading · JSON · Pillow
 
 3. venv/Bin/activate
 
-4. Select your activated virtual environment
+4. choose your activated virtual enviroment
  
 5. pip install -r requirements.txt
 
 6. Launch main.py 
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
 ---
 
 # Our project structure
 
 ```mermaid
 graph TD
-    A[Sea-Battle-Game] --> B[fonts] --> 1(just an archive with the fonts we use)
-    A[Sea-Battle-Game] --> C[image] --> 2(just an archive with the images we use)
+    A[Sea-Battle-Game] --> B[fonts] --> 1(just archive with fonts that we are using)
+    A[Sea-Battle-Game] --> C[image] --> 2(just archive with images that we are using)
     A[Sea-Battle-Game] --> D[Modules] --> E[game]
    
     D[Modules] --> F[server.py]
     
-    E[game] --> 7(mechanics and different windows)
+    E[game] --> 7(mechanics and diffrent windows)
     E[game] --> I[armory.py] --> 8(contains all info about our special powers such as price, name, radius...)
-    E[game] --> J[battle.py] --> 9(contains all mechanics that work only when you battle your opponent)
-    E[game] --> K[map.py] --> 10(saves your ship-placement variant; cannot be saved more than once!)
-    E[game] --> L[menu.py] --> 11(contains the screen you see when entering the game)
-    E[game] --> M[placement.py] --> 12(contains the screen where you place your ships)
-    E[game] --> N[wait_opponent.py] --> 13(contains the screen where you can choose join or create_server)
-    E[game] --> S[settings_real.py] --> 30(contains the settings window. You can get there by clicking the settings button in the menu. You can also change bg music, cursor and volume)
+    E[game] --> J[battle.py] --> 9(contains all mechanics that working only when you battling your opponent)
+    E[game] --> K[map.py] --> 10(saves variant of placing your ships. cannot be saved for more than one time!)
+    E[game] --> L[menu.py] --> 11(contains that screen that you see when entering the game)
+    E[game] --> M[placement.py] --> 12(contains screen where you place your ships)
+    E[game] --> N[wait_opponent.py] --> 13(contains screen where you can choose join or create_server)
+    E[game] --> S[settings_real.py] --> 30(contains window settings. You can go there by choosing button settings in menu. Also you can change bg music, cursor and volume)
     E[game] --> O[basement]
-    O[basement] --> 14[bg_music.py] --> 22(contains the function that plays background music; you can choose)
-    O[basement] --> 15[button.py] --> 23(contains two classes: Text, which can create text, and Button, which creates a pressable button)
-    O[basement] --> 16[read_json.py] --> 24(contains a simple function that reads JSON and returns a dict)
-    O[basement] --> 17[screen.py] --> 25(contains the screen object)
-    O[basement] --> 18[ships.py] --> 26(contains the big Ships class that creates ships!)
-    O[basement] --> 19[skills.py] --> 27(contains the Skills class that creates skills)
-    O[basement] --> 20[write_json.py] --> 28(contains a simple function that writes data to JSON)
+    O[basement] --> 14[bg_music.py] --> 22(contains function that playing backgound music. you can choos)
+    O[basement] --> 15[button.py] --> 23(contains two classes, one of them can create text by using class Text and the other one is Button that creates a presseable button)
+    O[basement] --> 16[read_json.py] --> 24(contains simple function that reads json and returns dict)
+    O[basement] --> 17[screen.py] --> 25(contains object screen)
+    O[basement] --> 18[ships.py] --> 26(contains big class Ships that creates ships!)
+    O[basement] --> 19[skills.py] --> 27(contains class Skills that creates skills)
+    O[basement] --> 20[write_json.py] --> 28(contains a simple function that write some data to json)
     E[game] --> 31[settings.json] --> 32(contains all of our global settings)
     
     A[Sea-Battle-Game] --> H[sound] --> 5(contains sounds)
-    A[Sea-Battle-Game] --> 35[requirements.txt] --> 36(you need to install all of these modules to be able to play this game)
+    A[Sea-Battle-Game] --> 35[requirements.txt] --> 36(you need to install all of this modules to be able to play this game)
 
 
 ```
@@ -122,42 +112,51 @@ graph TD
 3. Github - [Ivan](https://github.com/IvanovIvaan)
 4. Github - [Ratmir](https://github.com/ratmir-svg)
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
+
+# Support team:
+- Telegram --> @Big_Floooopa
+- Telegram --> @Egor115819
+- Telegram --> @IvanoBudda
+
+Support our team(pls) --> place your cvv here!
+
+- [BACK](#different-information)
 # Technologies and languages we used
 1. >Python - We used Python for rapid development of our game.
-2. >Figma - We used Figma to design our game.   
+2. >Figma - We used Figma for creating the design of our game.   
 
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
 # Figma of the project
 
 - [Figma](https://www.figma.com/design/joBvMYOgpufLtGiCqvJnJt/Untitled?node-id=0-1&t=JThopTyiUqR1RWHE-1)
 - [Figjam](https://www.figma.com/board/tlhJvV4adRfLPIy0UZ9NUE/Untitled?node-id=1-5&t=6B7FpF1CBX8vuU7X-1)
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
 # Modules used
 
-- pygame — a Python library for game development. It provides easy-to-use interfaces for managing graphics, sound, and events, making it simple to build interactive applications and games.
-- socket — a module that provides access to networking interfaces. It is used to create network connections (e.g., client-server) and allows data to be sent over the network using various protocols such as TCP and UDP.
-- io — a module that provides tools for working with input/output streams. It supports different stream types, including text and binary streams, which makes it useful for file handling and data I/O.
-- os — a module that provides functions for interacting with the operating system. It allows tasks such as working with the file system, managing processes, and retrieving information about the runtime environment.
-- pillow — an image-processing library for Python. It supports many image formats and provides functions to process them, including resizing, cropping, overlaying text, and applying filters.
-- Threads — a module that supports multithreading, allowing multiple operations to run simultaneously within a single process. It is useful for tasks that can run in parallel, such as loading data or handling user actions.
+- pygame - це бібліотека для розробки ігор  на Python. Вона надає прості у використанні інтерфейси для керування графікою, звуком і подіями, що спрощує створення інтерактивних додатків та ігор.
+- socket - це модуль, який надає доступ до мережевих інтерфейсів. Він використовується для створення мережевих з'єднань (наприклад, клієнт-сервер), дозволяючи передавати дані через мережу з використанням різних протоколів, таких як TCP та UDP.
+- io - це модуль, який надає інструменти для роботи з потоками вводу-виводу. Він підтримує різні типи потоків, включаючи текстові та бінарні потоки, що робить його корисним для роботи з файлами та вводу/виводу даних.
+- os - модуль, що надає функції для взаємодії з операційною системою. Він дозволяє виконувати завдання, такі як робота з файловою системою, управління процесами та отримання інформації про середовище виконання.
+- pillow - це бібліотека для обробки зображень у Python. Вона підтримує безліч форматів зображень і надає функції для їх обробки, включаючи зміну розмірів, обрізання, накладання текстів та фільтри.
+- Threads - це модуль, що підтримує багатопоточність, дозволяючи виконувати кілька операцій одночасно в одному процесі. Він корисний для завдань, які можуть виконуватися паралельно, таких як завантаження даних або обробка дій користувача.
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
 
-# Game functionality:
-- [BACK](#table-of-contents)
-When the program opens, the main "MENU" window appears, where the user can choose between the following buttons:
+# Game functional:
+- [BACK](#different-information)
+При відкриті програми для користувача випливає головне вікно "МЕНЮ", у якому є можливість вибору між кнопками:
 - [PLAY](#button-play)
-- [ARMORY](#armory-functionality)
+- [ARMORY](#armory-functional)
 - [SETTINGS](#button-settings)
 - [QUIT](#button-quit)
 
 ![menu_background](/image/readme_images/menu_photo.png)
 # button play
-The "PLAY" button:
-- By pressing this button, the player moves to the next stage of the game — the ship placement window.
+Кнопка "PLAY":
+- Натиснувши на дану кнопку, гравець переходить на наступний етап гри - вікно розташування кораблів. 
 
 ```python
     class Ships():
@@ -201,7 +200,7 @@ The "PLAY" button:
 
 ```
 
-The `ship_draw()` method is responsible for drawing the ships:
+За малювання кораблів відповідає мотод ship_draw():
 
 ```python          
     def ship_draw(self, screen):
@@ -220,7 +219,7 @@ The `ship_draw()` method is responsible for drawing the ships:
             screen.blit(self.image_f, (self.x, self.y))     
 ```
     
-The `take_ship()` method checks whether a ship has been picked up; if so, the `move()` method starts drawing it at its current position, which it derives from the mouse coordinates:
+Метод take_ship() відповідає за перевірку того, чи взятий кораблик, якщо так то метод move() починає малювати актуальною позицію. Вихищає її за допомогою координат миші:
 
 ```python     
     def take_ship(self, position):
@@ -256,7 +255,7 @@ The `take_ship()` method checks whether a ship has been picked up; if so, the `m
             self.TAKE = False
 ```
     
-Creating 10 ships using the class:
+Створення 10 кораблів за допомогою класу:
 
 ```python             
     ship1 = Ships(x = 856, y = 162, count_length = 1, id= 0)
@@ -277,34 +276,34 @@ Creating 10 ships using the class:
 
 ```
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
     
-After selecting any of the available buttons, the player is given access to the next window, which is responsible for placing their own ships on a 2D field of 10×10 units.
+Після вибору будь якої з пропонованих клавішей, гравцю надається доступ до наступного вікна, яке відповідає за розташування власних кораблів на 2D полі розмірами 10*10 одиниць.
 
 ![placement_background](/image/readme_images/placement_photo.png)
 
-The player is given 10 ships to choose from for placement:
+На вибір для розташування гравцю надаються 10 кораблів:
 
-- Four single-deck ships, 1 cell in size
+- Чотири однопалубних коралів, розмірами в 1 клітини
 
 ![ship1](/image/ship/1-SHIP-True.png)
 
-- Two double-deck ships, 2 cells in size
+- Два двопалубних коралів, розмірами в 2 клітини
 
 ![ship2](/image/ship/2-SHIP-True.png)
 
-- Two three-deck ships, 3 cells in size
+- Два трипалубних коралів, розмірами в 3 клітини
 
 ![ship3](/image/ship/3-SHIP-True.png)
 
-- One four-deck ship, 4 cells in size
+- Один чотирипалубних корабель, розмірами в 4 клітини
 
 ![ship4](/image/ship/4-SHIP-True.png)
 
-The user can place ships in different orientations (horizontal — by default / vertical — by picking the ship up and pressing the right mouse button).
-The user MAY NOT place ships, fully or partially, outside the boundaries of the field.
+Користувач може розташовувати кораблі в різних напрямках (по горизонталі - за замовчуванням / по вертикалі - взявши корабель й натиснувши праву клавішу миши)
+Користувач НЕ може ставити повністю, або частично свої кораблі за кордонами обмеженого поля.
 
-The check below is responsible for remembering the last coordinate where the ship was picked up from the field.
+Ця перевірка відповідає за запам'ятовування останньої координати коли корабель був узятий з поля.
 
 ```python
 for event in pygame.event.get():            
@@ -326,7 +325,7 @@ for event in pygame.event.get():
             number += 1
 ```   
 
-After remembering the coordinates, depending on the size and orientation of the ship, we reset the matrix cells to empty, freeing up space for other ships.
+Після того як ми запам'ятали координати, залежно від розміру і положення коробля, скидаємо матрицю на порожні клітини звільняючи місце для інших кораблів.
     
 ```python
     if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
@@ -350,14 +349,14 @@ After remembering the coordinates, depending on the size and orientation of the 
             number += 1
 ```
 
-The next code block is responsible for placing the ships.
+Наступний блок коду відповідає за розтановку кораблів.
 
-Also, before placing a ship on the field, we use the `check()` function to verify that ships are not placed too close to each other.
+Також перед тим як поставити кораблик на поле за допомогою функції check() ми перевіряємо чи не стоять кораблі надто близько один одному.
 
 ```python 
     def check(ID, rect):
             for ship in ship_list:
-                if ship.ID != ID:  # don't check collision with itself
+                if ship.ID != ID:  # не проверяем столкновение с самим собой
                     if rect.colliderect(ship.rect):
                         return False
 
@@ -365,7 +364,7 @@ Also, before placing a ship on the field, we use the `check()` function to verif
                 return True
 ```
 
-Once the check has passed, we can proceed to assign the ship to its cell — provided it is within the field and has free cells available.
+Коли перевірку пройдено ми можемо перейти до того щоб привласнити кораблю свою клітину якщо, він стоїть у межах поля і має вільні клітини
     
 ```python 
     if event.type == pygame.MOUSEBUTTONUP and not press[1] and not press[2]:            
@@ -375,7 +374,7 @@ Once the check has passed, we can proceed to assign the ship to its cell — pro
                 if item.collidepoint(position) and ship.MOVE and sq_list[0].collidepoint(position):
                     cell = number % 10
                     row = number // 10               
-                    # check ships and cells when the ship is horizontal.
+                    #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                     if ship.DIR and cell + ship.count_length <= 10 and all(player_map1[row][cell + i] == 0 for i in range(ship.count_length)) and not ship.WHERE:
                         place = check(ship.ID, ship.rect)
                         if place:
@@ -414,7 +413,7 @@ Once the check has passed, we can proceed to assign the ship to its cell — pro
                         ship.x = ship.start_x
                         ship.y = ship.start_y                   
                                          
-                    # condition under which the ship returns to its starting coordinates if it goes off the field.
+                    #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.
                     elif ship.DIR and cell + ship.count_length > 10 and not ship.WHERE: 
                         ship.STAY = False                    
                         ship.DIR =  True
@@ -427,7 +426,7 @@ Once the check has passed, we can proceed to assign the ship to its cell — pro
                         ship.DIR =  True
                         ship.x = ship.start_x
                         ship.y = ship.start_y
-                    # check ships and cells when the ship is vertical.
+                    #перевірка кораблів та клітинок при горизонтальному положенні кораблика.
                     if not ship.DIR and row + ship.count_length <= 10 and all(player_map1[row + i][cell] == 0 for i in range(ship.count_length)) and not ship.WHERE:
                         place = check(ship.ID, ship.rect)
                         if place:
@@ -465,7 +464,7 @@ Once the check has passed, we can proceed to assign the ship to its cell — pro
                         ship.x = ship.start_x
                         ship.y = ship.start_y                   
                                          
-                    # condition under which the ship returns to its starting coordinates if it goes off the field.
+                    #умова, при якій кораблик повертається на стартові координати, якщо кораблик виходить за рамки поля.
                     elif not ship.DIR and row + ship.count_length > 10 and not ship.WHERE:
                         ship.STAY = False                       
                         ship.DIR =  True
@@ -479,7 +478,7 @@ Once the check has passed, we can proceed to assign the ship to its cell — pro
                         ship.x = ship.start_x
                         ship.y = ship.start_y
                                                     
-                # condition under which our ship returns to its starting coordinates if it is placed outside the field.
+                #умова, при якій наший кораблик повертається на стартові координати, якщо його ставлять за рамками поля.
                 elif ship.MOVE and not sq_list[0].collidepoint(position) and not press[2]:
                     ship.STAY = False       
                     ship.DIR =  True
@@ -489,8 +488,8 @@ Once the check has passed, we can proceed to assign the ship to its cell — pro
             number += 1
 ```
     
-To rotate a ship, press the right mouse button while moving it to its place.
-In the code this is done by the check below, which — when the conditions are met — flips the ship's orientation.
+Для того щоб повернути кораблик потрібно натиснути праву кнопку миші, коли ви його переміщаєте на його місце.
+У коді це відбувається за допомогою даної провірки в якії при виконанні умов змінює положення коробля на протилежне.
     
 ```python
     if event.type == pygame.MOUSEBUTTONDOWN and not press[1] and not press[2]:
@@ -500,7 +499,7 @@ In the code this is done by the check below, which — when the conditions are m
                 ship.DIR = not ship.DIR  
 ```
 
-To proceed to the battle field, all ships must be placed on the field. We do this with a generator that checks each ship's `ship.STAY` parameter.
+Щоб перейди на льодове поле треба, щоб усі кораблі стояли на полі. Це ми робимо за допомогою генератора котрий перевіряє параметр корабля ship.STAY.
     
 ```python
     if press[0]:
@@ -512,24 +511,24 @@ To proceed to the battle field, all ships must be placed on the field. We do thi
                 return "HOME"     
 ```
 
-After placing ALL ships, the player has the option to move on to the battle-search stage via the "READY" button.
+Після розтановки ВСІХ кораблей гравцю надається можливість перейти до етапу пошуку битви за клавішою "READY".
 
-The window for joining an online game with another user. This window has two further buttons: "CREATE SERVER" and "JOIN".
+Вікно приєднання до онлайн гри з іншим користувачем. У даному вікні присутні дві подальші кнопки "CREATE SERVER" та "JOIN"
 
-On the left, your current LAN is shown.
-On the right, you enter the LAN you want to connect to.
-Then you press the Join button.
+З ліва показується ваш поточний LAN
+З права вам треба ввести LAN к котрому ви хочете підключитися
+Та потім вам потрібно натиснути кнопку Join
 
 ![waiting_for_opponent_background](/image/readme_images/wait_opponent_photo.png)
     
-"CREATE SERVER" is responsible for creating your own server using a LAN IP address.
+"CREATE SERVER" відповідає за створення власного серверу за допомогою LAN Ip адесси.
 
 ```python
     def start_server():  
-        # create a socket for data transmission, specifying the IP version and TCP connection type
+        # створили socket для передачи даних вказавши версію IP TCP тип з'єднання 
         with socket.socket(family = socket.AF_INET, type = socket.SOCK_STREAM) as server_socket: 
-            # bind the socket to an IP and port
-            server_socket.bind(("localhost", 8081)) # the IP that's not at Tymofii's home
+            # зв'язуємо socket з IP та портом 
+            server_socket.bind(("localhost", 8081)) #той айпішнік, який не дома у Тимофія 
 
             server_socket.listen(2) 
 
@@ -548,10 +547,10 @@ Then you press the Join button.
                 print("TIMEOUT 2")
                 return
     
-            data1 = client_socket1.recv(4096)  # convert bytes to string 
+            data1 = client_socket1.recv(4096)  # Преобразуем байты в строку 
             client_socket2.sendall(data1) 
     
-            data2 = client_socket2.recv(4096)  # convert bytes to string 
+            data2 = client_socket2.recv(4096)  # Преобразуем байты в строку 
             client_socket1.sendall(data2) 
     
             number = int(random.randint(0, 1)) 
@@ -594,23 +593,23 @@ Then you press the Join button.
                     
 ```
 
-"JOIN" — helps you connect to an existing server.
+"JOIN" - допомагає приєднатися до існуючого серверу.
  
 ```python
     def connect_to():
             '''
-            Connects to the server
+            Пiд'єднується до сервера
             '''
             client_socket.connect(("localhost", 8081))
             print("connect")
 ```
     
-Data transmission is performed via the `sending()` function.
+Пересилання даних відбувається за допомогою функції sending().
 
 ```python
     def sending(row: int, cell: int, number: int, shot_type: int, turn: bool, kill_type: int, skill = 0) -> None :
         '''
-        Packs all the data into `data` and sends it to the server
+        Запаковує всі дані у `data` та відправляє на сервер
         '''
         data = [row, cell, number, shot_type, turn, kill_type, skill]
         print(data)
@@ -621,7 +620,7 @@ Data transmission is performed via the `sending()` function.
 
 ```
 
-Incoming information is processed in a second thread, `always_recv()`.
+Обробка інформації відбувається за допомогою другого потоку always_recv()
     
 ```python
     def always_recv():
@@ -656,7 +655,7 @@ Incoming information is processed in a second thread, `always_recv()`.
                             shot_type = new_finder(player_map1, coordinate[0], coordinate[1])
                             map(row_list_player, coordinate[0], coordinate[1], num, shot_type)
 
-                            print(f'Hit a ship')
+                            print(f'Попал по кораблику')
 
                             
                             res = check_win()
@@ -677,11 +676,11 @@ Incoming information is processed in a second thread, `always_recv()`.
                             player_map2[c_row][c_cell] = 1
 
                 if skill == 5:
-                    print("Enemy placed a shield")
+                    print("Враг проставил щит ")
                     player_map2[c_row][c_cell] = 3
 
                 if skill == 55:
-                    print("Enemy broke a shield")
+                    print("Враг сломал щит")
                     for index, shield in enumerate(shield_list):
                         for item in row_list_player:
                             if item.x == shield.x and item.y == shield.y:
@@ -694,9 +693,9 @@ Incoming information is processed in a second thread, `always_recv()`.
                     if empty == c_number:
                         if c_type == 1 and skill != 1 and skill != 5 and skill != 55 and skill != 3 :                    
                             hit_list.append(pygame.Rect(item.x, item.y ,60, 60)) 
-                            print(f"player_map2[{row}][{cell}] before change: {player_map1[row][cell]}")
+                            print(f"Изменение player_map2[{row}][{cell}] до: {player_map1[row][cell]}")
                             player_map1[c_row][c_cell] = 2
-                            print(f"player_map2[{row}][{cell}] after change: {player_map1[row][cell]}") 
+                            print(f"Изменение player_map2[{row}][{cell}] после: {player_map1[row][cell]}") 
 
                             map(row_list_player, c_row, c_cell, c_number, kill_type)  
 
@@ -719,64 +718,64 @@ Incoming information is processed in a second thread, `always_recv()`.
 ```
 
 
-The game has begun. The player is given access to the battle window with their opponent. 
+Гра розпочалася. Гравцю надається доступ до вікна битви із своїм супротивником. 
 
 ![battle_background](/image/readme_images/battle_photo.png)
 
-The battle window includes:
+Вікно битви включає в себе:
 
-- two fields (the left field is YOURS with your ships displayed / the right field is the opponent's with their ships hidden).
-- two lamps on the sides (a green one and a red one. They indicate whose turn it is — yours or the opponent's).
+- два поля (ліве поле - ВАШЕ із відображеними на ньому кораблями / праве поле супротивника з прихованими на ньому кораблями ворога.)
+- дві лампи по бокам (зелена лампа й червона. Відповідають за право ходу користувача та його супротивника)
 
-- For each hit on a ship you earn 10 points (point = in-game currency). 
+- За попадання по кораблю ви отримуєте 10 поінтів (поінт всередині ігрова валюта) 
 ![hit](/image/cell/hit.png)
 
-- And 2 points for a miss.
+- I 2 поінти за промах.
 
 ![miss](/image/cell/miss.png)
 
 
-- Points look like this:
+- Поінти виглядають так:
 ![point](/image/achievements/point.png)
 
-- Points can be used to buy abilities; their prices are shown below. Once you've bought a weapon, you can use it by holding the left mouse button on it and dragging it onto the enemy's field — or, if it's a shield, onto your own. The ability is applied at the spot where you release the left mouse button.
+-Поінти можна використовувати для покупки здібностей, їх ціна вказана синізу. Коли ви купили зброю, ви можете використовувати її, затиснувши на ньому ліву клаптик миші і передавши на підлозі ворога або якщо це щит на своє. У місце де ви відімкнете ліву кнопку миші і станеться застосування можливості
 
-- The game also has quests; completing them gives you 45 points.
+-Також у грі присутні квести, за виконання яких ви отримуєте 45 поінтів.
 
 ![quasts_photo](/image/readme_images/tasks_photo.png)
 
 
-- To track progress, four types of medals have been added to the game.
+-Для відстеження прогресу у гру були додані монети чотирьох видів.
 
-- For ship hits. These medals come in several upgrade tiers, from silver to amethyst.
+-За влучення кораблями. Ці медалки медальки мають кілька ступенів прокачування від срібної до аметистової.
 
 ![gold_shark_medalka](/image/achivement/gold_shark_medalka.png)
 
-- For sinking ships — also has tiers.
+-За вбивство кораблів, ткож має рівні.
 
 ![ametyst_kraken_medalka](/image/achivement/ametyst_kraken_medalka.png)
 
-- For your first win and first loss.
+-За першу перемогу та поразку.
 
 ![win](/image/achivement/win.png)
 
 ![lose](/image/achivement/lose.png)
 
-- After the game, a window will appear telling you whether you won or lost and showing all the medals you've earned.
+-Після гри у вас з'явиться вікно, яке відобразить виграли або програли і покаже всі турбовані медалки.
 
-- Victory screen.
+-Екран після перемоги.
 
 ![win_photo](/image/readme_images/win_photo.png)
 
-- Defeat screen.
+-Екран після програшу
 
 ![lose_photo](/image/readme_images/lose_photo.png)
 
-- [BACK TO GAME FUNCTIONALITY](#game-functionality)
-- [BACK](#table-of-contents)
-# Armory functionality
-- [BACK](#table-of-contents)
-- weapon arsenal:
+- [BACK TO GAME FUNCTIONALS](#game-functional)
+- [BACK](#different-information)
+# Armory functional
+- [BACK](#different-information)
+- арсенал зброї:
 
 ---
 
@@ -858,8 +857,8 @@ class Skills():
 ---    
 
     
-- Bomb: 
-Blows up ships within a 1-cell radius. To do this, a `bomb_list` is created that iterates and finds cells in the matrix containing a ship (in the matrix, a ship is represented by the digit 1).
+- Бомба (Bomb): 
+Взриває кораблі в радіусі 1 клітинки, для цього створюється bomb_list який перебирає і знаходить на матриці клітини з кораблем (на матриці корабель це цифра 1)
 
 ![Bomb](/image/skills/bomb.png)
 
@@ -867,7 +866,7 @@ Blows up ships within a 1-cell radius. To do this, a `bomb_list` is created that
 bomb= Skills(name_skill = "bomb",x= 70 ,y= 15 ,price= 60, id= 1) 
 ```
 
-Code for the bomb finding ships.
+Код знаходження бомбою кораблів.
 
 ```python
 if skill.id == 1:
@@ -897,13 +896,13 @@ if skill.id == 1:
                 sending(coordinate[0], coordinate[1], num, 1, 0, kill_type= shot_type, skill= skill.id)
                 first_cell = False
 
-            print(f'Hit a ship')
+            print(f'Попал по кораблику')
             shot = False
             turn = False
 ```
 
-- Dynamite: 
-Dynamite explodes in the four directions around itself. To do this, it creates a `dynamite_list` that iterates and finds cells in the matrix containing a ship (in the matrix, a ship is represented by the digit 1).
+- Динаміт (Dynamite): 
+Динаміт підриває в чотирьох сторонах від себе, для цього створює dynamite_list який перебирає і находить на матриці клітини  з кораблем (на матриці корабель це цифра 1)
 
 ![Dynamike](/image/skills/dynamite.png)
 ![Dynamike_one](/image/skills/dynamite_clean.png)
@@ -912,7 +911,7 @@ Dynamite explodes in the four directions around itself. To do this, it creates a
 dynamite= Skills(name_skill = "dynamite",x= 190 ,y= 15, price= 40, id= 2) 
 ```
 
-Dynamite strikes the four sides around itself and checks them for the presence of a ship.
+Динаміт б'є чотири сторони навколо себе і перевіряє їх на наявність коробля.
 
 ```python
 if skill.id == 1:
@@ -941,13 +940,13 @@ if skill.id == 1:
                 sound_hit.play()
                 sending(coordinate[0], coordinate[1], num, 1, 0, kill_type= shot_type, skill= skill.id)
                 first_cell = False
-            print(f'Hit a ship')
+            print(f'Попал по кораблику')
             shot = False
 
 ```
 
-- Radar: 
-Searches for ships within a 1-block radius. To do this, it creates a `radar_list` that iterates and finds cells in the matrix containing a ship (in the matrix, a ship is represented by the digit 1) and displays them on the screen with sound effects.
+- Радар (Radar): 
+Шукаючи кораблі в радіусі 1 блок, для цього створює radar_list який перебирає і знаходить на матриці клітини з кораблем (на матриці корабель це цифра 1) і відображає їх на екрані зі звуковим супроводом
 
 ![Radar](/image/skills/radar.png)
 
@@ -955,7 +954,7 @@ Searches for ships within a 1-block radius. To do this, it creates a `radar_list
 radar = Skills(name_skill= "Radar",x= 310, y= 15, price= 50, id= 3) 
 ```
 
-The radar finds ships and places a marker on their location.
+Радар знаходить кораблі і ставить на їхнє місце позначку.
 
 ```python
 if skill.id == 3:
@@ -975,8 +974,8 @@ if skill.id == 3:
 ```
 
 
-- Rocket: 
-Searches for ships within a 2-cell radius and shoots at the first ship it finds.
+- Ракета (Rocket): 
+Шукає короблі в радіусі 2 клітинок, стріляє по першому знайденому кораблю
 
 ![Rocket](/image/skills/rocket.png)
 
@@ -984,7 +983,7 @@ Searches for ships within a 2-cell radius and shoots at the first ship it finds.
 rocket= Skills(name_skill = "rocket",x= 430 , y= 15, price= 50, id= 4) 
 ```
 
-When the player uses the rocket, cells within a 2-cell radius are iterated through, and when a ship is found an explosion appears at its location.
+Коли гравець використовує ракету, то перебераються клітини в радіусі 2 клітин і при знаходженні корабля на його місці з'являється вибух.
 
 ```python
 if skill.id == 4:
@@ -1022,15 +1021,15 @@ if skill.id == 4:
             sending(coordinate[0], coordinate[1], num, 1, 0, kill_type= shot_type, skill= skill.id)
 ```
     
-- Shield: 
-When a shield is placed, your cell becomes protected and changes to 3 on the matrix. When the shield is hit, a sound plays and the turn passes to the opponent, which signals that you have broken the enemy's shield.
+- Щит (Shield): 
+Коли ставиться щит ваша клітина стає захищеною і на матриці змінюється на 3, при попаданні по щиту програватиметься звук і хід переходить супернику, що дає зрозуміти, що ви збили ворожий щит.
 
 ![Shield](/image/skills/shield.png)
 ```python
 shield= Skills(name_skill = "shield",x= 550 ,y= 15, price= 40, id= 5) 
 ```
 
-When the player places a shield on their field, the code checks if there is a ship on that cell; if there is, the shield is placed and the matrix cell is changed to a protected state.
+Коли гравець ставить щит на своє поле, то перевіряється елсі там кораль, елсі та то ставиться щит, на матриці клітина змінюється на захищену.
 
 ```python
 if item.collidepoint(position) and sq_list[0].collidepoint(position) and turn and skill.TAKE and not item.CLOSE:
@@ -1055,8 +1054,8 @@ if item.collidepoint(position) and sq_list[0].collidepoint(position) and turn an
     shot = False   
 ```
            
-- Torpedo: 
-The torpedo travels along one row; when it finds a ship, it destroys it. If a shield is in the way, the torpedo will break it.
+- Торпеда (Torpedo): 
+Торпеда проходить один ряд при знаходженні кораблю підриває його, якщо на шляху стоїть щит, то торбета зламає його
 
 ![Torpedo](/image/skills/torpedo.png)
 
@@ -1064,7 +1063,7 @@ The torpedo travels along one row; when it finds a ship, it destroys it. If a sh
 torpedo= Skills(name_skill = "torpedo",x= 670 , y= 15, price= 30, id= 6)
 ```
 
-Code that iterates through the row where the torpedo was used and determines whether the player hit a ship or a shield. If the row turned out to be empty, the turn passes to the other player.
+Код який перебирає ряд на якому була використана торпеда і визначать потрапив гравець кораблем або щитом, якщо ряд виявився порожнім то хід переходить іншому гравцю.
 
 ```python
 if skill.id == 6:
@@ -1089,7 +1088,7 @@ if skill.id == 6:
             map(row_list_enemy, row, i, num, shot_type)
             sound_hit.play()
             sending(row, i, num, 1, 0, kill_type= shot_type)
-            print(f'Hit a ship')
+            print(f'Попал по кораблику')
             shot = False
             
             res = check_win()
@@ -1115,7 +1114,7 @@ if skill.id == 6:
             sound_shield.play()
             turn = False
             sending(row, i, num, 3, 1, kill_type= shot_type)
-            print(f'Hit a shield')
+            print(f'Попал по щиту')
             shot = False
                 
     if shot:
@@ -1126,27 +1125,27 @@ if skill.id == 6:
         sending(0, 0, 100, 0, 1, kill_type = 10)
 
 ```
-The first move is chosen by a fully random function (if the green lamp is lit on the left side next to your field — it's your turn. If, instead, a red light is on next to your field — moves are forbidden → wait for your opponent to finish their turn).
+Перший хід обирається за функцією абсолютного рандома (якщо зелена лампа горить з лівої сторони біля вашого поля - хід за вами. Якщо навпаки йбіля вашого поля горить червоне світно - хід заборонено -> чекайте завершення ходу супротивника).
 
-The in-game currency "POINTS" is shown in the top-right corner of the window. This currency is awarded during a battle for shots fired, hits, and for sinking the opponent's ships. With this currency the player can buy and use the abilities mentioned above (special weapons) right away during the current battle. After the battle, accumulated points are RESET TO ZERO. By contrast, the cross-game currency "Coins" persists after the battle and remains available for purchases outside of battle. Coins can only be earned by hitting and sinking enemy ships, and they are displayed only on the main menu screen.
+Ігрова валюта "Поінти" (POINTS) відображаються з правого верхнього кутку вікна. Ця валюта начисляється вам під час битви за постріли, попадання й потоплення кораблів супротивника. За дану валюту гравцю надається можливість купувати й використовувати вище згадані здібності (спеціальну зброю) та одразу використовувати під час поточної битви. Після битви начислені поінти ОБНУЛЬОВУЮТЬСЯ. На то між ігрова валюта "Монети" зберігаються й після битви та залишаються задля покупок поза межами битви. Дані монети можливо отримати тільки за попадання та потоплення ворожих кораблів й відображатимуться тільки у вікні головного меню. 
 
-- [BACK](#table-of-contents)
-- [BACK TO GAME FUNCTIONALITY](#game-functionality)
+- [BACK](#different-information)
+- [BACK TO GAME FUNCTIONALS](#game-functional)
 
-# Settings functionality
-When you press the settings button, you'll be taken to this screen:
+# Settings functional
+При натисканні кнопки settings ви перейдете на ось цей екран:
 
 ![settings_screen](/image/readme_images/settings_photo.png)
 
-From there, you can choose:
+Далі ви можете обрати:
 - [Sounds](#sounds) 
 - [Cursors](#cursors)
 - [Music](#music)
 
-- [BACK](#game-functionality)
+- [BACK](#game-functional)
 
 ### Sounds
-Here you can adjust the background music with an elegant volume slider.
+Тут ви можете регулювати фонову музику за допомогою елегантного повзунка гучності
 
 ![sounds](/image/readme_images/settings_photo.png)
 
@@ -1166,15 +1165,15 @@ if WIN_SOUND:
 ```
 
 
-- [BACK](#settings-functionality)
+- [BACK](#settings-functional)
 
 ### Cursors
-Here you can pick a cursor for yourself.
+Тут ви можете обрати собі курсор
 ![cursor](/image/readme_images/cursors_photo.png)
 
 
 
-- [BACK](#settings-functionality)
+- [BACK](#settings-functional)
 
 ### Music
 ![music screenshot](/image/)
@@ -1184,7 +1183,7 @@ pygame.mixer.init()
 
 def play_music(name_music: str, volume: int):
     '''
-    This function plays music and adjusts the volume from zero
+    Ця функція програє музику та змінює гучність з нуля
     '''
     path_to_music = os.path.abspath(os.path.join(__file__, "..", "..", "..", "..", "sound", "music"))
     music = (path_to_music + f"/{name_music}.mp3")
@@ -1196,8 +1195,8 @@ def sound_path(name):
     path = os.path.abspath(os.path.join(__file__, "..", "..", "..", "..", "sound", "sounds", f"{name}.mp3"))
     return path
 ```
-> The code above is what we use to start the background music.
-By default it plays the popular track — [christmas]
+> За допомогою вище описаного коду ми включаємо фонову музику
+За дефолтом там стоїть популярний трек - [cristhmas]
 
 ```python
  
@@ -1213,13 +1212,13 @@ By default it plays the popular track — [christmas]
                     play_music("rammstein", volume = ON)
 ```
 
-> The code above is what lets us choose the music.
+> За допомогою вище написаного коду ми модем обирати музику
 
 
-- [BACK](#settings-functionality)
+- [BACK](#settings-functional)
 
-# Quit functionality
-This button is responsible for exiting the game.
+# Quit functional
+Ця кнопка відповідає за вихід з гри
 ```python
 
 if event.type == pygame.QUIT:
@@ -1228,36 +1227,49 @@ if event.type == pygame.QUIT:
                 pygame.quit()
 
 ```
-> Using the code above, you can exit the game.
+> За допомогою вище описаного коду ви можете вийти з гри
 
-- [BACK](#game-functionality)
-# Credits
+- [BACK](#game-functional)
+#Credits
 
-While building this project we ran into many difficulties — in particular with setting up the server and organizing the gameplay. Some tasks were easy to solve, others took much more effort. Gradually overcoming these challenges, we watched our project take shape. We worked with new technologies, learned to solve complex logical problems, design algorithms, and work as a single team.
+При написанні проєкту ми зіштовхнулися з багатьма труднощами, 
+зокрема зі створенням сервера та організацією ігрового процесу. Деякі завдання вирішувалися легко, 
+а інші вимагали більше зусиль. Поступово долаючи ці виклики, ми бачили, як наш проєкт набуває форми.
+Ми попрацювали з новими технологіями, навчилися вирішувати складні логічні завдання, створювати алгоритми та 
+працювати як єдина команда.
 
 - Egor (Coder):
-This competition was the first time I had to tackle a large project that has a beginning and a logical end, and that involves solving complex, multi-part tasks. At the start of the competition, such tasks only confused me and made me reluctant to write anything. But over the course of the work I started to understand how to approach problems like these: a big task first needs to be thought through carefully, then broken down into smaller pieces and solved step by step, instead of diving straight into complex mechanics like ship placement or building the server. Otherwise, after several hours at the computer you can end up seeing no progress at all.
-While working on this project I not only got a better grip on Python's basics, but also mastered some of its more advanced aspects. The changes affected not only my knowledge of the language, but also my skills in algorithm design, logical problem-solving, communication with the team, and even using Google effectively to find the information I needed.
-My attitude toward programming in general has also changed.
-Looking at the result now, I realize the work was worth the effort. After this competition I want to thank my team for our joint work, and to set myself the goal of making the next project more thoughtfully designed and bigger in scale.
+Під час цих змагань мені вперше довелося зіткнутися з написанням великого проєкту, 
+який має початок і логічний кінець, а також включає рішення складних комплексних завдань.
+На початку змагань такі завдання викликали лише нерозуміння та небажання щось писати.
+Однак у процесі роботи я почав розуміти, як вирішувати подібні завдання: велику задачу потрібно спочатку ретельно продумати,
+а потім розбити її на менші частини й поступово вирішувати, замість того щоб одразу братися за складні механіки, як-от розміщення кораблів чи створення сервера. Інакше, після кількох годин роботи за комп’ютером, можна не побачити жодного прогресу.
+Під час створення цього проєкту я не лише краще опанував базові можливості Python, 
+а й освоїв його складніші аспекти. Зміни торкнулися не лише знань мови програмування, а й навичок створення алгоритмів, вирішення логічних проблем, комунікації з командою та навіть ефективного використання Google для пошуку необхідної інформації.
+Також змінилося моє ставлення до програмування загалом.
+Зараз, дивлячись на результат, я розумію, що виконана робота була варта зусиль. 
+Після завершення цих змагань я хочу подякувати своїй команді за спільну працю й поставити перед собою мету створити наступний проєкт більш продуманим і масштабним.
 
 - Tymofii (Coder, Teamlead):
-This is my first big project, and at the same time my first big project in the role of Teamlead.
-I learned a lot on the programming side — in particular about the difficulties of writing and using a server, and about working with hitboxes.
-Beyond the technical tasks, I faced challenges in optimizing the team's work, distributing roles, and setting deadlines.
-I made a note of many mistakes I made, both as Teamlead and as Coder. But, as I like to say: "We learn from our mistakes."
+Це мій перший великий проєкт, і водночас мій перший великий проєкт у ролі Teamlead.
+Я багато чого дізнався у частині програмування, зокрема про труднощі з написанням і використанням сервера, 
+а також про роботу з хітбоксами.
+Окрім технічних завдань, я зіштовхнувся з викликами в оптимізації роботи команди, розподілі ролей і постановці дедлайнів.
+Для себе я виділив багато помилок, яких припустився як у ролі Teamlead, так і в ролі Coder. Але, як я люблю говорити: “На помилках навчаються”.
 
 - Ivan (Designer, Coder):
-I learned a lot of new things about the functionality of the Pygame library in Python.
-I also picked up the Pillow module, which lets you work with graphical elements in code.
-In the future this knowledge will help me when working with images.
-Beyond programming, I was able to apply my graphic-design skills to support the team by creating original designs and details that became important parts of our game "Sea Battle Game".
+Я дізнався багато нового про функціонал бібліотеки Pygame мови програмування Python.
+Також я освоїв модуль Pillow, що дозволяє працювати з графічними елементами в коді. 
+У майбутньому ці знання допоможуть мені в роботі із зображеннями.
+Окрім програмування, я зміг застосувати свої графічні навички, чим підтримав команду, 
+створюючи оригінальні дизайни та деталі, які стали важливими елементами нашої гри “Sea Battle Game”.
 
-- Ratmir (Coder):
-I learned to communicate and work with my teammates better.
-I also have to mention how hard it was to work with the server and with classes that were new to me, which we used while writing the code.
+- Ratmir(Coder):
+Я навчився краще комунікувати та працювати з співкомандниками
+Також не можу не сказати, як складно було працювати із сервером та новими для мене класами, 
+які ми використовували при написанні коду
 
-For each of us on the team, this was a unique experience.
-On behalf of the whole team, we thank our mentor Mykola Skrypnyk!
+Для кожного з нашої команди це був унікальний досвід. 
+Дякуємо всією командою нашому помічнику Миколаю Скрипнику!
 
-- [BACK](#table-of-contents)
+- [BACK](#different-information)
